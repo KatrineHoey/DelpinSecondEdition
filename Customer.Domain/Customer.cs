@@ -14,8 +14,11 @@ namespace Customer.Domain
                 FullName = fullName,
                 PhoneNo = phoneNo,
                 Email = email,
-                CustomerType = customerType
-                //TODO: Adresse
+                CustomerType = customerType,
+                Street = adresse.Street,
+                ZipCode = adresse.ZipCode,
+                City = adresse.City
+                
             });
         }
 
@@ -46,6 +49,17 @@ namespace Customer.Domain
                 CustomerId = Id,
                 FullName = fullname
             }) ;
+        }
+
+        public void UpdateAdresse(Adresse adresse)
+        {
+            Apply(new Events.CustomerAdresseUpdated
+            {
+                CustomerId = Id,
+                City = adresse.City,
+                Street = adresse.Street,
+                ZipCode = adresse.ZipCode
+            });
         }
 
         public void UpdateEmail(Email email)
@@ -104,6 +118,9 @@ namespace Customer.Domain
                     break;
                 case Events.CustomerTypeChanged e:
                     CustomerType = new CustomerType(e.CustomerType);
+                    break;
+                case Events.CustomerAdresseUpdated e:
+                    Adresse = new Adresse(new Street(e.Street), new ZipCode(e.ZipCode), new City(e.City));
                     break;
                 case Events.CustomerFullNameUpdated e:
                     FullName = new FullName(e.FullName);
