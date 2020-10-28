@@ -11,6 +11,8 @@ namespace Lease.Domain
         // Properties to handle the persistence
         public Guid LeaseId { get; private set; }
 
+        
+
         protected Lease() 
         {
         

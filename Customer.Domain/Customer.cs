@@ -117,7 +117,6 @@ namespace Customer.Domain
                 case Events.CustomerDeleted e:
                     IsDeleted = new IsDeleted(e.IsDeleted);
                     break;
-
             }
         }
     }

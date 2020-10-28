@@ -25,12 +25,13 @@ namespace Lease.Domain
 
         public static DateCreated NoDate => new DateCreated();
 
-        private static void CheckValidity(string dateFormat)
+        private static bool CheckValidity(string dateFormat)
         {
             try
             {
                 string dts = DateTime.Now.ToString(dateFormat, CultureInfo.InvariantCulture);
                 DateTime.ParseExact(dts, dateFormat, CultureInfo.InvariantCulture);
+                return true;
                 
             }
             catch (Exception)
