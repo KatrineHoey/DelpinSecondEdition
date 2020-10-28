@@ -16,7 +16,7 @@ namespace Lease.Domain
 
         public static DateCreated FromDateTime(DateTime dateCreated) 
         {
-            CheckValidity(dateCreated);
+            CheckValidity(dateCreated.ToString());
             return new DateCreated(dateCreated);
         }
         
@@ -25,16 +25,19 @@ namespace Lease.Domain
 
         public static DateCreated NoDate => new DateCreated();
 
-        private static void CheckValidity(DateTime value)
+        private static void CheckValidity(string dateFormat)
         {
-            string[] formats = { "MM/dd/yyyy", "M/d/yyyy", "M/dd/yyyy", "MM/d/yyyy" };
-
-            DateTime expectedDate;
-
-            if (!DateTime.TryParseExact("07/27/2012", formats, new CultureInfo("en-US"), DateTimeStyles.None, out expectedDate))
+            try
             {
-                throw new ArgumentOutOfRangeException("DateTime is in another format", nameof(value));
+                string dts = DateTime.Now.ToString(dateFormat, CultureInfo.InvariantCulture);
+                DateTime.ParseExact(dts, dateFormat, CultureInfo.InvariantCulture);
+                
+            }
+            catch (Exception)
+            {
+                throw new ArgumentOutOfRangeException("DateTime is in another format", nameof(dateFormat));
             }
         }
+
     }
 }
