@@ -21,5 +21,15 @@ namespace Customer.Domain
         {
             return self.Value;
         }
+
+        public static implicit operator CustomerId(string value)
+        {
+            return new CustomerId(Guid.Parse(value));
+        }
+
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
     }
 }

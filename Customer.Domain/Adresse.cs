@@ -11,12 +11,18 @@ namespace Customer.Domain
         public ZipCode ZipCode { get; set; }
         public City City { get; set; }
 
-        internal Adresse(Street street, ZipCode zipCode, City city)
+        internal Adresse(Street street, ZipCode zipcode, City city)
         {
             Street = street;
-            ZipCode = zipCode;
+            ZipCode = zipcode;
             City = city;
         }
+
+        // Satisfy the serialization requirements 
+        protected Adresse()
+        {
+        }
+
 
     }
 }

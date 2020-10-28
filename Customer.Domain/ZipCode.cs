@@ -7,14 +7,14 @@ namespace Customer.Domain
 {
     public class ZipCode : Value<ZipCode>
     {
-        internal ZipCode(int number)
+        internal ZipCode(int zipcode)
         {
-            if (number > 9999 || number < 0555)
+            if (zipcode > 9999 || zipcode < 0555)
                 throw new ArgumentNullException(
-                    nameof(number), "Zipcode most be valid.");
+                    nameof(zipcode), "ZipCode most be valid.");
 
-            Value = number;
-        }
+            Value = zipcode;
+        } 
 
         // Satisfy the serialization requirements 
         protected ZipCode()
@@ -23,14 +23,18 @@ namespace Customer.Domain
 
         public int Value { get; }
 
-        public static ZipCode FromString(string text)
+        public static ZipCode FromString(string zipcode)
         {
-            return new ZipCode(Convert.ToInt32(text));
+
+            if (zipcode.IsEmpty())
+                throw new ArgumentNullException(nameof(zipcode));
+
+            return new ZipCode(Convert.ToInt32(zipcode));
         }
 
-        public static implicit operator string(ZipCode number)
+        public static implicit operator int(ZipCode zipcode)
         {
-            return number.Value.ToString();
+            return zipcode.Value;
         }
     }
 }
