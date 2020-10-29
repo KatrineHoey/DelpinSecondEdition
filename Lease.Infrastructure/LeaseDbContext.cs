@@ -1,4 +1,3 @@
-using Lease.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -7,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Lease.Infrastructure
 {
-    public class LeaseDbContext : DbContext
+    public class LeaseDbContext : DbContext, ILeaseDbContext
     {
         private readonly ILoggerFactory _loggerFactory;
 
@@ -17,6 +16,11 @@ namespace Lease.Infrastructure
         }
 
         public DbSet<Domain.Lease> Leases { get; set; }
+
+        public void Configure(EntityTypeBuilder<Domain.Lease> builder)
+        {
+            throw new System.NotImplementedException();
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,21 +34,19 @@ namespace Lease.Infrastructure
         }
     }
 
-    public class LeaseEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Lease>
+    public class LeaseEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Lease>, ILeaseDbContext
     {
         public void Configure(EntityTypeBuilder<Domain.Lease> builder)
         {
-            //builder.HasKey(x => x.LeaseId);
-            //builder.OwnsOne(x => x.Id);
-            //builder.OwnsOne(x => x.Price, p => p.OwnsOne(c => c.Currency));
-            //builder.OwnsOne(x => x.Text);
-            //builder.OwnsOne(x => x.Title);
-            //builder.OwnsOne(x => x.ApprovedBy);
-            //builder.OwnsOne(x => x.OwnerId);
+            builder.HasKey(x => x.leaseId);
+            builder.OwnsOne(x => x.Id);
+            //builder.HasNoKey(x => x.Adresse);
+            //builder.OwnsOne(x => x.DateCreated);
+            //builder.OwnsOne(x => x.IsDeleted);
+            //builder.OwnsOne(x => x.IsDelivery);
+            //builder.OwnsOne(x => x.IsPaid);
+            //builder.OwnsOne(x => x.TotalPrice);
+
         }
     }
-
-    
-
-    
 }

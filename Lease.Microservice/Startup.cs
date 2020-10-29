@@ -1,16 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using Delpin.Framework;
+using Lease.Domain;
+using Lease.Domain.Shared;
+using Lease.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Npgsql;
 
 namespace Lease.Microservice
 {
@@ -28,6 +35,20 @@ namespace Lease.Microservice
         {
             services.AddControllers();
 
+            services.AddEntityFrameworkNpgsql();
+
+            services.AddDbContext<LeaseDbContext>(options =>
+                options.UseInMemoryDatabase("default"));
+
+            services.AddScoped<ILeaseDbContext>(provider => provider.GetService<LeaseDbContext>());
+
+            services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
+            services.AddScoped<ILeaseRepository, LeaseRepository>();
+            
+            services.AddScoped<LeaseApplicationService>();
+
+            services.AddMvc();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -36,8 +57,6 @@ namespace Lease.Microservice
                     Version = "v1"
                 });
             });
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

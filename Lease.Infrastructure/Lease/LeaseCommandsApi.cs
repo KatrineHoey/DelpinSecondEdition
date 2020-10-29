@@ -49,14 +49,5 @@ namespace Lease.Infrastructure
         public Task<IActionResult> Put(Commands.V1.UpdateTotalPrice request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
-        [Route("requestpublish")]
-        [HttpPut]
-        public Task<IActionResult> Put(Commands.V1.RequestToPublish request)
-            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
-
-        [Route("publish")]
-        [HttpPut]
-        public Task<IActionResult> Put(Commands.V1.Publish request)
-            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
     }
 }

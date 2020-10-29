@@ -56,17 +56,6 @@ namespace Lease.Infrastructure
                 public Guid LeaseId { get; set; }
                 public decimal TotalPrice { get; set; }
             }
-
-            public class RequestToPublish
-            {
-                public Guid LeaseId { get; set; }
-            }
-            
-            public class Publish
-            {
-                public Guid LeaseId { get; set; }
-                public Guid ApprovedBy { get; set; }
-            }
         }
     }
 }

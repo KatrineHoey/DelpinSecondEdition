@@ -12,7 +12,7 @@ namespace Lease.Infrastructure
 
         public static Task<LeaseDetails> Query(
             this DbConnection connection,
-            QueryModels.GetLease query)
+            QueryModels.GetLeaseById query)
             => connection.QuerySingleOrDefaultAsync<LeaseDetails>(
                 "SELECT \"ClassifiedAdId\", \"Price_Amount\" price, \"Title_Value\" title, " +
                 "\"Text_Value\" description, \"DisplayName_Value\" sellersdisplayname " +

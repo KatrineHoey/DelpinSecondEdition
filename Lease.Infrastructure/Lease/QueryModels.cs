@@ -4,7 +4,7 @@ namespace Lease.Infrastructure
 {
     public static class QueryModels
     {
-        public class GetLease
+        public class GetLeaseById
         {
             public Guid LeaseId { get; set; }
         }

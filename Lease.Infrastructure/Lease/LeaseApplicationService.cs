@@ -12,16 +12,15 @@ namespace Lease.Infrastructure
     {
         private readonly ILeaseRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ICurrencyLookup _currencyLookup;
-
+        
         public LeaseApplicationService(
-            ILeaseRepository repository, IUnitOfWork unitOfWork,
-            ICurrencyLookup currencyLookup
+            ILeaseRepository repository, IUnitOfWork unitOfWork
+            
         )
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
-            _currencyLookup = currencyLookup;
+            
         }
 
         public Task Handle(object command) =>

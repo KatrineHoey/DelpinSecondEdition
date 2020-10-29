@@ -8,8 +8,10 @@ namespace Lease.Infrastructure
         private readonly LeaseDbContext _dbContext;
 
         public EfCoreUnitOfWork(LeaseDbContext dbContext)
-            => _dbContext = dbContext;
-
+        {
+            _dbContext = dbContext;
+        }
+        
         public Task Commit() => _dbContext.SaveChangesAsync();
     }
 }
