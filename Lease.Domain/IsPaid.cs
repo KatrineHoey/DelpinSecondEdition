@@ -16,7 +16,7 @@ namespace Lease.Domain
             return new IsPaid(isPaid);
         }
 
-        internal IsPaid(bool value) => Value = value;
+        public IsPaid(bool value) => Value = value;
 
         public static implicit operator bool(IsPaid isPaid) => isPaid.Value;
 

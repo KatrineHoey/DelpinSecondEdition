@@ -13,7 +13,7 @@ namespace Lease.Domain
 
         public City City { get; set; }
 
-        internal Adresse(Street street, ZipCode zipCode, City city)
+        public Adresse(Street street, ZipCode zipCode, City city)
         {
             Street = street;
             ZipCode = zipCode;

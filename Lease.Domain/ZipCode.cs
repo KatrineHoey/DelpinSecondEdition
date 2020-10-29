@@ -9,7 +9,7 @@ namespace Lease.Domain
     {
         public int Value { get; }
 
-        internal ZipCode(int number)
+        public ZipCode(int number)
         {
             if (number > 9999 || number < 0555)
                 throw new ArgumentNullException(

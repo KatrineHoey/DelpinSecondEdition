@@ -9,7 +9,7 @@ namespace Lease.Domain
     {
         public string Value { get; }
 
-        internal Street(string street)
+        public Street(string street)
         {
             Value = street;
         }
