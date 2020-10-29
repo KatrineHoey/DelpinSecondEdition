@@ -8,7 +8,9 @@ namespace Lease.Domain
     public class Adresse : Value<Adresse>
     {
         public Street Street { get; set; }
+
         public ZipCode ZipCode { get; set; }
+
         public City City { get; set; }
 
         internal Adresse(Street street, ZipCode zipCode, City city)
@@ -18,6 +20,10 @@ namespace Lease.Domain
             City = city;
         }
 
+        // Satisfy the serialization requirements 
+        protected Adresse()
+        {
+        }
     }
 }
 
