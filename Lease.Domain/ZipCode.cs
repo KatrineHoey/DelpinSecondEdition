@@ -23,7 +23,7 @@ namespace Lease.Domain
         {
         }
 
-        public static ZipCode FromString(string text)
+        public static ZipCode FromInt(int text)
         {
             return new ZipCode(Convert.ToInt32(text));
         }

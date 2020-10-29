@@ -20,6 +20,6 @@ namespace Lease.Domain
 
         public static implicit operator bool(IsDeleted isDeleted) => isDeleted.Value;
 
-        public static IsDeleted NotDeleted => new IsDeleted();
+        public static IsDeleted NoDelivery => new IsDeleted();
     }
 }

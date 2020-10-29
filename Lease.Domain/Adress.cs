@@ -24,6 +24,11 @@ namespace Lease.Domain
         protected Adresse()
         {
         }
+
+        public static Adresse FromString(Street street,ZipCode zipCode,City city)
+        {
+            return new Adresse(street,zipCode,city);
+        }
     }
 }
 
