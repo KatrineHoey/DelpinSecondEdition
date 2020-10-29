@@ -14,17 +14,17 @@ namespace Lease.Domain
         
         // Aggregate state properties
 
-        public Adresse Adresse { get; set; }
+        public Adresse Adresse { get; private set; }
 
-        public DateCreated DateCreated { get; set; }
+        public DateCreated DateCreated { get; private set; }
 
-        public IsDeleted IsDeleted { get; set; }
+        public IsDeleted IsDeleted { get; private set; }
 
-        public IsDelivery IsDelivery { get; set; }
+        public IsDelivery IsDelivery { get; private set; }
 
-        public IsPaid IsPaid { get; set; }
+        public IsPaid IsPaid { get; private set; }
 
-        public TotalPrice TotalPrice { get; set; }
+        public TotalPrice TotalPrice { get; private set; }
 
         public LeaseState State { get; private set; }
 
@@ -42,7 +42,6 @@ namespace Lease.Domain
                 Street = adresse.Street,
                 ZipCode = adresse.ZipCode,
                 City = adresse.City
-
             });
         }
 

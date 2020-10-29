@@ -10,9 +10,10 @@ namespace Lease.Infrastructure
         private readonly LeaseApplicationService _applicationService;
         private static readonly ILogger Log = Serilog.Log.ForContext<LeaseCommandsApi>();
 
-        public LeaseCommandsApi(
-            LeaseApplicationService applicationService)
-            => _applicationService = applicationService;
+        public LeaseCommandsApi(LeaseApplicationService applicationService)
+        {
+            _applicationService = applicationService;
+        }
 
         [HttpPost]
         public Task<IActionResult> Post(Commands.V1.CreateLease request)

@@ -1,6 +1,7 @@
 ﻿using Delpin.Framework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Lease.Domain
@@ -8,6 +9,9 @@ namespace Lease.Domain
     public class Street : Value<Street>
     {
         public string Value { get; }
+
+        [Key]
+        public int ID { get; set; }
 
         public Street(string street)
         {
@@ -21,7 +25,6 @@ namespace Lease.Domain
 
         public static Street FromString(string street)
         {
-
             if (street.IsEmpty())
                 throw new ArgumentNullException(nameof(street));
 

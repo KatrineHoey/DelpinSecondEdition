@@ -40,12 +40,12 @@ namespace Lease.Infrastructure
         {
             builder.HasKey(x => x.leaseId);
             builder.OwnsOne(x => x.Id);
-            //builder.HasNoKey(x => x.Adresse);
-            //builder.OwnsOne(x => x.DateCreated);
-            //builder.OwnsOne(x => x.IsDeleted);
-            //builder.OwnsOne(x => x.IsDelivery);
-            //builder.OwnsOne(x => x.IsPaid);
-            //builder.OwnsOne(x => x.TotalPrice);
+            builder.OwnsOne(x => x.Adresse);
+            builder.OwnsOne(x => x.DateCreated);
+            builder.OwnsOne(x => x.IsDeleted);
+            builder.OwnsOne(x => x.IsDelivery);
+            builder.OwnsOne(x => x.IsPaid);
+            builder.OwnsOne(x => x.TotalPrice);
 
         }
     }

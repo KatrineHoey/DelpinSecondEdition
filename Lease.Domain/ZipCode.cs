@@ -1,6 +1,7 @@
 ﻿using Delpin.Framework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Lease.Domain
@@ -8,6 +9,9 @@ namespace Lease.Domain
     public class ZipCode : Value<ZipCode>
     {
         public int Value { get; }
+
+        [Key]
+        public int ID { get; set; }
 
         public ZipCode(int number)
         {
