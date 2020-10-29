@@ -16,7 +16,7 @@ namespace Lease.Infrastructure
             _loggerFactory = loggerFactory;
         }
 
-        public DbSet<Domain.Lease> Lease { get; set; }
+        public DbSet<Domain.Lease> Leases { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

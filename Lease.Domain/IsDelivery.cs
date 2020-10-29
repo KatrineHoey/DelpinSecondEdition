@@ -16,7 +16,7 @@ namespace Lease.Domain
             return new IsDelivery(isDelivery);
         }
 
-        internal IsDelivery(bool value) => Value = value;
+        public IsDelivery(bool value) => Value = value;
 
         public static implicit operator bool(IsDelivery isDelivery) => isDelivery.Value;
 

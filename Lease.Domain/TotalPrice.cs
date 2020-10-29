@@ -11,7 +11,7 @@ namespace Lease.Domain
 
         protected TotalPrice() { }
 
-        internal TotalPrice(decimal totalPrice)
+        public TotalPrice(decimal totalPrice)
         {
             if (totalPrice < 0)
                 throw new ArgumentException(

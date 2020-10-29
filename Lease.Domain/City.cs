@@ -19,7 +19,7 @@ namespace Lease.Domain
             return new City(Value);
         }
 
-        internal City(string value) => Value = value;
+        public City(string value) => Value = value;
 
         public static implicit operator string(City city) => city.Value;
 

@@ -12,7 +12,7 @@ namespace Lease.Domain
 
         protected DateCreated() { }
 
-        internal DateCreated(DateTime dateCreated) => Value = dateCreated;
+        public DateCreated(DateTime dateCreated) => Value = dateCreated;
 
         public static DateCreated FromDateTime(DateTime dateCreated) 
         {

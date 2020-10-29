@@ -13,7 +13,7 @@ namespace Lease.Domain
 
         public City City { get; set; }
 
-        internal Adresse(Street street, ZipCode zipCode, City city)
+        public Adresse(Street street, ZipCode zipCode, City city)
         {
             Street = street;
             ZipCode = zipCode;
@@ -23,6 +23,11 @@ namespace Lease.Domain
         // Satisfy the serialization requirements 
         protected Adresse()
         {
+        }
+
+        public static Adresse FromString(Street street,ZipCode zipCode,City city)
+        {
+            return new Adresse(street,zipCode,city);
         }
     }
 }

@@ -107,7 +107,6 @@ namespace Lease.Domain
             });
         }
 
-
         protected override void When(object @event)
         {
             switch (@event)

@@ -16,10 +16,10 @@ namespace Lease.Domain
             return new IsDeleted(isDeleted);
         }
 
-        internal IsDeleted(bool value) => Value = value;
+        public IsDeleted(bool value) => Value = value;
 
         public static implicit operator bool(IsDeleted isDeleted) => isDeleted.Value;
 
-        public static IsDeleted NotDeleted => new IsDeleted();
+        public static IsDeleted NoDelivery => new IsDeleted();
     }
 }
