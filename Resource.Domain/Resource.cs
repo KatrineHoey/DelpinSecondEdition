@@ -17,6 +17,7 @@ namespace Resource.Domain
         public ResourceNo ResourceNo { get; set; }
         public ResourcePrice ResourcePrice { get; set; }
         public IsDeleted IsDeleted { get; set; }
+        public ResourceState State { get; set; }
 
         // Satisfy the serialization requirements
         protected Resource() { }
@@ -102,7 +103,35 @@ namespace Resource.Domain
 
         protected override void EnsureValidState()
         {
-            throw new NotImplementedException();
+            bool valid =
+                Id != null &&
+                (State switch
+                {
+                    ResourceState.PendingReview =>
+                        ResourceName != null &&
+                        ResourceNo != null &&
+                        ResourcePrice != null &&
+                        IsDeleted != null,
+
+                    ResourceState.Active =>
+                        ResourceName != null &&
+                        ResourceNo != null &&
+                        ResourcePrice != null &&
+                        IsDeleted != null,
+                    _ => true
+                });
+            if (!valid)
+            {
+                throw new DomainExceptions.InvalidEntityState(this, $"Post-checks failed in state {State}");
+            }
+        }
+
+        public enum ResourceState
+        {
+            PendingReview, 
+            Active, 
+            Inactive, 
+            MarkedAsSold
         }
     }
 }

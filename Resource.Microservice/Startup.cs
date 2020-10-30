@@ -14,7 +14,7 @@ using Microsoft.OpenApi.Models;
 
 namespace Resource.Microservice
 {
-    //Hello
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
