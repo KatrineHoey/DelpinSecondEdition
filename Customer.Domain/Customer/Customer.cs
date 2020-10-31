@@ -1,8 +1,9 @@
-﻿using Delpin.Framework;
+﻿using Customer.Domain.Shared;
+using Delpin.Framework;
 using System;
 using System.ComponentModel;
 
-namespace Customer.Domain
+namespace Customer.Domain.Customer
 {
     public class Customer : AggregateRoot<CustomerId>
     {
@@ -98,12 +99,6 @@ namespace Customer.Domain
             });
         }
 
-
-        protected override void EnsureValidState()
-        {
-            throw new NotImplementedException();
-        }
-
         protected override void When(object @event)
         {
 
@@ -135,6 +130,15 @@ namespace Customer.Domain
                     IsDeleted = new IsDeleted(e.IsDeleted);
                     break;
             }
+        }
+
+        protected override void EnsureValidState()
+        {
+            var valid = Id != null;
+
+            if (!valid)
+                throw new DomainExceptions.InvalidEntityState(this,
+                    $"Post-checks failed.");
         }
     }
 }

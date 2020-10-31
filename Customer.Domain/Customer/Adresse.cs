@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Customer.Domain
+namespace Customer.Domain.Customer
 {
     public class Adresse : Value<Adresse>
     {
@@ -11,7 +11,7 @@ namespace Customer.Domain
         public ZipCode ZipCode { get; set; }
         public City City { get; set; }
 
-        internal Adresse(Street street, ZipCode zipcode, City city)
+        public Adresse(Street street, ZipCode zipcode, City city)
         {
             Street = street;
             ZipCode = zipcode;

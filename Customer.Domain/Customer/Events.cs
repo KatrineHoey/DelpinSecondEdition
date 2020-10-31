@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static Customer.Domain.CustomerType;
+using static Customer.Domain.Customer.CustomerType;
 
-namespace Customer.Domain
+namespace Customer.Domain.Customer
 {
     public static class Events
     {
