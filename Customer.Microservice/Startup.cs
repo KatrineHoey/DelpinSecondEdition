@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Customer.Domain.Customer;
+using Customer.Microservice.Customer;
+using Customer.Microservice.Infrastructure;
+using Delpin.Framework;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Raven.Client.Documents;
 
 namespace Customer.Microservice
 {
@@ -26,13 +31,29 @@ namespace Customer.Microservice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var store = new DocumentStore
+            {
+                Urls = new[] { "http://localhost:8080" },
+                Database = "Delpin",
+                Conventions =
+                {
+                    FindIdentityProperty = x => x.Name == "DbId"
+                }
+            };
+            store.Initialize();
+
+            services.AddScoped(c => store.OpenAsyncSession());
+            services.AddScoped<IUnitOfWork, RavenDbUnitOfWork>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<CustomerApplicationService>();
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Master data service",
+                    Title = "Customer",
                     Version = "v1"
                 });
             });
