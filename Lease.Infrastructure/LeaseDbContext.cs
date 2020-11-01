@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Lease.Infrastructure
 {
-    public class LeaseDbContext : DbContext, ILeaseDbContext
+    public class LeaseDbContext : DbContext
     {
         private readonly ILoggerFactory _loggerFactory;
 
@@ -16,11 +16,6 @@ namespace Lease.Infrastructure
         }
 
         public DbSet<Domain.Lease> Leases { get; set; }
-
-        public void Configure(EntityTypeBuilder<Domain.Lease> builder)
-        {
-            throw new System.NotImplementedException();
-        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,7 +29,7 @@ namespace Lease.Infrastructure
         }
     }
 
-    public class LeaseEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Lease>, ILeaseDbContext
+    public class LeaseEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Lease>
     {
         public void Configure(EntityTypeBuilder<Domain.Lease> builder)
         {
@@ -46,7 +41,6 @@ namespace Lease.Infrastructure
             builder.OwnsOne(x => x.IsDelivery);
             builder.OwnsOne(x => x.IsPaid);
             builder.OwnsOne(x => x.TotalPrice);
-
         }
     }
 }

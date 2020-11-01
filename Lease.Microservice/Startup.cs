@@ -40,7 +40,7 @@ namespace Lease.Microservice
             services.AddDbContext<LeaseDbContext>(options =>
                 options.UseInMemoryDatabase("default"));
 
-            services.AddScoped<ILeaseDbContext>(provider => provider.GetService<LeaseDbContext>());
+            //services.AddScoped<ILeaseDbContext>(provider => provider.GetService<LeaseDbContext>());
 
             services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
             services.AddScoped<ILeaseRepository, LeaseRepository>();

@@ -29,7 +29,7 @@ namespace Lease.Infrastructure
                 V1.CreateLease cmd => HandleCreate(cmd),
 
                 V1.UpdateLeaseAdresse cmd => HandleUpdate(cmd.LeaseId,
-                        c => c.LeaseAdresseUpdate(Adresse.FromString(Street.FromString(cmd.Street),ZipCode.FromInt(cmd.ZipCode),City.FromString(cmd.City)))),
+                        c => c.LeaseAdresseUpdate(Adresse.FromString(cmd.Street,cmd.ZipCode,cmd.City))),
 
                 V1.UpdateDateCreated cmd => HandleUpdate(cmd.LeaseId,
                         c => c.DateCreatedUpdated(DateCreated.FromDateTime(cmd.DateCreated))),
@@ -56,16 +56,24 @@ namespace Lease.Infrastructure
                     $"Entity with id {cmd.LeaseId} already exists"
                 );
 
-            var lease =
-                new Domain.Lease(
+            //var lease = new Domain.Lease(
+            //        new LeaseId(cmd.LeaseId),
+            //        new Adresse(new Street(cmd.Street),new ZipCode(cmd.ZipCode),new City(cmd.City)),
+            //        new DateCreated(cmd.DateCreated),
+            //        new IsDeleted(cmd.IsDeleted),
+            //        new IsDelivery(cmd.IsDelivery),
+            //        new IsPaid(cmd.IsPaid),
+            //        new TotalPrice(cmd.TotalPrice)
+
+            var lease = new Domain.Lease(
                     new LeaseId(cmd.LeaseId),
-                    new Adresse(new Street(cmd.Street),new ZipCode(cmd.ZipCode),new City(cmd.City)),
-                    new DateCreated(cmd.DateCreated),
-                    new IsDeleted(cmd.IsDeleted),
-                    new IsDelivery(cmd.IsDelivery),
-                    new IsPaid(cmd.IsPaid),
-                    new TotalPrice(cmd.TotalPrice)
-                    
+                    Adresse.FromString(cmd.Street,cmd.ZipCode,cmd.City),
+                    DateCreated.FromDateTime(cmd.DateCreated),
+                    IsDeleted.FromBool(cmd.IsDeleted),
+                    IsDelivery.FromBool(cmd.IsDelivery),
+                    IsPaid.FromBool(cmd.IsPaid),
+                    TotalPrice.FromDecimal(cmd.TotalPrice)
+
                 );
 
             await _repository.Add(lease);

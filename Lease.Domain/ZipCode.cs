@@ -10,9 +10,6 @@ namespace Lease.Domain
     {
         public int Value { get; }
 
-        [Key]
-        public int ID { get; set; }
-
         public ZipCode(int number)
         {
             if (number > 9999 || number < 0555)

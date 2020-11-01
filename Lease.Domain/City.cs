@@ -10,9 +10,6 @@ namespace Lease.Domain
     {
         public string Value { get; }
 
-        [Key]
-        public int ID { get; set; }
-
         public City(string value)
         {
             Value = value;
