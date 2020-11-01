@@ -3,6 +3,7 @@ using Delpin.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using static Customer.Microservice.Customer.Contracts;
 
@@ -62,13 +63,21 @@ namespace Customer.Microservice.Customer
                             PhoneNo.FromString(cmd.PhoneNo.ToString())
                         )
                     ),
+
+                 V1.DeleteCustomer cmd =>
+                    HandleUpdate(
+                        cmd.CustomerId,
+                        profile => profile.DeleteCustomer(
+                            IsDeleted.FromString(cmd.IsDeleted.ToString())
+                        )
+                    ),
                 _ => Task.CompletedTask
             };
         }
 
         private async Task HandleCreate(V1.RegisterCustomer cmd)
         {
-            if (await _repository.Exists(new CustomerId(cmd.CustomerId)))
+            if (await _repository.Exists(cmd.CustomerId.ToString()))
                 throw new InvalidOperationException(
                     $"Entity with id {cmd.CustomerId} already exists"
                 );
@@ -76,10 +85,12 @@ namespace Customer.Microservice.Customer
             var customer = new Domain.Customer.Customer(
                 new CustomerId(cmd.CustomerId),
                 FullName.FromString(cmd.FullName),
-                new Adresse(Street.FromString(cmd.Street), ZipCode.FromString(cmd.ZipCode.ToString()), City.FromString(cmd.City)),
+                Adresse.FromString(cmd.Street, cmd.ZipCode, cmd.City),
+                //new Adresse(Street.FromString(cmd.Street), ZipCode.FromString(cmd.ZipCode.ToString()), City.FromString(cmd.City)),
                 PhoneNo.FromString(cmd.PhoneNo.ToString()),
                 Email.FromString(cmd.Email),
                 CustomerType.FromString(cmd.CustomerType.ToString())
+                
             ); ;
 
             await _repository.Add(customer);
@@ -91,14 +102,14 @@ namespace Customer.Microservice.Customer
             Action<Domain.Customer.Customer> operation
         )
         {
-            var userProfile = await _repository
-                .Load(new CustomerId(customerId));
-            if (userProfile == null)
+            var customer = await _repository
+                .Load(customerId.ToString());
+            if (customer == null)
                 throw new InvalidOperationException(
                     $"Entity with id {customerId} cannot be found"
                 );
 
-            operation(userProfile);
+            operation(customer);
 
             await _unitOfWork.Commit();
         }

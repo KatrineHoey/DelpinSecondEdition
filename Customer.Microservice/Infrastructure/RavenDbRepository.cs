@@ -1,8 +1,10 @@
 ﻿using Delpin.Framework;
+using Raven.Client.Documents.Queries;
 using Raven.Client.Documents.Session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Customer.Microservice.Infrastructure
@@ -34,7 +36,9 @@ namespace Customer.Microservice.Infrastructure
 
         public async Task<T> Load(TId id)
         {
-            return await _session.LoadAsync<T>(_entityId(id));
+            var t = await _session.LoadAsync<T>(_entityId(id).ToString());
+   
+            return t;
         }
     }
 }

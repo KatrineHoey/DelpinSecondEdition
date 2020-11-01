@@ -21,6 +21,8 @@ namespace Customer.Microservice.Customer
                 public int ZipCode { get; set; }
                 public string City { get; set; }
 
+                
+
             }
 
             public class ChangeCustomerType

@@ -12,7 +12,7 @@ namespace Customer.Domain.Customer
             Value = value;
         }
 
-        public bool Value { get; internal set; } = false;
+        public bool Value { get; internal set; }
 
         // Satisfy the serialization requirements 
         protected IsDeleted() { }
@@ -27,9 +27,5 @@ namespace Customer.Domain.Customer
             return isDeleted.Value;
         }
 
-        public static IsDeleted NotDeleted()
-        {
-            return new IsDeleted();
-        }
     }
 }

@@ -23,6 +23,18 @@ namespace Customer.Domain.Customer
         {
         }
 
+        public static Adresse FromString(string street, int zipcode, string city)
+        {
+            if (street.IsEmpty())
+                throw new ArgumentNullException(nameof(street));
+            if (zipcode.ToString().IsEmpty())
+                throw new ArgumentNullException(nameof(zipcode));
+            if (city.IsEmpty())
+                throw new ArgumentNullException(nameof(city));
+
+            return new Adresse(new Street(street), new ZipCode(zipcode), new City(city));
+        }
+
 
     }
 }

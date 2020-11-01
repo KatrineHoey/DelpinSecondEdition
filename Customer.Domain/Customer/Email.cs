@@ -21,7 +21,7 @@ namespace Customer.Domain.Customer
         {
         }
 
-        public string Value { get; }
+        public string Value { get; internal set; }
 
         public static Email FromString(string email)
         {

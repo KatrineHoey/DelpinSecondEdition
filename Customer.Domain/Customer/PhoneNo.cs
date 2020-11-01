@@ -21,7 +21,7 @@ namespace Customer.Domain.Customer
         {
         }
 
-        public int Value { get; }
+        public int Value { get; internal set; }
 
         public static PhoneNo FromString(string phoneNo)
         {

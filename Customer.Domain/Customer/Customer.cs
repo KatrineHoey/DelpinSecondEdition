@@ -90,7 +90,7 @@ namespace Customer.Domain.Customer
             });
         }
 
-        public void ChangeCustomerType(IsDeleted isDeleted)
+        public void DeleteCustomer(IsDeleted isDeleted)
         {
             Apply(new Events.CustomerDeleted
             {
@@ -109,7 +109,9 @@ namespace Customer.Domain.Customer
                     FullName = new FullName(e.FullName);
                     PhoneNo = new PhoneNo(e.PhoneNo);
                     Email = new Email(e.Email);
+                    Adresse = new Adresse(new Street(e.Street), new ZipCode(e.ZipCode), new City(e.City));
                     CustomerType = new CustomerType(e.CustomerType);
+                    IsDeleted = new IsDeleted(e.IsDeleted);
                     break;
                 case Events.CustomerTypeChanged e:
                     CustomerType = new CustomerType(e.CustomerType);

@@ -7,7 +7,7 @@ namespace Customer.Microservice.Customer
     public class CustomerRepository : RavenDbRepository<Domain.Customer.Customer, CustomerId>, ICustomerRepository
     {
         public CustomerRepository(IAsyncDocumentSession session)
-            : base(session, id => $"UserProfile/{id.Value.ToString()}")
+            : base(session, id => $"Customer/{id.Value.ToString()}")
         {
         }
     }
