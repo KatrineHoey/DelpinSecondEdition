@@ -6,7 +6,7 @@ using static Customer.Domain.Customer.CustomerType;
 
 namespace Customer.Microservice.Customer
 {
-    public class Contracts
+    public class Commands
     {
         public static class V1
         {

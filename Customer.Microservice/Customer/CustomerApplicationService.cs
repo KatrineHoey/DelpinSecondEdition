@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using static Customer.Microservice.Customer.Contracts;
+using static Customer.Microservice.Customer.Commands;
 
 namespace Customer.Microservice.Customer
 {
