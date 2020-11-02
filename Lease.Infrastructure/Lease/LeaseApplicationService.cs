@@ -59,10 +59,8 @@ namespace Lease.Infrastructure
             var lease = new Domain.Lease(
                     new LeaseId(cmd.LeaseId),
                     DateCreated.FromDateTime(cmd.DateCreated),
-                    IsDeleted.FromBool(cmd.IsDeleted),
                     IsDelivery.FromBool(cmd.IsDelivery),
                     IsPaid.FromBool(cmd.IsPaid),
-                    TotalPrice.FromDecimal(cmd.TotalPrice),
                     Street.FromString(cmd.Street),
                     ZipCode.FromInt(cmd.ZipCode),
                     City.FromString(cmd.City)
@@ -75,8 +73,7 @@ namespace Lease.Infrastructure
 
         private async Task HandleUpdate(Guid leaseId,Action<Domain.Lease> operation)
         {
-            var lease = await _repository
-                .Load(leaseId.ToString());
+            var lease = await _repository.Load(leaseId.ToString());
 
             if (lease == null)
                 throw new InvalidOperationException($"Entity with id {leaseId} cannot be found");

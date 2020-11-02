@@ -34,16 +34,14 @@ namespace Lease.Domain
         public LeaseState State { get; private set; }
 
 
-        public Lease(LeaseId leaseId, /*Adresse adresse,*/ DateCreated dateCreated, IsDeleted isDeleted, IsDelivery isDelivery, IsPaid isPaid, TotalPrice totalPrice,Street street, ZipCode zipCode, City city)
+        public Lease(LeaseId leaseId, DateCreated dateCreated, IsDelivery isDelivery, IsPaid isPaid, Street street, ZipCode zipCode, City city)
         {
             Apply(new Events.LeaseRegistered
             {
                 LeaseId = leaseId,
                 DateCreated = dateCreated,
-                IsDeleted = isDeleted,
                 IsDelivery = isDelivery,
                 IsPaid = isPaid,
-                TotalPrice = totalPrice,
                 Street = street,
                 ZipCode = zipCode,
                 City = city
