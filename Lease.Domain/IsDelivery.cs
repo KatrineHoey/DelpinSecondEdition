@@ -7,7 +7,14 @@ namespace Lease.Domain
 {
     public class IsDelivery : Value<IsDelivery>
     {
-        public bool Value { get; internal set; }
+        public bool Value { get; }
+
+        public IsDelivery(bool value)
+        {
+            Value = value;
+        } 
+
+        public static implicit operator bool(IsDelivery isDelivery) => isDelivery.Value;
 
         protected IsDelivery() { }
 
@@ -15,11 +22,5 @@ namespace Lease.Domain
         {
             return new IsDelivery(isDelivery);
         }
-
-        public IsDelivery(bool value) => Value = value;
-
-        public static implicit operator bool(IsDelivery isDelivery) => isDelivery.Value;
-
-        public static IsDelivery NoDelivery => new IsDelivery();
     }
 }

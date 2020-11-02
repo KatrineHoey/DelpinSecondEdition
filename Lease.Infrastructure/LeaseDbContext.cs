@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore.SqlServer;
+
 
 namespace Lease.Infrastructure
 {
@@ -35,7 +37,9 @@ namespace Lease.Infrastructure
         {
             builder.HasKey(x => x.leaseId);
             builder.OwnsOne(x => x.Id);
-            builder.OwnsOne(x => x.Adresse);
+            builder.OwnsOne(x => x.Street);
+            builder.OwnsOne(x => x.ZipCode);
+            builder.OwnsOne(x => x.City);
             builder.OwnsOne(x => x.DateCreated);
             builder.OwnsOne(x => x.IsDeleted);
             builder.OwnsOne(x => x.IsDelivery);

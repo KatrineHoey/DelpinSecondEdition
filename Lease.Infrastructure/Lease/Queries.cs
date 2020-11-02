@@ -10,7 +10,7 @@ namespace Lease.Infrastructure
     {
         public static Task<LeaseDetails> Query(this DbConnection connection, QueryModels.GetLeaseById query)
         {
-            string sql = "Select * from Leases Where LeaseId = @Id;";
+            string sql = "Select * from Leases Where leaseid = @Id;";
 
             return connection.QuerySingleOrDefaultAsync<LeaseDetails>(sql,new { Id = query.LeaseId });
         }  

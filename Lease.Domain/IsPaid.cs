@@ -7,7 +7,7 @@ namespace Lease.Domain
 {
     public class IsPaid : Value<IsPaid>
     {
-        public bool Value { get; internal set; }
+        public bool Value { get;}
 
         protected IsPaid() { }
 
@@ -19,7 +19,5 @@ namespace Lease.Domain
         public IsPaid(bool value) => Value = value;
 
         public static implicit operator bool(IsPaid isPaid) => isPaid.Value;
-
-        public static IsPaid NotPaid => new IsPaid();
     }
 }

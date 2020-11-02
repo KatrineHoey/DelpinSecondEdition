@@ -13,14 +13,10 @@ namespace Lease.Infrastructure
         private readonly ILeaseRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
         
-        public LeaseApplicationService(
-            ILeaseRepository repository, IUnitOfWork unitOfWork
-            
-        )
+        public LeaseApplicationService(ILeaseRepository repository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
-            
         }
 
         public Task Handle(object command) =>
@@ -28,8 +24,14 @@ namespace Lease.Infrastructure
             {
                 V1.CreateLease cmd => HandleCreate(cmd),
 
-                V1.UpdateLeaseAdresse cmd => HandleUpdate(cmd.LeaseId,
-                        c => c.LeaseAdresseUpdate(Adresse.FromString(cmd.Street,cmd.ZipCode,cmd.City))),
+                V1.UpdateLeaseStreet cmd => HandleUpdate(cmd.LeaseId,
+                        c => c.LeaseStreetUpdate(Street.FromString(cmd.Street))),
+
+                V1.UpdateLeaseZipCode cmd => HandleUpdate(cmd.LeaseId,
+                        c => c.LeaseZipCodeUpdate(ZipCode.FromInt(cmd.ZipCode))),
+
+                V1.UpdateLeaseCity cmd => HandleUpdate(cmd.LeaseId,
+                        c => c.LeaseCityUpdate(City.FromString(cmd.City))),
 
                 V1.UpdateDateCreated cmd => HandleUpdate(cmd.LeaseId,
                         c => c.DateCreatedUpdated(DateCreated.FromDateTime(cmd.DateCreated))),
@@ -52,27 +54,18 @@ namespace Lease.Infrastructure
         private async Task HandleCreate(V1.CreateLease cmd)
         {
             if (await _repository.Exists(cmd.LeaseId.ToString()))
-                throw new InvalidOperationException(
-                    $"Entity with id {cmd.LeaseId} already exists"
-                );
-
-            //var lease = new Domain.Lease(
-            //        new LeaseId(cmd.LeaseId),
-            //        new Adresse(new Street(cmd.Street),new ZipCode(cmd.ZipCode),new City(cmd.City)),
-            //        new DateCreated(cmd.DateCreated),
-            //        new IsDeleted(cmd.IsDeleted),
-            //        new IsDelivery(cmd.IsDelivery),
-            //        new IsPaid(cmd.IsPaid),
-            //        new TotalPrice(cmd.TotalPrice)
+                throw new InvalidOperationException($"Entity with id {cmd.LeaseId} already exists");
 
             var lease = new Domain.Lease(
                     new LeaseId(cmd.LeaseId),
-                    Adresse.FromString(cmd.Street,cmd.ZipCode,cmd.City),
                     DateCreated.FromDateTime(cmd.DateCreated),
                     IsDeleted.FromBool(cmd.IsDeleted),
                     IsDelivery.FromBool(cmd.IsDelivery),
                     IsPaid.FromBool(cmd.IsPaid),
-                    TotalPrice.FromDecimal(cmd.TotalPrice)
+                    TotalPrice.FromDecimal(cmd.TotalPrice),
+                    Street.FromString(cmd.Street),
+                    ZipCode.FromInt(cmd.ZipCode),
+                    City.FromString(cmd.City)
 
                 );
 
@@ -86,9 +79,7 @@ namespace Lease.Infrastructure
                 .Load(leaseId.ToString());
 
             if (lease == null)
-                throw new InvalidOperationException(
-                    $"Entity with id {leaseId} cannot be found"
-                );
+                throw new InvalidOperationException($"Entity with id {leaseId} cannot be found");
 
             operation(lease);
 

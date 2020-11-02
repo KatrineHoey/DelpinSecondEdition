@@ -7,7 +7,7 @@ namespace Lease.Domain
 {
     public class TotalPrice : Value<TotalPrice>
     {
-        public decimal Value { get; internal set; }
+        public decimal Value { get; }
 
         protected TotalPrice() { }
 

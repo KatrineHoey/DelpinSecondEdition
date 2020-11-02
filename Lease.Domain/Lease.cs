@@ -14,8 +14,6 @@ namespace Lease.Domain
         
         // Aggregate state properties
 
-        public Adresse Adresse { get; private set; }
-
         public DateCreated DateCreated { get; private set; }
 
         public IsDeleted IsDeleted { get; private set; }
@@ -26,10 +24,17 @@ namespace Lease.Domain
 
         public TotalPrice TotalPrice { get; private set; }
 
+        public Street Street { get; private set; }
+
+        public ZipCode ZipCode { get; private set; }
+
+        public City City { get; private set; }
+
+
         public LeaseState State { get; private set; }
 
 
-        public Lease(LeaseId leaseId, Adresse adresse, DateCreated dateCreated, IsDeleted isDeleted, IsDelivery isDelivery, IsPaid isPaid, TotalPrice totalPrice)
+        public Lease(LeaseId leaseId, /*Adresse adresse,*/ DateCreated dateCreated, IsDeleted isDeleted, IsDelivery isDelivery, IsPaid isPaid, TotalPrice totalPrice,Street street, ZipCode zipCode, City city)
         {
             Apply(new Events.LeaseRegistered
             {
@@ -39,9 +44,9 @@ namespace Lease.Domain
                 IsDelivery = isDelivery,
                 IsPaid = isPaid,
                 TotalPrice = totalPrice,
-                Street = adresse.Street,
-                ZipCode = adresse.ZipCode,
-                City = adresse.City
+                Street = street,
+                ZipCode = zipCode,
+                City = city
             });
         }
 
@@ -50,14 +55,33 @@ namespace Lease.Domain
 
         }
 
-        public void LeaseAdresseUpdate(Adresse adresse)
+        public void LeaseStreetUpdate(Street street)
         {
-            Apply(new Events.LeaseAdresseUpdated
+            Apply(new Events.LeaseStreetUpdated
             {
                 LeaseId = leaseId,
-                City = adresse.City,
-                Street = adresse.Street,
-                ZipCode = adresse.ZipCode
+                Street = street
+                
+            });
+        }
+
+        public void LeaseZipCodeUpdate(ZipCode zipCode)
+        {
+            Apply(new Events.LeaseZipCodeUpdated
+            {
+                LeaseId = leaseId,
+                ZipCode = zipCode
+                
+            });
+        }
+
+        public void LeaseCityUpdate(City city)
+        {
+            Apply(new Events.LeaseCityUpdated
+            {
+                LeaseId = leaseId,
+                City = city,
+                
             });
         }
 
@@ -112,17 +136,30 @@ namespace Lease.Domain
             {
                 case Events.LeaseRegistered e:
                     Id = new LeaseId(e.LeaseId);
-                    Adresse = new Adresse(new Street(e.Street), new ZipCode(e.ZipCode), new City(e.City));
+
                     DateCreated = new DateCreated(e.DateCreated);
                     IsDeleted = new IsDeleted(e.IsDeleted);
                     IsDelivery = new IsDelivery(e.IsDelivery);
                     IsPaid = new IsPaid(e.IsPaid);
                     TotalPrice = new TotalPrice(e.TotalPrice);
+                    Street = new Street(e.Street);
+                    ZipCode = new ZipCode(e.ZipCode);
+                    City = new City(e.City);
                     break;
 
-                case Events.LeaseAdresseUpdated e:
+                case Events.LeaseStreetUpdated e:
                     Id = new LeaseId(e.LeaseId);
-                    Adresse = new Adresse(new Street(e.Street), new ZipCode(e.ZipCode), new City(e.City));
+                    Street = new Street(new Street(e.Street));
+                    break;
+
+                case Events.LeaseZipCodeUpdated e:
+                    Id = new LeaseId(e.LeaseId);
+                    ZipCode = new ZipCode(new ZipCode(e.ZipCode));
+                    break;
+
+                case Events.LeaseCityUpdated e:
+                    Id = new LeaseId(e.LeaseId);
+                    City = new City(new City(e.City));
                     break;
 
                 case Events.DateCreatedUpdated e:
@@ -160,20 +197,26 @@ namespace Lease.Domain
                 (State switch
                 {
                     LeaseState.PendingReview =>
-                        Adresse != null
-                        && DateCreated != null
+                         DateCreated != null
                         && IsDeleted != null
                         && IsDelivery != null
                         && IsPaid != null
-                        && TotalPrice != null ,
-                        
+                        && TotalPrice != null
+                        && Street != null
+                        && ZipCode != null
+                        && City != null,
+
                     LeaseState.Active =>
-                        Adresse != null
-                        && DateCreated != null
+                         DateCreated != null
                         && IsDeleted != null
                         && IsDelivery != null
                         && IsPaid != null
-                        && TotalPrice != null,
+                        && TotalPrice != null
+                        && Street != null
+                        && ZipCode != null
+                        && City != null,
+
+
                     _ => true
                 });
 
@@ -188,6 +231,5 @@ namespace Lease.Domain
             Inactive = 3,
             MarkedAsSold = 4
         }
-
     }
 }

@@ -37,10 +37,16 @@ namespace Lease.Microservice
 
             services.AddEntityFrameworkNpgsql();
 
-            services.AddDbContext<LeaseDbContext>(options =>
-                options.UseInMemoryDatabase("default"));
+            ////services.AddDbContext<LeaseDbContext>(options =>
+            ////    options.UseInMemoryDatabase("default"));
 
-            //services.AddScoped<ILeaseDbContext>(provider => provider.GetService<LeaseDbContext>());
+
+            //services.AddDbContext<LeaseDbContext>(options =>
+            //       options.UseSqlServer(Configuration.GetConnectionString("LeaseDatabaseConnection")));
+
+
+            services.AddDbContext<LeaseDbContext>(options =>
+                   options.UseSqlServer("Server=den1.mssql8.gear.host;Database=delpinv2;User Id=delpinv2;Password=Nb6Bu257F_~o;"));
 
             services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
             services.AddScoped<ILeaseRepository, LeaseRepository>();

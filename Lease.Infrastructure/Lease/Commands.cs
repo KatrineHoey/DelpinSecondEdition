@@ -19,11 +19,24 @@ namespace Lease.Infrastructure
                 public decimal TotalPrice { get; set; }
             }
 
-            public class UpdateLeaseAdresse
+            public class UpdateLeaseStreet
             {
                 public Guid LeaseId { get; set; }
                 public string Street { get; set; }
+   
+            }
+
+            public class UpdateLeaseZipCode
+            {
+                public Guid LeaseId { get; set; }
+                
                 public int ZipCode { get; set; }
+                
+            }
+
+            public class UpdateLeaseCity
+            {
+                public Guid LeaseId { get; set; }
                 public string City { get; set; }
             }
 

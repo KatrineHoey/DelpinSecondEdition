@@ -19,9 +19,19 @@ namespace Lease.Infrastructure
         public Task<IActionResult> Post(Commands.V1.CreateLease request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
-        [Route("adresse")]
+        [Route("street")]
         [HttpPut]
-        public Task<IActionResult> Put(Commands.V1.UpdateLeaseAdresse request)
+        public Task<IActionResult> Put(Commands.V1.UpdateLeaseStreet request)
+            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
+
+        [Route("zipcode")]
+        [HttpPut]
+        public Task<IActionResult> Put(Commands.V1.UpdateLeaseZipCode request)
+            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
+
+        [Route("city")]
+        [HttpPut]
+        public Task<IActionResult> Put(Commands.V1.UpdateLeaseCity request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
 

@@ -7,7 +7,7 @@ namespace Lease.Domain
 {
     public class IsDeleted : Value<IsDeleted>
     {
-        public bool Value { get; internal set; }
+        public bool Value { get; }
 
         protected IsDeleted() { }
 
@@ -20,6 +20,5 @@ namespace Lease.Domain
 
         public static implicit operator bool(IsDeleted isDeleted) => isDeleted.Value;
 
-        public static IsDeleted NoDelivery => new IsDeleted();
     }
 }
