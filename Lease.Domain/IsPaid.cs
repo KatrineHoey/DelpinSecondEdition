@@ -7,7 +7,7 @@ namespace Lease.Domain
 {
     public class IsPaid : Value<IsPaid>
     {
-        public bool Value { get;}
+        public bool Value { get; internal set; }
 
         protected IsPaid() { }
 

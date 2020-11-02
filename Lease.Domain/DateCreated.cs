@@ -8,7 +8,7 @@ namespace Lease.Domain
 {
     public class DateCreated : Value<DateCreated>
     {
-        public DateTime Value { get; }
+        public DateTime Value { get; internal set; }
 
         protected DateCreated() { }
 

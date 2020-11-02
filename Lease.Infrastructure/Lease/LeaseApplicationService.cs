@@ -58,12 +58,12 @@ namespace Lease.Infrastructure
 
             var lease = new Domain.Lease(
                     new LeaseId(cmd.LeaseId),
-                    DateCreated.FromDateTime(cmd.DateCreated),
-                    IsDelivery.FromBool(cmd.IsDelivery),
-                    IsPaid.FromBool(cmd.IsPaid),
-                    Street.FromString(cmd.Street),
-                    ZipCode.FromInt(cmd.ZipCode),
-                    City.FromString(cmd.City)
+                    new DateCreated(cmd.DateCreated),
+                    new IsDelivery(cmd.IsDelivery),
+                    new IsPaid(cmd.IsPaid),
+                    new Street(cmd.Street),
+                    new ZipCode(cmd.ZipCode),
+                    new City(cmd.City)
 
                 );
 

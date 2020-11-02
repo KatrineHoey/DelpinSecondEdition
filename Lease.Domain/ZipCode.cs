@@ -8,7 +8,7 @@ namespace Lease.Domain
 {
     public class ZipCode : Value<ZipCode>
     {
-        public int Value { get; }
+        public int Value { get; internal set; }
 
         public ZipCode(int number)
         {

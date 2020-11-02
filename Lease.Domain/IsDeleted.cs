@@ -7,7 +7,7 @@ namespace Lease.Domain
 {
     public class IsDeleted : Value<IsDeleted>
     {
-        public bool Value { get; }
+        public bool Value { get; internal set; }
 
         protected IsDeleted() { }
 

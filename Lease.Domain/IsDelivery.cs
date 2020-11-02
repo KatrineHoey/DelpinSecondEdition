@@ -7,7 +7,7 @@ namespace Lease.Domain
 {
     public class IsDelivery : Value<IsDelivery>
     {
-        public bool Value { get; }
+        public bool Value { get; internal set; }
 
         public IsDelivery(bool value)
         {

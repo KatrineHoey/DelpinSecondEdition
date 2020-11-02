@@ -8,7 +8,7 @@ namespace Lease.Domain
 {
     public class City : Value<City>
     {
-        public string Value { get; }
+        public string Value { get; internal set; }
 
         public City(string value)
         {

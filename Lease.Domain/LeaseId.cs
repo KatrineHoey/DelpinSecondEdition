@@ -7,7 +7,7 @@ namespace Lease.Domain
 {
     public class LeaseId : Value<LeaseId>
     {
-        public Guid Value { get; }
+        public Guid Value { get; internal set; }
 
         protected LeaseId() { }
 
