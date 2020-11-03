@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Customer.Domain\Customer.Domain.csproj" />
     <ProjectReference Include="..\Delpin.Framework\Delpin.Framework.csproj" />
   </ItemGroup>

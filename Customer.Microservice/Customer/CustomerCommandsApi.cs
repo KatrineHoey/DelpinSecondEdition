@@ -20,48 +20,48 @@ namespace Customer.Microservice.Customer
         }
 
         [HttpPost]
-        public Task<IActionResult> Post(Contracts.V1.RegisterCustomer request)
+        public Task<IActionResult> Post(Commands.V1.RegisterCustomer request)
         {
             return RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
         }
 
         [Route("fullname")]
         [HttpPut]
-        public Task<IActionResult> Put(Contracts.V1.UpdateCustomerFullName request)
+        public Task<IActionResult> Put(Commands.V1.UpdateCustomerFullName request)
         {
             return RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
         }
 
         [Route("adresse")]
         [HttpPut]
-        public Task<IActionResult> Put(Contracts.V1.UpdateCustomerAdresse request)
+        public Task<IActionResult> Put(Commands.V1.UpdateCustomerAdresse request)
         {
             return RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
         }
 
         [Route("phone")]
         [HttpPut]
-        public Task<IActionResult> Put(Contracts.V1.UpdateCustomerPhoneNo request)
+        public Task<IActionResult> Put(Commands.V1.UpdateCustomerPhoneNo request)
         {
             return RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
         }
 
         [Route("email")]
         [HttpPut]
-        public Task<IActionResult> Put(Contracts.V1.UpdateCustomerEmail request)
+        public Task<IActionResult> Put(Commands.V1.UpdateCustomerEmail request)
         {
             return RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
         }
 
         [Route("customertype")]
         [HttpPut]
-        public Task<IActionResult> Put(Contracts.V1.ChangeCustomerType request)
+        public Task<IActionResult> Put(Commands.V1.ChangeCustomerType request)
         {
             return RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
         }
 
         [HttpDelete]
-        public Task<IActionResult> Put(Contracts.V1.DeleteCustomer request)
+        public Task<IActionResult> Put(Commands.V1.DeleteCustomer request)
         {
             return RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
         }
