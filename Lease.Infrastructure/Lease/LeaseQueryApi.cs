@@ -1,6 +1,5 @@
 using System.Data.Common;
 using System.Threading.Tasks;
-using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 

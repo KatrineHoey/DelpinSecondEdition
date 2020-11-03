@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lease.Infrastructure.Migrations
 {
-    public partial class Firstmigration : Migration
+    public partial class LeaseMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

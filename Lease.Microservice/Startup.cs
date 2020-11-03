@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Delpin.Framework;
 using Lease.Domain;
-using Lease.Domain.Shared;
 using Lease.Infrastructure;
+using Marketplace.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,6 +18,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Npgsql;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+
 
 namespace Lease.Microservice
 {
@@ -28,29 +30,29 @@ namespace Lease.Microservice
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
+            const string connectionString = "Server=den1.mssql8.gear.host; Database=delpinv2;User Id=delpinv2;Password=Nb6Bu257F_~o;";
+
             services.AddEntityFrameworkNpgsql();
 
-            ////services.AddDbContext<LeaseDbContext>(options =>
-            ////    options.UseInMemoryDatabase("default"));
-
-
             //services.AddDbContext<LeaseDbContext>(options =>
-            //       options.UseSqlServer(Configuration.GetConnectionString("LeaseDatabaseConnection")));
+            //       options.UseSqlServer(connectionString));
 
+            services.AddPostgresDbContext<LeaseDbContext>(connectionString);
 
-            services.AddDbContext<LeaseDbContext>(options =>
-                   options.UseSqlServer("Server=den1.mssql8.gear.host;Database=delpinv2;User Id=delpinv2;Password=Nb6Bu257F_~o;"));
+            services.AddScoped<DbConnection>(c => new NpgsqlConnection(connectionString));
 
             services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
             services.AddScoped<ILeaseRepository, LeaseRepository>();
-            
+
+            services.AddScoped<ILeaseRepository, LeaseRepository>();
             services.AddScoped<LeaseApplicationService>();
 
             services.AddMvc();
@@ -72,6 +74,8 @@ namespace Lease.Microservice
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
