@@ -8,13 +8,14 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 
 namespace Lease.Infrastructure
 {
-    public class LeaseDbContext : DbContext
+    public class LeaseDbContext : DbContext 
     {
         private readonly ILoggerFactory _loggerFactory;
 
         public LeaseDbContext(DbContextOptions<LeaseDbContext> options,ILoggerFactory loggerFactory): base(options)
         {
             _loggerFactory = loggerFactory;
+
         }
 
         public DbSet<Domain.Lease> Leases { get; set; }
