@@ -17,8 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Npgsql;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
+
 
 
 namespace Lease.Microservice
@@ -40,14 +39,14 @@ namespace Lease.Microservice
 
             const string connectionString = "Server=den1.mssql8.gear.host; Database=delpinv2;User Id=delpinv2;Password=Nb6Bu257F_~o;";
 
-            services.AddEntityFrameworkNpgsql();
 
-            //services.AddDbContext<LeaseDbContext>(options =>
-            //       options.UseSqlServer(connectionString));
+
+            services.AddDbContext<LeaseDbContext>(options =>
+                   options.UseSqlServer(connectionString));
 
             services.AddPostgresDbContext<LeaseDbContext>(connectionString);
 
-            services.AddScoped<DbConnection>(c => new NpgsqlConnection(connectionString));
+          
 
             services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
             services.AddScoped<ILeaseRepository, LeaseRepository>();
