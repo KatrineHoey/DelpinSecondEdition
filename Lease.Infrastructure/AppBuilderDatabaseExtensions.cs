@@ -23,7 +23,7 @@ namespace Marketplace.Infrastructure
         public static IServiceCollection AddPostgresDbContext<T>(this IServiceCollection services, 
             string connectionString) where T : DbContext
         {
-            services.AddDbContext<T>(options => options.UseNpgsql(connectionString));
+            services.AddDbContext<T>(options => options.UseSqlServer(connectionString));
             return services;
         }
     }

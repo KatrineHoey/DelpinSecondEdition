@@ -1,6 +1,6 @@
 using System;
 
-namespace Lease.Infrastructure
+namespace Lease.Microservice.Lease
 {
     public static class QueryModels
     {

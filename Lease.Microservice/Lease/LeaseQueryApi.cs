@@ -1,18 +1,20 @@
 using System.Data.Common;
 using System.Threading.Tasks;
+using Lease.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
-namespace Lease.Infrastructure
+namespace Lease.Microservice.Lease
 {
     [Route("/lease")]
     public class LeaseQueryApi : Controller
     {
         private static ILogger _log = Log.ForContext<LeaseQueryApi>();
         
-        private readonly DbConnection _connection;
+        private readonly DbContext _connection;
 
-        public LeaseQueryApi(DbConnection connection)
+        public LeaseQueryApi(LeaseDbContext connection)
         {
             _connection = connection;
         }

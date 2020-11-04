@@ -1,8 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Lease.Domain;
+using Lease.Infrastructure;
 
-namespace Lease.Infrastructure
+namespace Lease.Microservice.Lease
 {
     public class LeaseRepository : ILeaseRepository, IDisposable
     {
