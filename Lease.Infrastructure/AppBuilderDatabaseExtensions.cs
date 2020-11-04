@@ -10,7 +10,7 @@ namespace Marketplace.Infrastructure
         public static IApplicationBuilder EnsureDatabase(this IApplicationBuilder builder)
         {
             EnsureContextIsMigrated(builder.ApplicationServices.GetService<LeaseDbContext>());
-//            EnsureContextIsMigrated(builder.ApplicationServices.GetService<UserProfileDbContext>());
+
             return builder;
         }
 

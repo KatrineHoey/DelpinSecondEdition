@@ -20,6 +20,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 
+
 namespace Lease.Microservice
 {
     public class Startup

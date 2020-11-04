@@ -3,8 +3,8 @@ using System;
 using Lease.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Lease.Infrastructure.Migrations
 {
@@ -15,18 +15,18 @@ namespace Lease.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.9")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Lease.Domain.Lease", b =>
                 {
                     b.Property<Guid>("leaseId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("State")
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
                     b.HasKey("leaseId");
 
@@ -38,10 +38,10 @@ namespace Lease.Infrastructure.Migrations
                     b.OwnsOne("Lease.Domain.City", "City", b1 =>
                         {
                             b1.Property<Guid>("leaseId")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Value")
-                                .HasColumnType("text");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("leaseId");
 
@@ -54,10 +54,10 @@ namespace Lease.Infrastructure.Migrations
                     b.OwnsOne("Lease.Domain.DateCreated", "DateCreated", b1 =>
                         {
                             b1.Property<Guid>("leaseId")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<DateTime>("Value")
-                                .HasColumnType("timestamp without time zone");
+                                .HasColumnType("datetime2");
 
                             b1.HasKey("leaseId");
 
@@ -70,10 +70,10 @@ namespace Lease.Infrastructure.Migrations
                     b.OwnsOne("Lease.Domain.IsDeleted", "IsDeleted", b1 =>
                         {
                             b1.Property<Guid>("leaseId")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<bool>("Value")
-                                .HasColumnType("boolean");
+                                .HasColumnType("bit");
 
                             b1.HasKey("leaseId");
 
@@ -86,10 +86,10 @@ namespace Lease.Infrastructure.Migrations
                     b.OwnsOne("Lease.Domain.IsDelivery", "IsDelivery", b1 =>
                         {
                             b1.Property<Guid>("leaseId")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<bool>("Value")
-                                .HasColumnType("boolean");
+                                .HasColumnType("bit");
 
                             b1.HasKey("leaseId");
 
@@ -102,10 +102,10 @@ namespace Lease.Infrastructure.Migrations
                     b.OwnsOne("Lease.Domain.IsPaid", "IsPaid", b1 =>
                         {
                             b1.Property<Guid>("leaseId")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<bool>("Value")
-                                .HasColumnType("boolean");
+                                .HasColumnType("bit");
 
                             b1.HasKey("leaseId");
 
@@ -118,10 +118,10 @@ namespace Lease.Infrastructure.Migrations
                     b.OwnsOne("Lease.Domain.LeaseId", "Id", b1 =>
                         {
                             b1.Property<Guid>("leaseId")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<Guid>("Value")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.HasKey("leaseId");
 
@@ -134,10 +134,10 @@ namespace Lease.Infrastructure.Migrations
                     b.OwnsOne("Lease.Domain.Street", "Street", b1 =>
                         {
                             b1.Property<Guid>("leaseId")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Value")
-                                .HasColumnType("text");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("leaseId");
 
@@ -150,10 +150,10 @@ namespace Lease.Infrastructure.Migrations
                     b.OwnsOne("Lease.Domain.TotalPrice", "TotalPrice", b1 =>
                         {
                             b1.Property<Guid>("leaseId")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<decimal>("Value")
-                                .HasColumnType("numeric");
+                                .HasColumnType("decimal(18,2)");
 
                             b1.HasKey("leaseId");
 
@@ -166,10 +166,10 @@ namespace Lease.Infrastructure.Migrations
                     b.OwnsOne("Lease.Domain.ZipCode", "ZipCode", b1 =>
                         {
                             b1.Property<Guid>("leaseId")
-                                .HasColumnType("uuid");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<int>("Value")
-                                .HasColumnType("integer");
+                                .HasColumnType("int");
 
                             b1.HasKey("leaseId");
 
