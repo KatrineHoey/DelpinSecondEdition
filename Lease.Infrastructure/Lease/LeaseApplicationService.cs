@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Delpin.Framework;
 using Lease.Domain.Shared;
 using Lease.Domain;
-using static Lease.Microservice.Lease.LeaseOrderCommands;
+using static Lease.Infrastructure.Lease.LeaseOrderCommands;
 
-namespace Lease.Microservice.Lease
+namespace Lease.Infrastructure.Lease
 {
     public class LeaseApplicationService : IApplicationService
     {

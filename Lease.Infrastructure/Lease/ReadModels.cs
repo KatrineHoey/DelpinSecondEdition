@@ -1,6 +1,6 @@
 using System;
 
-namespace Lease.Microservice.Lease
+namespace Lease.Infrastructure.Lease
 {
     public static class ReadModels
     {

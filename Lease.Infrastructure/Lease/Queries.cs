@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
-using static Lease.Microservice.Lease.ReadModels;
+using static Lease.Infrastructure.Lease.ReadModels;
 
-namespace Lease.Microservice.Lease
+
+namespace Lease.Infrastructure.Lease
 {
     public static class Queries
     {

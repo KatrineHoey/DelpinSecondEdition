@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Delpin.Framework;
 
-namespace Lease.Infrastructure
+namespace Lease.Infrastructure.Shared
 {
     public class EfCoreUnitOfWork : IUnitOfWork
     {

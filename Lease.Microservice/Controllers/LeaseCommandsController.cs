@@ -1,9 +1,11 @@
 using System.Threading.Tasks;
-using Lease.Infrastructure;
+
+using Lease.Infrastructure.Lease;
+using Lease.Infrastructure.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
-namespace Lease.Microservice.Lease
+namespace Lease.Microservice.Controllers
 {
     [Route("/lease")]
     public class LeaseCommandsController : Controller

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore.SqlServer;
 
 
-namespace Lease.Infrastructure
+namespace Lease.Infrastructure.Shared
 {
     public class LeaseDbContext : DbContext 
     {
