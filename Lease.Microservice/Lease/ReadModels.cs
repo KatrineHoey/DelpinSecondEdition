@@ -4,7 +4,7 @@ namespace Lease.Microservice.Lease
 {
     public static class ReadModels
     {
-        public class LeaseDetails
+        public class LeaseOrderDetails
         {
             public Guid LeaseId { get; set; }
 

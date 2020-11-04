@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Delpin.Framework;
 using Lease.Domain.Shared;
 using Lease.Domain;
-using static Lease.Microservice.Lease.Commands;
+using static Lease.Microservice.Lease.LeaseOrderCommands;
 
 namespace Lease.Microservice.Lease
 {

@@ -2,7 +2,7 @@ using System;
 
 namespace Lease.Microservice.Lease
 {
-    public static class Commands
+    public static class LeaseOrderCommands
     {
         public static class V1
         {
@@ -21,7 +21,6 @@ namespace Lease.Microservice.Lease
                 public bool IsDelivery { get; set; }
 
                 public bool IsPaid { get; set; }
-                
             }
 
             public class UpdateLeaseStreet

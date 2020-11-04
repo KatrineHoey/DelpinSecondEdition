@@ -6,59 +6,59 @@ using Serilog;
 namespace Lease.Microservice.Lease
 {
     [Route("/lease")]
-    public class LeaseCommandsApi : Controller
+    public class LeaseCommandsController : Controller
     {
         private readonly LeaseApplicationService _applicationService;
-        private static readonly ILogger Log = Serilog.Log.ForContext<LeaseCommandsApi>();
+        private static readonly ILogger Log = Serilog.Log.ForContext<LeaseCommandsController>();
 
-        public LeaseCommandsApi(LeaseApplicationService applicationService)
+        public LeaseCommandsController(LeaseApplicationService applicationService)
         {
             _applicationService = applicationService;
         }
 
         [HttpPost]
-        public Task<IActionResult> Post(Commands.V1.CreateLease request)
+        public Task<IActionResult> Post(LeaseOrderCommands.V1.CreateLease request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
         [Route("street")]
         [HttpPut]
-        public Task<IActionResult> Put(Commands.V1.UpdateLeaseStreet request)
+        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateLeaseStreet request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
         [Route("zipcode")]
         [HttpPut]
-        public Task<IActionResult> Put(Commands.V1.UpdateLeaseZipCode request)
+        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateLeaseZipCode request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
         [Route("city")]
         [HttpPut]
-        public Task<IActionResult> Put(Commands.V1.UpdateLeaseCity request)
+        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateLeaseCity request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
 
         [Route("datecreated")]
         [HttpPut]
-        public Task<IActionResult> Put(Commands.V1.UpdateDateCreated request)
+        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateDateCreated request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
         [Route("deletelease")]
         [HttpPut]
-        public Task<IActionResult> Put(Commands.V1.DeleteLease request)
+        public Task<IActionResult> Put(LeaseOrderCommands.V1.DeleteLease request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
         [Route("delivery")]
         [HttpPut]
-        public Task<IActionResult> Put(Commands.V1.UpdateIsDelivery request)
+        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateIsDelivery request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
         [Route("paid")]
         [HttpPut]
-        public Task<IActionResult> Put(Commands.V1.UpdateIsPaid request)
+        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateIsPaid request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
         
         [Route("price")]
         [HttpPut]
-        public Task<IActionResult> Put(Commands.V1.UpdateTotalPrice request)
+        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateTotalPrice request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
     }
