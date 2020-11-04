@@ -6,7 +6,7 @@ using Lease.Domain.Shared;
 
 namespace Lease.Domain
 {
-    public class Lease : AggregateRoot<LeaseId>
+    public class LeaseOrder : AggregateRoot<LeaseId>
     {
         // Properties to handle the persistence
         public Guid leaseId { get; private set; }
@@ -34,9 +34,9 @@ namespace Lease.Domain
         public LeaseState State { get; private set; }
 
 
-        public Lease(LeaseId leaseId, DateCreated dateCreated, IsDelivery isDelivery, IsPaid isPaid, Street street, ZipCode zipCode, City city)
+        public LeaseOrder(LeaseId leaseId, DateCreated dateCreated, IsDelivery isDelivery, IsPaid isPaid, Street street, ZipCode zipCode, City city)
         {
-            Apply(new Events.LeaseRegistered
+            Apply(new Events.CreateLeaseOrder
             {
                 LeaseId = leaseId,
                 DateCreated = dateCreated,
@@ -48,7 +48,7 @@ namespace Lease.Domain
             });
         }
 
-        protected Lease()
+        protected LeaseOrder()
         {
 
         }
@@ -132,7 +132,7 @@ namespace Lease.Domain
         {
             switch (@event)
             {
-                case Events.LeaseRegistered e:
+                case Events.CreateLeaseOrder e:
                     Id = new LeaseId(e.LeaseId);
 
                     DateCreated = new DateCreated(e.DateCreated);

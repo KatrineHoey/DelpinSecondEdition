@@ -18,8 +18,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-
-
 namespace Lease.Microservice
 {
     public class Startup
@@ -62,8 +60,6 @@ namespace Lease.Microservice
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

@@ -7,9 +7,9 @@ namespace Lease.Domain
 {
     public interface ILeaseRepository
     {
-        Task<Lease> Load(LeaseId id);
+        Task<LeaseOrder> Load(LeaseId id);
 
-        Task Add(Lease entity);
+        Task Add(LeaseOrder entity);
 
         Task<bool> Exists(LeaseId id);
     }

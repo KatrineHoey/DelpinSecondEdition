@@ -18,7 +18,7 @@ namespace Lease.Infrastructure
 
         }
 
-        public DbSet<Domain.Lease> Leases { get; set; }
+        public DbSet<Domain.LeaseOrder> Leases { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,9 +32,9 @@ namespace Lease.Infrastructure
         }
     }
 
-    public class LeaseEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Lease>
+    public class LeaseEntityTypeConfiguration : IEntityTypeConfiguration<Domain.LeaseOrder>
     {
-        public void Configure(EntityTypeBuilder<Domain.Lease> builder)
+        public void Configure(EntityTypeBuilder<Domain.LeaseOrder> builder)
         {
             builder.HasKey(x => x.leaseId);
             builder.OwnsOne(x => x.Id);

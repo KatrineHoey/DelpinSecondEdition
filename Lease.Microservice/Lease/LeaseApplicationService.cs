@@ -55,7 +55,7 @@ namespace Lease.Microservice.Lease
             if (await _repository.Exists(cmd.LeaseId.ToString()))
                 throw new InvalidOperationException($"Entity with id {cmd.LeaseId} already exists");
 
-            var lease = new Domain.Lease(
+            var lease = new LeaseOrder(
                     new LeaseId(cmd.LeaseId),
                     new DateCreated(cmd.DateCreated),
                     new IsDelivery(cmd.IsDelivery),
@@ -70,7 +70,7 @@ namespace Lease.Microservice.Lease
             await _unitOfWork.Commit();
         }
 
-        private async Task HandleUpdate(Guid leaseId,Action<Domain.Lease> operation)
+        private async Task HandleUpdate(Guid leaseId,Action<LeaseOrder> operation)
         {
             var lease = await _repository.Load(leaseId.ToString());
 

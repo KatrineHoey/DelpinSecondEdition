@@ -12,7 +12,7 @@ namespace Lease.Microservice.Lease
     {
         public static Task<LeaseOrderDetails> GetAllLease(this DbContext connection)
         {
-            return connection.Query<Domain.Lease>().AsNoTracking()
+            return connection.Query<Domain.LeaseOrder>().AsNoTracking()
                 .Select(x => new LeaseOrderDetails
                 {
                     Street = x.Street,
@@ -30,7 +30,7 @@ namespace Lease.Microservice.Lease
 
         public static Task<LeaseOrderDetails> GetLeaseById(this DbContext connection, QueryModels.GetLeaseOrderById query)
         {
-            return connection.Query<Domain.Lease>().AsNoTracking()
+            return connection.Query<Domain.LeaseOrder>().AsNoTracking()
                 .Where(x => x.leaseId == query.LeaseId)
                 .Select(x => new LeaseOrderDetails 
                 { 

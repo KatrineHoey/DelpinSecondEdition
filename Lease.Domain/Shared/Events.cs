@@ -6,7 +6,7 @@ namespace Lease.Domain
 {
     public static class Events
     {
-        public class LeaseRegistered
+        public class CreateLeaseOrder
         {
             public Guid LeaseId { get; set; }
 
@@ -62,42 +62,24 @@ namespace Lease.Domain
             public decimal TotalPrice { get; set; }
         }
 
-        //public class LeaseAdresseUpdated 
-        //{
-        //    public Guid LeaseId { get; set; }
-
-        //    public string Street { get; set; }
-
-        //    public int ZipCode { get; set; }
-
-        //    public string City { get; set; }
-        //}
-
         public class LeaseStreetUpdated
         {
             public Guid LeaseId { get; set; }
 
             public string Street { get; set; }
-
-            
         }
 
         public class LeaseZipCodeUpdated
         {
             public Guid LeaseId { get; set; }
 
-            
-
-            public int ZipCode { get; set; }
-
-            
+            public int ZipCode { get; set; }            
         }
 
         public class LeaseCityUpdated
         {
             public Guid LeaseId { get; set; }
 
-            
             public string City { get; set; }
         }
     }
