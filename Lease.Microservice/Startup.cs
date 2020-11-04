@@ -7,7 +7,6 @@ using Delpin.Framework;
 using Lease.Domain;
 using Lease.Infrastructure;
 using Lease.Microservice.Lease;
-using Marketplace.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
