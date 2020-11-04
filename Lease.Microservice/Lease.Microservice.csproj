@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Customer.Microservice\Customer.Microservice.csproj" />
     <ProjectReference Include="..\Lease.Domain\Lease.Domain.csproj" />
     <ProjectReference Include="..\Lease.Infrastructure\Lease.Infrastructure.csproj" />
   </ItemGroup>

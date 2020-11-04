@@ -19,12 +19,5 @@ namespace Marketplace.Infrastructure
             if (!context.Database.EnsureCreated())
                 context.Database.Migrate();
         }
-
-        public static IServiceCollection AddPostgresDbContext<T>(this IServiceCollection services, 
-            string connectionString) where T : DbContext
-        {
-            services.AddDbContext<T>(options => options.UseSqlServer(connectionString));
-            return services;
-        }
     }
 }
