@@ -1,0 +1,53 @@
+﻿@page "/customer/search"
+@inject HttpClient client
+
+<h3>Kunder</h3>
+
+<input type="text" @bind-value="@searchTerm" placeholder="Søg efter kunde" />
+<input type="button" value="Search" @onclick="@SearchCustomers" />
+
+@if (customerlist == null)
+{
+    <p><em></em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Navn</th>
+                <th>By</th>
+                <th>Tlf.</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in customerlist)
+            {
+                <tr>
+                    <td>@customer.CustomerId</td>
+                    <td>@customer.FullName</td>
+                    <td>@customer.City</td>
+                    <td>@customer.PhoneNo</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+
+@code {
+    private string searchTerm;
+    private int Page { get; set; } = 0;
+    private int PageSize { get; set; } = 10;
+
+    private List<CustomerDto.ActiveCustomerSearchListItem> customerlist;
+
+
+    async Task SearchCustomers()
+    {
+        customerlist = (await client.GetFromJsonAsync<List<CustomerDto.ActiveCustomerSearchListItem>>($"https://localhost:44311/customer/search?SearchTerm={searchTerm}&Page={Page}&PageSize={PageSize}")).ToList();
+    }
+}
