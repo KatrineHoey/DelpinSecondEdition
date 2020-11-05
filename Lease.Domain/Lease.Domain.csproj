@@ -8,8 +8,4 @@
     <ProjectReference Include="..\Delpin.Framework\Delpin.Framework.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="LeaseOrderLine\" />
-  </ItemGroup>
-
 </Project>

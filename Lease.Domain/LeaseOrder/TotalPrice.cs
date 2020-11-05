@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Lease.Domain
-{
+{ 
+
     public class TotalPrice : Value<TotalPrice>
     {
         public decimal Value { get; internal set; }

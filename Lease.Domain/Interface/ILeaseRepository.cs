@@ -1,9 +1,11 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lease.Domain
+
+namespace Lease.Domain.InterFace
 {
     public interface ILeaseRepository
     {

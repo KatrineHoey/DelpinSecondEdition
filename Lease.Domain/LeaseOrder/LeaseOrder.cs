@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Delpin.Framework;
+
 using Lease.Domain.Shared;
+using Lease.Domain.Shared.Events;
 
 namespace Lease.Domain
 {
@@ -36,7 +38,7 @@ namespace Lease.Domain
 
         public LeaseOrder(LeaseId leaseId, DateCreated dateCreated, IsDelivery isDelivery, IsPaid isPaid, Street street, ZipCode zipCode, City city)
         {
-            Apply(new Events.CreateLeaseOrder
+            Apply(new LeaseOrderEvents.CreateLeaseOrder
             {
                 LeaseId = leaseId,
                 DateCreated = dateCreated,
@@ -55,7 +57,7 @@ namespace Lease.Domain
 
         public void LeaseStreetUpdate(Street street)
         {
-            Apply(new Events.LeaseStreetUpdated
+            Apply(new LeaseOrderEvents.LeaseStreetUpdated
             {
                 LeaseId = leaseId,
                 Street = street
@@ -65,7 +67,7 @@ namespace Lease.Domain
 
         public void LeaseZipCodeUpdate(ZipCode zipCode)
         {
-            Apply(new Events.LeaseZipCodeUpdated
+            Apply(new LeaseOrderEvents.LeaseZipCodeUpdated
             {
                 LeaseId = leaseId,
                 ZipCode = zipCode
@@ -75,7 +77,7 @@ namespace Lease.Domain
 
         public void LeaseCityUpdate(City city)
         {
-            Apply(new Events.LeaseCityUpdated
+            Apply(new LeaseOrderEvents.LeaseCityUpdated
             {
                 LeaseId = leaseId,
                 City = city,
@@ -85,7 +87,7 @@ namespace Lease.Domain
 
         public void DateCreatedUpdated(DateCreated dateCreated)
         {
-            Apply(new Events.DateCreatedUpdated
+            Apply(new LeaseOrderEvents.DateCreatedUpdated
             {
                 LeaseId = leaseId,
                 DateCreated = dateCreated
@@ -94,7 +96,7 @@ namespace Lease.Domain
 
         public void LeaseDeleted(IsDeleted isDeleted)
         {
-            Apply(new Events.LeaseDeleted
+            Apply(new LeaseOrderEvents.LeaseDeleted
             {
                 LeaseId = leaseId,
                 IsDeleted = isDeleted
@@ -103,7 +105,7 @@ namespace Lease.Domain
 
         public void IsDeliveryUpdated(IsDelivery isDelivery)
         {
-            Apply(new Events.IsDeliveryUpdated
+            Apply(new LeaseOrderEvents.IsDeliveryUpdated
             {
                 LeaseId = leaseId,
                 IsDelivery = isDelivery
@@ -112,7 +114,7 @@ namespace Lease.Domain
 
         public void IsPaidUpdated(IsPaid isPaid)
         {
-            Apply(new Events.IsPaidUpdated
+            Apply(new LeaseOrderEvents.IsPaidUpdated
             {
                 LeaseId = leaseId,
                 IsPaid = isPaid
@@ -121,7 +123,7 @@ namespace Lease.Domain
 
         public void TotalPriceUpdated(TotalPrice totalPrice)
         {
-            Apply(new Events.TotalPriceUpdated
+            Apply(new LeaseOrderEvents.TotalPriceUpdated
             {
                 LeaseId = leaseId,
                 TotalPrice = totalPrice
@@ -132,7 +134,7 @@ namespace Lease.Domain
         {
             switch (@event)
             {
-                case Events.CreateLeaseOrder e:
+                case LeaseOrderEvents.CreateLeaseOrder e:
                     Id = new LeaseId(e.LeaseId);
 
                     DateCreated = new DateCreated(e.DateCreated);
@@ -145,42 +147,42 @@ namespace Lease.Domain
                     City = new City(e.City);
                     break;
 
-                case Events.LeaseStreetUpdated e:
+                case LeaseOrderEvents.LeaseStreetUpdated e:
                     Id = new LeaseId(e.LeaseId);
-                    Street = new Street(new Street(e.Street));
+                    Street = new Street(e.Street);
                     break;
 
-                case Events.LeaseZipCodeUpdated e:
+                case LeaseOrderEvents.LeaseZipCodeUpdated e:
                     Id = new LeaseId(e.LeaseId);
-                    ZipCode = new ZipCode(new ZipCode(e.ZipCode));
+                    ZipCode = new ZipCode(e.ZipCode);
                     break;
 
-                case Events.LeaseCityUpdated e:
+                case LeaseOrderEvents.LeaseCityUpdated e:
                     Id = new LeaseId(e.LeaseId);
-                    City = new City(new City(e.City));
+                    City = new City(e.City);
                     break;
 
-                case Events.DateCreatedUpdated e:
+                case LeaseOrderEvents.DateCreatedUpdated e:
                     Id = new LeaseId(e.LeaseId);
                     DateCreated = new DateCreated(e.DateCreated);
                     break;
 
-                case Events.LeaseDeleted e:
+                case LeaseOrderEvents.LeaseDeleted e:
                     Id = new LeaseId(e.LeaseId);
                     IsDeleted = new IsDeleted(e.IsDeleted);
                     break;
 
-                case Events.IsDeliveryUpdated e:
+                case LeaseOrderEvents.IsDeliveryUpdated e:
                     Id = new LeaseId(e.LeaseId);
                     IsDelivery = new IsDelivery(e.IsDelivery);
                     break;
 
-                case Events.IsPaidUpdated e:
+                case LeaseOrderEvents.IsPaidUpdated e:
                     Id = new LeaseId(e.LeaseId);
                     IsPaid = new IsPaid(e.IsPaid);
                     break;
 
-                case Events.TotalPriceUpdated e:
+                case LeaseOrderEvents.TotalPriceUpdated e:
                     Id = new LeaseId(e.LeaseId);
                     TotalPrice = new TotalPrice(e.TotalPrice);
                     break;

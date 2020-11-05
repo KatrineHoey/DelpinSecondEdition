@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Lease.Domain;
 using Lease.Infrastructure.Shared;
+using Lease.Domain.InterFace;
 
 namespace Lease.Infrastructure.Lease
 {

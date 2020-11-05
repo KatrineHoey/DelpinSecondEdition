@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lease.Domain
+namespace Lease.Domain.Shared.Events
 {
-    public static class Events
+    public static class LeaseOrderEvents
     {
         public class CreateLeaseOrder
         {

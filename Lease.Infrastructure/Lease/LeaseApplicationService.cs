@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Delpin.Framework;
 using Lease.Domain.Shared;
 using Lease.Domain;
+using Lease.Domain.InterFace;
 using static Lease.Infrastructure.Lease.LeaseOrderCommands;
 
 namespace Lease.Infrastructure.Lease
