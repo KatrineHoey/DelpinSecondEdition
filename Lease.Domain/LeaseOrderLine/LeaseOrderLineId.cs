@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lease.Domain.LeaseOrderLine
+namespace Lease.Domain
 {
     public class LeaseOrderLineId : Value<LeaseOrderLineId>
     {

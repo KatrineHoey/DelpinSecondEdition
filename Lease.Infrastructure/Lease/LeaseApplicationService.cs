@@ -53,7 +53,7 @@ namespace Lease.Infrastructure.Lease
       
         private async Task HandleCreate(V1.CreateLease cmd)
         {
-            if (await _repository.Exists(cmd.LeaseId.ToString()))
+            if (await _repository.LeaseOrderExists(cmd.LeaseId.ToString()))
                 throw new InvalidOperationException($"Entity with id {cmd.LeaseId} already exists");
 
             var lease = new LeaseOrder(
@@ -67,13 +67,13 @@ namespace Lease.Infrastructure.Lease
 
                 );
 
-            await _repository.Add(lease);
+            await _repository.AddLeaseOrder(lease);
             await _unitOfWork.Commit();
         }
 
         private async Task HandleUpdate(Guid leaseId,Action<LeaseOrder> operation)
         {
-            var lease = await _repository.Load(leaseId.ToString());
+            var lease = await _repository.LoadLeaseOrder(leaseId.ToString());
 
             if (lease == null)
                 throw new InvalidOperationException($"Entity with id {leaseId} cannot be found");

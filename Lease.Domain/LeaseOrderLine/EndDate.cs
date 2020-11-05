@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace Lease.Domain.LeaseOrderLine
+namespace Lease.Domain
 {
     public class EndDate : Value<EndDate>
     {

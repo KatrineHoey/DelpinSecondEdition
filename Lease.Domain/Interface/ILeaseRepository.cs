@@ -4,15 +4,22 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Lease.Domain.InterFace
 {
     public interface ILeaseRepository
     {
-        Task<LeaseOrder> Load(LeaseId id);
+        //LeaseOrder
+        Task<LeaseOrder> LoadLeaseOrder(LeaseId id);
 
-        Task Add(LeaseOrder entity);
+        Task AddLeaseOrder(LeaseOrder entity);
 
-        Task<bool> Exists(LeaseId id);
+        Task<bool> LeaseOrderExists(LeaseId id);
+
+        //LeaseOrderLine
+        Task<LeaseOrder> LoadLeaseOrderLine(LeaseOrderLineId id);
+
+        //Task AddLeaseOrderLine(LeaseOrderLine entity);
+
+        Task<bool> LeaseOrderLineExists(LeaseOrderLineId id);
     }
 }
