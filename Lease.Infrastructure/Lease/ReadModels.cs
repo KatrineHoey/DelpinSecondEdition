@@ -24,5 +24,24 @@ namespace Lease.Infrastructure.Lease
 
             public decimal TotalPrice { get; set; }
         }
+
+        public class LeaseOrderLineDetails
+        {
+            public Guid LeaseOrderLineId { get; set; }
+
+            public DateTime StartDate { get;  set; }
+
+            public DateTime EndDate { get;  set; }
+
+            public bool IsReturned { get;  set; }
+
+            public string RessourceName { get;  set; }
+
+            public decimal RessourcePrice { get;  set; }
+
+            public int Quantity { get;  set; }
+
+            public decimal LineTotalPrice { get;  set; }
+        }
     }
 }

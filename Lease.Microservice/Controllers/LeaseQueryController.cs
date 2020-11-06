@@ -21,6 +21,7 @@ namespace Lease.Microservice.Controllers
             _connection = connection;
         }
 
+        //LeaseOrder
         [HttpGet]
         public Task<IActionResult> GetAllLeaseOrder()
         {
@@ -33,5 +34,20 @@ namespace Lease.Microservice.Controllers
         {
             return RequestHandler.HandleQuery(() => _connection.GetLeaseById(request), _log);
         }
+
+        //LeaseOrderLine
+
+        //[HttpGet]
+        //public Task<IActionResult> GetAllLeaseOrderLine()
+        //{
+        //    return RequestHandler.HandleQuery(() => _connection.GetAllLeaseOrderLine(), _log);
+        //}
+
+
+        //[HttpGet("{LeaseOrderLineId}")]
+        //public Task<IActionResult> GetLeaseOrderLineById(QueryModels.GetLeaseOrderLineById request)
+        //{
+        //    return RequestHandler.HandleQuery(() => _connection.GetLeaseOrderLineById(request), _log);
+        //}
     }
 }

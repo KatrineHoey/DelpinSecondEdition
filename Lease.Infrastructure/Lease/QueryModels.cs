@@ -8,5 +8,10 @@ namespace Lease.Infrastructure.Lease
         {
             public Guid LeaseId { get; set; }
         }
+
+        public class GetLeaseOrderLineById
+        {
+            public Guid LeaseOrderLineId { get; set; }
+        }
     }
 }

@@ -9,7 +9,7 @@ using static Lease.Infrastructure.Lease.ReadModels;
 
 namespace Lease.Infrastructure.Lease
 {
-    public static class Queries
+    public static class LeaseOrderQueries
     {
         public static Task<LeaseOrderDetails> GetAllLease(this DbContext connection)
         {
@@ -47,5 +47,6 @@ namespace Lease.Infrastructure.Lease
                 })
                 .FirstOrDefaultAsync();
         }
+
     }
 }
