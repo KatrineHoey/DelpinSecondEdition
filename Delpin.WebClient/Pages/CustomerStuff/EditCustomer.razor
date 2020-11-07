@@ -1,0 +1,56 @@
+﻿
+@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+
+<h3>Ændre i kunde</h3>
+
+<CustomerForm ButtonText="Gem" Customer="@customer"
+              OnValidSubmit="@Edit" />
+@if (Isloading == true)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
+}
+
+@code {
+    [Parameter] public Guid CustomerId { get; set; }
+
+    CustomerDto.CustomerDetails customer = new CustomerDto.CustomerDetails();
+    bool Isloading = false;
+
+    protected async override Task OnParametersSetAsync()
+    {
+        customer = await http.GetFromJsonAsync<CustomerDto.CustomerDetails>($"customer?CustomerId={CustomerId}");
+    }
+
+    async Task Edit()
+    {
+        Isloading = true;
+        if (!string.IsNullOrWhiteSpace(customer.FullName))
+        {
+            try
+            {
+                var response = await http.PostAsJsonAsync($"customer?CustomerId={CustomerId}&FullName={customer.FullName}" +
+                    $"&PhoneNo={customer.PhoneNo}&Email={customer.Email}&CustomerType={customer.CustomerType}" +
+                    $"&Street={customer.Street}&ZipCode={customer.ZipCode}&City={customer.City}", customer);
+                if (response.IsSuccessStatusCode)
+                {
+
+                    await js.InvokeVoidAsync("alert", $"Kunden er nu oprettet!");
+                }
+                else
+                {
+                    await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+            }
+
+        }
+        Isloading = false;
+    }
+}

@@ -45,7 +45,9 @@ else
                     <td>@customer.FullName</td>
                     <td>@customer.City</td>
                     <td>@customer.PhoneNo</td>
-                    <td></td>
+                    <td>
+                        <button @onclick="@(() => ShowEditCustomer(customer.CustomerId))" class ="btn btn-primary float-right mr-3">Rediger</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -78,6 +80,14 @@ else
     {
         customerlist = (await client.GetFromJsonAsync<List<CustomerDto.ActiveCustomerSearchListItem>>($"customer/search?SearchTerm={SearchTerm}&Page={Page}&PageSize={PageSize}")).ToList();
 
+    }
+
+    private void ShowEditCustomer(Guid id)
+    {
+        var parameters = new ModalParameters();
+        parameters.Add(nameof(EditCustomer.CustomerId), id);
+
+        Modal.Show<EditCustomer>("", parameters);
     }
 
 }
