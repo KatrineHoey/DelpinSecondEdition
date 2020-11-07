@@ -1,22 +1,50 @@
 ﻿@page "/customer/create"
 @inject HttpClient http
 @inject NavigationManager uriHelper
+@inject IJSRuntime js
 
 <h3>Opret ny kunde</h3>
 
 <CustomerForm ButtonText="Opret ny kunde" Customer="@customer"
-      OnValidSubmit="@Create" />
+              OnValidSubmit="@Create" />
+@if (Isloading == true)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
+}
 
 @code {
     CustomerDto.CustomerDetails customer = new CustomerDto.CustomerDetails();
+    bool Isloading = false;
+
     async Task Create()
     {
+        Isloading = true;
         if (!string.IsNullOrWhiteSpace(customer.FullName))
         {
-            var id = Guid.NewGuid();
-            await http.PostAsJsonAsync($"customer?CustomerId={id}&FullName={customer.FullName}" +
-                $"&PhoneNo={customer.PhoneNo}&Email={customer.Email}&CustomerType={customer.CustomerType}" +
-                $"&Street={customer.Street}&ZipCode={customer.ZipCode}&City={customer.City}", customer);
+            try
+            {
+                var id = Guid.NewGuid();
+                var response = await http.PostAsJsonAsync($"customer?CustomerId={id}&FullName={customer.FullName}" +
+                    $"&PhoneNo={customer.PhoneNo}&Email={customer.Email}&CustomerType={customer.CustomerType}" +
+                    $"&Street={customer.Street}&ZipCode={customer.ZipCode}&City={customer.City}", customer);
+                if (response.IsSuccessStatusCode)
+                {
+
+                    await js.InvokeVoidAsync("alert", $"Kunden er nu oprettet!");
+                }
+                else
+                {
+                    await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+            }
+
         }
+        Isloading = false;
     }
 }
