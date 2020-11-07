@@ -29,8 +29,11 @@ namespace Delpin.WebClient
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<HttpClient>();      
+            services.AddScoped(sp =>
+            new HttpClient
+            {
+                BaseAddress = new Uri("https://localhost:44311/")
+            });
 
 
 

@@ -31,9 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resource.Domain", "Resource
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resource.Infrastructure", "Resource.Infrastructure\Resource.Infrastructure.csproj", "{EA4A81B3-8946-46B3-8DB8-8450FC957C20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delpin.Shared", "Delpin.Shared\Delpin.Shared.csproj", "{03B24B52-DA87-4C05-8C7A-2398CEAD34D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delpin.Shared", "Delpin.Shared\Delpin.Shared.csproj", "{03B24B52-DA87-4C05-8C7A-2398CEAD34D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delpin.WebClient", "Delpin.WebClient\Delpin.WebClient.csproj", "{9D5A1ACE-54B9-414A-B0CD-C703ACFF9058}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delpin.WebClient", "Delpin.WebClient\Delpin.WebClient.csproj", "{9D5A1ACE-54B9-414A-B0CD-C703ACFF9058}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

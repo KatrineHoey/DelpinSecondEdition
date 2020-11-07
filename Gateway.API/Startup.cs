@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
 namespace Gateway.API
 {
@@ -16,6 +18,8 @@ namespace Gateway.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add this reference for use Ocelot
+            services.AddOcelot();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +39,9 @@ namespace Gateway.API
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
+
+            // Add this reference for use Ocelot
+            app.UseOcelot().Wait();
         }
     }
 }

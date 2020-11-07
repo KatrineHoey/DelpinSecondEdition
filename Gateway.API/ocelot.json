@@ -1,0 +1,30 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/customer/search?SearchTerm={SearchTerm}&Page={Page}&PageSize={PageSize}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44311
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/customer/search?SearchTerm={SearchTerm}&Page={Page}&PageSize={PageSize}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+
+    {
+      "DownstreamPathTemplate": "/customer/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44311
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/customer/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE", "PUT", "POST" ]
+    }
+  ]
+}

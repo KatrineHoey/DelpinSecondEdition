@@ -27,6 +27,8 @@ else
                 <th>Navn</th>
                 <th>By</th>
                 <th>Tlf.</th>
+                <th> </th>
+                <th> </th>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +39,7 @@ else
                     <td>@customer.FullName</td>
                     <td>@customer.City</td>
                     <td>@customer.PhoneNo</td>
+                    <td></td>
                 </tr>
             }
         </tbody>
@@ -67,7 +70,7 @@ else
 
     async Task SearchCustomers()
     {
-        customerlist = (await client.GetFromJsonAsync<List<CustomerDto.ActiveCustomerSearchListItem>>($"https://localhost:44311/customer/search?SearchTerm={SearchTerm}&Page={Page}&PageSize={PageSize}")).ToList();
+        customerlist = (await client.GetFromJsonAsync<List<CustomerDto.ActiveCustomerSearchListItem>>($"customer/search?SearchTerm={SearchTerm}&Page={Page}&PageSize={PageSize}")).ToList();
 
     }
 
