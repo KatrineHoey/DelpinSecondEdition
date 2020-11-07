@@ -1,6 +1,7 @@
 ﻿@page "/customer/search"
 @inject HttpClient client
 @inject IModalService Modal
+@inject IJSRuntime js
 
 <section>
     <h3>Kunder</h3>
@@ -46,7 +47,10 @@ else
                     <td>@customer.City</td>
                     <td>@customer.PhoneNo</td>
                     <td>
-                        <button @onclick="@(() => ShowEditCustomer(customer.CustomerId))" class ="btn btn-primary float-right mr-3">Rediger</button>
+                        <button @onclick="@(() => ShowEditCustomer(customer.CustomerId))" class="btn btn-primary float-right mr-3">Rediger</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(customer))">Slet</button>
                     </td>
                 </tr>
             }
@@ -88,6 +92,15 @@ else
         parameters.Add(nameof(EditCustomer.CustomerId), id);
 
         Modal.Show<EditCustomer>("", parameters);
+    }
+
+    async Task Delete(CustomerDto.ActiveCustomerSearchListItem customer)
+    {
+        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {customer.FullName}?"))
+        {
+            await client.DeleteAsync($"customer?CustomerId={customer.CustomerId}&IsDeleted={true}");
+            await SearchCustomers();
+        }
     }
 
 }
