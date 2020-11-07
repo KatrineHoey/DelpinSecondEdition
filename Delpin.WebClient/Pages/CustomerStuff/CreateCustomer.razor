@@ -1,0 +1,22 @@
+﻿@page "/customer/create"
+@inject HttpClient http
+@inject NavigationManager uriHelper
+
+<h3>Opret ny kunde</h3>
+
+<CustomerForm ButtonText="Opret ny kunde" Customer="@customer"
+      OnValidSubmit="@Create" />
+
+@code {
+    CustomerDto.CustomerDetails customer = new CustomerDto.CustomerDetails();
+    async Task Create()
+    {
+        if (!string.IsNullOrWhiteSpace(customer.FullName))
+        {
+            var id = Guid.NewGuid();
+            await http.PostAsJsonAsync($"customer?CustomerId={id}&FullName={customer.FullName}" +
+                $"&PhoneNo={customer.PhoneNo}&Email={customer.Email}&CustomerType={customer.CustomerType}" +
+                $"&Street={customer.Street}&ZipCode={customer.ZipCode}&City={customer.City}", customer);
+        }
+    }
+}
