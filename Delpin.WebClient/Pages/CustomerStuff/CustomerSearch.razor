@@ -3,8 +3,12 @@
 
 <h3>Kunder</h3>
 
-<input type="text" @bind-value="@searchTerm" placeholder="Søg efter kunde" />
-<input type="button" value="Search" @onclick="@SearchCustomers" />
+<section class="form-inline active-cyan-4">
+    <i class="fas fa-search text-info" aria-hidden="true"></i>
+    <input @bind-value="@SearchTerm" @bind-value:event="oninput" @onkeyup="Search" class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search">
+</section>
+
+
 
 @if (customerlist == null)
 {
@@ -39,15 +43,24 @@ else
 
 
 @code {
-    private string searchTerm;
+    string SearchTerm { get; set; } = "";
     private int Page { get; set; } = 0;
     private int PageSize { get; set; } = 10;
-
     private List<CustomerDto.ActiveCustomerSearchListItem> customerlist;
 
 
+
+    private async Task Search(KeyboardEventArgs eventArgs)
+    {
+        if (eventArgs.Key == "Enter") // fire on enter
+        {
+            await SearchCustomers();
+        }
+    }
+
     async Task SearchCustomers()
     {
-        customerlist = (await client.GetFromJsonAsync<List<CustomerDto.ActiveCustomerSearchListItem>>($"https://localhost:44311/customer/search?SearchTerm={searchTerm}&Page={Page}&PageSize={PageSize}")).ToList();
+        customerlist = (await client.GetFromJsonAsync<List<CustomerDto.ActiveCustomerSearchListItem>>($"https://localhost:44311/customer/search?SearchTerm={SearchTerm}&Page={Page}&PageSize={PageSize}")).ToList();
     }
+
 }
