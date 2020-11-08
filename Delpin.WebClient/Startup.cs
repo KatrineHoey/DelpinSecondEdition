@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Delpin.WebClient.Data;
 using System.Net.Http;
-using Blazored.Modal;
+using Blazor.ModalDialog;
 
 namespace Delpin.WebClient
 {
@@ -38,7 +38,7 @@ namespace Delpin.WebClient
                 BaseAddress = new Uri("https://localhost:44311/")
             });
 
-            services.AddBlazoredModal();
+            services.AddModalDialog();
 
         }
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

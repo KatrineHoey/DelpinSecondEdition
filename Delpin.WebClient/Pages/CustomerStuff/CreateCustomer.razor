@@ -2,6 +2,7 @@
 @inject HttpClient http
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
+@inject IModalDialogService ModalDialogService
 
 <h3>Opret ny kunde</h3>
 
@@ -13,7 +14,7 @@
 }
 
 @code {
-    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
+    //[CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
     CustomerDto.CustomerDetails customer = new CustomerDto.CustomerDetails();
     bool Isloading = false;
 
@@ -32,7 +33,10 @@
                 {
 
                     await js.InvokeVoidAsync("alert", $"Kunden er nu oprettet!");
-                    await BlazoredModal.Close(ModalResult.Ok<CustomerDto.CustomerDetails>(customer));
+
+                    ModalDialogParameters returnParameters = new ModalDialogParameters();
+                    returnParameters.Add("PhoneNo", customer.PhoneNo.ToString());
+                    ModalDialogService.Close(true, returnParameters);
                 }
                 else
                 {

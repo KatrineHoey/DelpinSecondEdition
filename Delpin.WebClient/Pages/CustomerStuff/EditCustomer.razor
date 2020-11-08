@@ -1,7 +1,7 @@
-﻿
-@inject HttpClient http
+﻿@inject HttpClient http
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
+@inject IModalDialogService ModalDialogService
 
 <h3>Ændre i kunde</h3>
 
@@ -16,7 +16,6 @@
 
 @code {
     [Parameter] public Guid CustomerId { get; set; }
-    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
 
     CustomerDto.CustomerDetails customer = new CustomerDto.CustomerDetails();
     bool Isloading = false;
@@ -56,8 +55,11 @@
                 if (everythingWentGood == true)
                 {
 
-                    await js.InvokeVoidAsync("alert", $"Kunden er nu oprettet!");
-                    await BlazoredModal.Close(ModalResult.Ok<CustomerDto.CustomerDetails>(customer));
+                    await js.InvokeVoidAsync("alert", $"Kunden er nu opdateret!");
+
+                    ModalDialogParameters returnParameters = new ModalDialogParameters();
+                    returnParameters.Add("PhoneNo", customer.PhoneNo.ToString());
+                    ModalDialogService.Close(true, returnParameters);
                 }
                 else
                 {

@@ -1,38 +1,39 @@
 ﻿<EditForm Model="@Customer" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
-    <div class="form-group">
-        <label>Navn:</label>
-        <div>
-            <InputText @bind-Value="@Customer.FullName" />
+    <div class="simple-form ">
+        
+        <div class="form-group">
+            <label>Navn:</label>
+            <InputText @bind-Value="@Customer.FullName" class="form-control" />
             <ValidationMessage For="@(() => Customer.FullName)" />
-        </div>
-        <label>Mobilnr.:</label>
-        <div>
-            <InputNumber @bind-Value="@Customer.PhoneNo" />
+        </div>        
+        <div class="form-group">
+            <label>Mobilnr.:</label>
+            <InputNumber @bind-Value="@Customer.PhoneNo" class="form-control" />
             <ValidationMessage For="@(() => Customer.PhoneNo)" />
-        </div>
-        <label>E-mail:</label>
-        <div>
-            <InputText @bind-Value="@Customer.Email" />
+        </div>        
+        <div class="form-group">
+            <label>E-mail:</label>
+            <InputText @bind-Value="@Customer.Email" class="form-control" />
             <ValidationMessage For="@(() => Customer.Email)" />
-        </div>
-        <label>Vej og number:</label>
-        <div>
-            <InputText @bind-Value="@Customer.Street" />
+        </div>       
+        <div class="form-group">
+            <label>Vej og number:</label>
+            <InputText @bind-Value="@Customer.Street" class="form-control"/>
             <ValidationMessage For="@(() => Customer.Street)" />
-        </div>
-        <label>Postnummer:</label>
-        <div>
-            <InputNumber @bind-Value="@Customer.ZipCode" />
+        </div>       
+        <div class="form-group">
+            <label>Postnummer:</label>
+            <InputNumber @bind-Value="@Customer.ZipCode" class="form-control"/>
             <ValidationMessage For="@(() => Customer.ZipCode)" />
-        </div>
-        <label>By:</label>
-        <div>
-            <InputText @bind-Value="@Customer.City" />
+        </div>       
+        <div class="form-group">
+            <label>By:</label>
+            <InputText @bind-Value="@Customer.City" class="form-control"/>
             <ValidationMessage For="@(() => Customer.City)" />
-        </div>
-        <label>Kundetype:</label>
-        <div>
+        </div>        
+        <div class="form-group">
+            <label>Kundetype:</label>
             @foreach (var choice in new[] { CustomerTypeEnum.Erhverv, CustomerTypeEnum.Privat })
             {
                 <label>
@@ -40,6 +41,7 @@
                            value="@choice"
                            checked="@(Customer.CustomerType == choice)"
                            @onchange="@(() => { Customer.CustomerType = choice; })">
+                    <ValidationMessage For="@(() => Customer.CustomerType)" />
                     @choice.ToString()
                 </label>
             }
