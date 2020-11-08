@@ -1,10 +1,25 @@
 ﻿@page "/customer/search"
 @inject HttpClient client
+@inject IModalService Modal
+@inject IJSRuntime js
 
-<h3>Kunder</h3>
+<section>
+    <h3>Kunder</h3>
 
-<input type="text" @bind-value="@searchTerm" placeholder="Søg efter kunde" />
-<input type="button" value="Search" @onclick="@SearchCustomers" />
+    <button @onclick="@(() => Modal.Show<CreateCustomer>())" class="btn btn-primary float-right mr-3">Opret ny kunde</button>
+
+</section>
+
+<section class="form-inline active-cyan-4 mb-3">
+    <i class="fas fa-search mr-2 myicons" aria-hidden="true"></i>
+    <input @bind-value="@SearchTerm" @bind-value:event="oninput" @onkeyup="Search" class="form-control mr-3 w-75 display-1" type="text" placeholder="Search" aria-label="Search">
+    @if (Isloading == true)
+    {
+        <i class="fa fa-circle-o-notch fa-spin myicons" aria-hidden="true"></i>
+    }
+</section>
+
+
 
 @if (customerlist == null)
 {
@@ -19,6 +34,8 @@ else
                 <th>Navn</th>
                 <th>By</th>
                 <th>Tlf.</th>
+                <th> </th>
+                <th> </th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +46,12 @@ else
                     <td>@customer.FullName</td>
                     <td>@customer.City</td>
                     <td>@customer.PhoneNo</td>
+                    <td>
+                        <button @onclick="@(() => ShowEditCustomer(customer.CustomerId))" class="btn btn-primary float-right mr-3">Rediger</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(customer))">Slet</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -39,15 +62,45 @@ else
 
 
 @code {
-    private string searchTerm;
+    string SearchTerm { get; set; } = "";
     private int Page { get; set; } = 0;
     private int PageSize { get; set; } = 10;
-
     private List<CustomerDto.ActiveCustomerSearchListItem> customerlist;
+    bool Isloading = false;
 
+
+
+    private async Task Search(KeyboardEventArgs eventArgs)
+    {
+        if (eventArgs.Key == "Enter") // fire on enter
+        {
+            Isloading = true;
+            await SearchCustomers();
+            Isloading = false;
+        }
+    }
 
     async Task SearchCustomers()
     {
-        customerlist = (await client.GetFromJsonAsync<List<CustomerDto.ActiveCustomerSearchListItem>>($"https://localhost:44311/customer/search?SearchTerm={searchTerm}&Page={Page}&PageSize={PageSize}")).ToList();
+        customerlist = (await client.GetFromJsonAsync<List<CustomerDto.ActiveCustomerSearchListItem>>($"customer/search?SearchTerm={SearchTerm}&Page={Page}&PageSize={PageSize}")).ToList();
+
     }
+
+    private void ShowEditCustomer(Guid id)
+    {
+        var parameters = new ModalParameters();
+        parameters.Add(nameof(EditCustomer.CustomerId), id);
+
+        Modal.Show<EditCustomer>("", parameters);
+    }
+
+    async Task Delete(CustomerDto.ActiveCustomerSearchListItem customer)
+    {
+        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {customer.FullName}?"))
+        {
+            await client.DeleteAsync($"customer?CustomerId={customer.CustomerId}&IsDeleted={true}");
+            await SearchCustomers();
+        }
+    }
+
 }
