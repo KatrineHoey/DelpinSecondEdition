@@ -13,6 +13,7 @@
 }
 
 @code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
     CustomerDto.CustomerDetails customer = new CustomerDto.CustomerDetails();
     bool Isloading = false;
 
@@ -31,6 +32,7 @@
                 {
 
                     await js.InvokeVoidAsync("alert", $"Kunden er nu oprettet!");
+                    await BlazoredModal.Close(ModalResult.Ok<CustomerDto.CustomerDetails>(customer));
                 }
                 else
                 {

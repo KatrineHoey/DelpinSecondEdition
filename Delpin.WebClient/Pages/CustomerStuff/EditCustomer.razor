@@ -16,6 +16,7 @@
 
 @code {
     [Parameter] public Guid CustomerId { get; set; }
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
 
     CustomerDto.CustomerDetails customer = new CustomerDto.CustomerDetails();
     bool Isloading = false;
@@ -24,7 +25,7 @@
     protected async override Task OnParametersSetAsync()
     {
         customer = await http.GetFromJsonAsync<CustomerDto.CustomerDetails>($"customer?CustomerId={CustomerId}");
-       
+
     }
 
     async Task Edit()
@@ -56,6 +57,7 @@
                 {
 
                     await js.InvokeVoidAsync("alert", $"Kunden er nu oprettet!");
+                    await BlazoredModal.Close(ModalResult.Ok<CustomerDto.CustomerDetails>(customer));
                 }
                 else
                 {
