@@ -57,7 +57,7 @@ namespace Lease.Infrastructure.Lease
                 throw new InvalidOperationException($"Entity with id {cmd.LeaseId} already exists");
 
             var lease = new LeaseOrder(
-                    new LeaseId(cmd.LeaseId),
+                    new LeaseOrderId(cmd.LeaseId),
                     new DateCreated(cmd.DateCreated),
                     new IsDelivery(cmd.IsDelivery),
                     new IsPaid(cmd.IsPaid),

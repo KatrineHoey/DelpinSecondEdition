@@ -1,0 +1,83 @@
+﻿
+@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+
+<h3>Ændre i kunde</h3>
+
+<CustomerForm ButtonText="Gem" Customer="@customer"
+              OnValidSubmit="@Edit" />
+@if (Isloading == true)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
+}
+
+
+
+@code {
+    [Parameter] public Guid CustomerId { get; set; }
+
+    CustomerDto.CustomerDetails customer = new CustomerDto.CustomerDetails();
+    bool Isloading = false;
+    bool everythingWentGood = true;
+
+    protected async override Task OnParametersSetAsync()
+    {
+        customer = await http.GetFromJsonAsync<CustomerDto.CustomerDetails>($"customer?CustomerId={CustomerId}");
+       
+    }
+
+    async Task Edit()
+    {
+        Isloading = true;
+        if (!string.IsNullOrWhiteSpace(customer.FullName))
+        {
+            try
+            {
+                HttpResponseMessage response = null;
+                response = await http.PutAsJsonAsync($"customer/fullname?CustomerId={CustomerId}&FullName={customer.FullName}", customer);
+                CheckIfFailed(response);
+
+
+                response = await http.PutAsJsonAsync($"customer/phone?CustomerId={CustomerId}&PhoneNo={customer.PhoneNo}", customer);
+                CheckIfFailed(response);
+
+                response = await http.PutAsJsonAsync($"customer/email?CustomerId={CustomerId}&Email={customer.Email}", customer);
+                CheckIfFailed(response);
+
+                response = await http.PutAsJsonAsync($"customer/adresse?CustomerId={CustomerId}&Street={customer.Street}&ZipCode={customer.ZipCode}&City={customer.City}", customer);
+                CheckIfFailed(response);
+
+                response = await http.PutAsJsonAsync($"customer/customertype?CustomerId={CustomerId}&CustomerType={customer.CustomerType}", customer);
+                CheckIfFailed(response);
+
+
+                if (everythingWentGood == true)
+                {
+
+                    await js.InvokeVoidAsync("alert", $"Kunden er nu oprettet!");
+                }
+                else
+                {
+                    await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+            }
+
+        }
+        Isloading = false;
+    }
+
+    private void CheckIfFailed(HttpResponseMessage response)
+    {
+        if (!response.IsSuccessStatusCode)
+        {
+            everythingWentGood = false;
+        }
+    }
+}

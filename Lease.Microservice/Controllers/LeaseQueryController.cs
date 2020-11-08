@@ -23,14 +23,14 @@ namespace Lease.Microservice.Controllers
 
         //LeaseOrder
         [HttpGet]
-        public Task<IActionResult> GetAllLeaseOrder()
+        public Task<IActionResult> Get()
         {
             return RequestHandler.HandleQuery(() => _connection.GetAllLease(), _log);
         }
 
 
         [HttpGet("{LeaseId}")]
-        public Task<IActionResult> GetLeaseOrderById(QueryModels.GetLeaseOrderById request)
+        public Task<IActionResult> Get(QueryModels.GetLeaseOrderById request)
         {
             return RequestHandler.HandleQuery(() => _connection.GetLeaseById(request), _log);
         }
