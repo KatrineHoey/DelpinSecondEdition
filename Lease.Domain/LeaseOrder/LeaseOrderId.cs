@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Lease.Domain
 {
-    public class LeaseId : Value<LeaseId>
+    public class LeaseOrderId : Value<LeaseOrderId>
     {
         public Guid Value { get; internal set; }
 
-        protected LeaseId() { }
+        protected LeaseOrderId() { }
 
-        public LeaseId(Guid value)
+        public LeaseOrderId(Guid value)
         {
             if (value == default) 
             
@@ -20,9 +20,9 @@ namespace Lease.Domain
                 Value = value;
         }
 
-        public static implicit operator Guid(LeaseId self) => self.Value;
+        public static implicit operator Guid(LeaseOrderId self) => self.Value;
 
-        public static implicit operator LeaseId(string value) => new LeaseId(Guid.Parse(value));
+        public static implicit operator LeaseOrderId(string value) => new LeaseOrderId(Guid.Parse(value));
 
         public override string ToString() => Value.ToString();
     }

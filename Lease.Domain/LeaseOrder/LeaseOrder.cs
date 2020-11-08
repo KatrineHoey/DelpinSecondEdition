@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Delpin.Framework;
 
@@ -8,12 +9,14 @@ using Lease.Domain.Shared.Events;
 
 namespace Lease.Domain
 {
-    public class LeaseOrder : AggregateRoot<LeaseId>
+    public class LeaseOrder : AggregateRoot<LeaseOrderId>
     {
         // Properties to handle the persistence
         public Guid leaseId { get; private set; }
 
-        
+        protected LeaseOrder() { }
+
+
         // Aggregate state properties
 
         public DateCreated DateCreated { get; private set; }
@@ -32,12 +35,15 @@ namespace Lease.Domain
 
         public City City { get; private set; }
 
+        public List<LeaseOrderLine> LeaseOrderLines { get; }
+
 
         public LeaseState State { get; private set; }
 
 
-        public LeaseOrder(LeaseId leaseId, DateCreated dateCreated, IsDelivery isDelivery, IsPaid isPaid, Street street, ZipCode zipCode, City city)
+        public LeaseOrder(LeaseOrderId leaseId, DateCreated dateCreated, IsDelivery isDelivery, IsPaid isPaid, Street street, ZipCode zipCode, City city)
         {
+            LeaseOrderLines = new List<LeaseOrderLine>();
             Apply(new LeaseOrderEvents.CreateLeaseOrder
             {
                 LeaseId = leaseId,
@@ -47,12 +53,8 @@ namespace Lease.Domain
                 Street = street,
                 ZipCode = zipCode,
                 City = city
+                
             });
-        }
-
-        protected LeaseOrder()
-        {
-
         }
 
         public void LeaseStreetUpdate(Street street)
@@ -130,12 +132,31 @@ namespace Lease.Domain
             });
         }
 
+        public void AddLeaseOrderLine(LeaseOrderLine leaseOrderLine)
+        {
+            Apply(new LeaseOrderEvents.LeaseOrderLineAddedToLeaseOrder
+            {
+                LeaseOrderLineId = new Guid(),
+                LeaseOrderId = Id,
+                StartDate = leaseOrderLine.StartDate,
+                EndDate = leaseOrderLine.EndDate,
+                IsReturned = leaseOrderLine.IsReturned,
+                RessourceName = leaseOrderLine.RessourceName,
+                RessourcePrice = leaseOrderLine.RessourcePrice,
+                Quantity = leaseOrderLine.Quantity,
+                LineTotalPrice = leaseOrderLine.LineTotalPrice
+            });
+
+        }
+
         protected override void When(object @event)
         {
+            LeaseOrderLine leaseOrderLine;
+
             switch (@event)
             {
                 case LeaseOrderEvents.CreateLeaseOrder e:
-                    Id = new LeaseId(e.LeaseId);
+                    Id = new LeaseOrderId(e.LeaseId);
 
                     DateCreated = new DateCreated(e.DateCreated);
                     IsDeleted = new IsDeleted(e.IsDeleted);
@@ -148,45 +169,51 @@ namespace Lease.Domain
                     break;
 
                 case LeaseOrderEvents.LeaseStreetUpdated e:
-                    Id = new LeaseId(e.LeaseId);
+                    Id = new LeaseOrderId(e.LeaseId);
                     Street = new Street(e.Street);
                     break;
 
                 case LeaseOrderEvents.LeaseZipCodeUpdated e:
-                    Id = new LeaseId(e.LeaseId);
+                    Id = new LeaseOrderId(e.LeaseId);
                     ZipCode = new ZipCode(e.ZipCode);
                     break;
 
                 case LeaseOrderEvents.LeaseCityUpdated e:
-                    Id = new LeaseId(e.LeaseId);
+                    Id = new LeaseOrderId(e.LeaseId);
                     City = new City(e.City);
                     break;
 
                 case LeaseOrderEvents.DateCreatedUpdated e:
-                    Id = new LeaseId(e.LeaseId);
+                    Id = new LeaseOrderId(e.LeaseId);
                     DateCreated = new DateCreated(e.DateCreated);
                     break;
 
                 case LeaseOrderEvents.LeaseDeleted e:
-                    Id = new LeaseId(e.LeaseId);
+                    Id = new LeaseOrderId(e.LeaseId);
                     IsDeleted = new IsDeleted(e.IsDeleted);
                     break;
 
                 case LeaseOrderEvents.IsDeliveryUpdated e:
-                    Id = new LeaseId(e.LeaseId);
+                    Id = new LeaseOrderId(e.LeaseId);
                     IsDelivery = new IsDelivery(e.IsDelivery);
                     break;
 
                 case LeaseOrderEvents.IsPaidUpdated e:
-                    Id = new LeaseId(e.LeaseId);
+                    Id = new LeaseOrderId(e.LeaseId);
                     IsPaid = new IsPaid(e.IsPaid);
                     break;
 
                 case LeaseOrderEvents.TotalPriceUpdated e:
-                    Id = new LeaseId(e.LeaseId);
+                    Id = new LeaseOrderId(e.LeaseId);
                     TotalPrice = new TotalPrice(e.TotalPrice);
                     break;
 
+                // LeaseOrderLine
+                case LeaseOrderEvents.LeaseOrderLineAddedToLeaseOrder e:
+                    leaseOrderLine = new LeaseOrderLine(Apply);
+                    ApplyToEntity(leaseOrderLine, e);
+                    LeaseOrderLines.Add(leaseOrderLine);
+                    break;
             }
         }
 

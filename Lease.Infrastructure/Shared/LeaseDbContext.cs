@@ -19,7 +19,7 @@ namespace Lease.Infrastructure.Shared
 
         public DbSet<Domain.LeaseOrder> Leases { get; set; }
 
-        public DbSet<Domain.LeaseOrderLine> LeaseOrderLines { get; set; }
+        //public DbSet<Domain.LeaseOrderLine> LeaseOrderLines { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -55,8 +55,9 @@ namespace Lease.Infrastructure.Shared
     {
         public void Configure(EntityTypeBuilder<Domain.LeaseOrderLine> builder)
         {
-            builder.HasKey(x => x.leaseOrderLineId);
+            builder.HasKey(x => x.LeaseOrderLineId);
             builder.OwnsOne(x => x.Id);
+            builder.OwnsOne(x => x.ParentId);
             builder.OwnsOne(x => x.StartDate);
             builder.OwnsOne(x => x.EndDate);
             builder.OwnsOne(x => x.IsReturned);
