@@ -16,10 +16,10 @@ namespace Lease.Domain.InterFace
         Task<bool> LeaseOrderExists(LeaseOrderId id);
 
         ////LeaseOrderLine
-        //Task<LeaseOrderLine> LoadLeaseOrderLine(LeaseOrderLineId id);
+        Task<LeaseOrderLine> LoadLeaseOrderLine(LeaseOrderLineId id);
 
-        //Task AddLeaseOrderLine(LeaseOrderLine entity);
+        Task AddLeaseOrderLine(LeaseOrderLine entity);
 
-        //Task<bool> LeaseOrderLineExists(LeaseOrderLineId id);
+        Task<bool> LeaseOrderLineExists(LeaseOrderLineId id);
     }
 }

@@ -9,7 +9,7 @@ namespace Lease.Domain
     {
         public int Value { get; internal set; }
 
-        internal Quantity(int quantity)
+        public Quantity(int quantity)
         {
             if (quantity <= 0)
                 throw new ArgumentNullException(

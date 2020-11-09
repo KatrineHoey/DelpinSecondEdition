@@ -26,11 +26,32 @@ namespace Lease.Domain
 
         //public override string ToString() => Value.ToString();
 
+
+
+        //GammeltWin
         public LeaseOrderLineId(Guid value) => Value = value;
 
         public Guid Value { get; }
 
         protected LeaseOrderLineId() { }
+
+        public static implicit operator Guid(LeaseOrderLineId self) => self.Value;
+
+        public static implicit operator LeaseOrderLineId(string value) => new LeaseOrderLineId(Guid.Parse(value));
+
+        public override string ToString() => Value.ToString();
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }

@@ -132,22 +132,22 @@ namespace Lease.Domain
             });
         }
 
-        public void AddLeaseOrderLine(LeaseOrderLine leaseOrderLine)
-        {
-            Apply(new LeaseOrderEvents.LeaseOrderLineAddedToLeaseOrder
-            {
-                LeaseOrderLineId = new Guid(),
-                LeaseOrderId = Id,
-                StartDate = leaseOrderLine.StartDate,
-                EndDate = leaseOrderLine.EndDate,
-                IsReturned = leaseOrderLine.IsReturned,
-                RessourceName = leaseOrderLine.RessourceName,
-                RessourcePrice = leaseOrderLine.RessourcePrice,
-                Quantity = leaseOrderLine.Quantity,
-                LineTotalPrice = leaseOrderLine.LineTotalPrice
-            });
+        //public void AddLeaseOrderLine(LeaseOrderLine leaseOrderLine)
+        //{
+        //    Apply(new LeaseOrderEvents.LeaseOrderLineAddedToLeaseOrder
+        //    {
+        //        LeaseOrderLineId = new Guid(),
+        //        LeaseOrderId = Id,
+        //        StartDate = leaseOrderLine.StartDate,
+        //        EndDate = leaseOrderLine.EndDate,
+        //        IsReturned = leaseOrderLine.IsReturned,
+        //        RessourceName = leaseOrderLine.RessourceName,
+        //        RessourcePrice = leaseOrderLine.RessourcePrice,
+        //        Quantity = leaseOrderLine.Quantity,
+        //        //LineTotalPrice = leaseOrderLine.LineTotalPrice
+        //    });
 
-        }
+        //}
 
         protected override void When(object @event)
         {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lease.Infrastructure.Migrations
 {
-    public partial class firstMigration : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,10 +29,11 @@ namespace Lease.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LeaseOrderLine",
+                name: "LeaseOrderLines",
                 columns: table => new
                 {
                     LeaseOrderLineId = table.Column<Guid>(nullable: false),
+                    Id_Value = table.Column<Guid>(nullable: true),
                     StartDate_Value = table.Column<DateTime>(nullable: true),
                     EndDate_Value = table.Column<DateTime>(nullable: true),
                     IsReturned_Value = table.Column<bool>(nullable: true),
@@ -41,14 +42,13 @@ namespace Lease.Infrastructure.Migrations
                     Quantity_Value = table.Column<int>(nullable: true),
                     LineTotalPrice_Value = table.Column<decimal>(nullable: true),
                     ParentId_Value = table.Column<Guid>(nullable: true),
-                    Order = table.Column<int>(nullable: false),
                     LeaseOrderleaseId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LeaseOrderLine", x => x.LeaseOrderLineId);
+                    table.PrimaryKey("PK_LeaseOrderLines", x => x.LeaseOrderLineId);
                     table.ForeignKey(
-                        name: "FK_LeaseOrderLine_Leases_LeaseOrderleaseId",
+                        name: "FK_LeaseOrderLines_Leases_LeaseOrderleaseId",
                         column: x => x.LeaseOrderleaseId,
                         principalTable: "Leases",
                         principalColumn: "leaseId",
@@ -56,15 +56,15 @@ namespace Lease.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LeaseOrderLine_LeaseOrderleaseId",
-                table: "LeaseOrderLine",
+                name: "IX_LeaseOrderLines_LeaseOrderleaseId",
+                table: "LeaseOrderLines",
                 column: "LeaseOrderleaseId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "LeaseOrderLine");
+                name: "LeaseOrderLines");
 
             migrationBuilder.DropTable(
                 name: "Leases");

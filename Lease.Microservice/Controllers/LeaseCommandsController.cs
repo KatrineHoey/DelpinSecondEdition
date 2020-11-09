@@ -22,6 +22,11 @@ namespace Lease.Microservice.Controllers
         public Task<IActionResult> Post(LeaseOrderCommands.V1.CreateLease request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
+        [Route("AddLeaseOrderLine")]
+        [HttpPost]
+        public Task<IActionResult> Post(LeaseOrderCommands.V1.AddLeaseOrderLineToLeaseOrder request)
+            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
+
         [Route("street")]
         [HttpPut]
         public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateLeaseStreet request)
@@ -62,6 +67,8 @@ namespace Lease.Microservice.Controllers
         [HttpPut]
         public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateTotalPrice request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
+
+
 
     }
 }

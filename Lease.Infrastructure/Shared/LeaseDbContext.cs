@@ -19,7 +19,7 @@ namespace Lease.Infrastructure.Shared
 
         public DbSet<Domain.LeaseOrder> Leases { get; set; }
 
-        //public DbSet<Domain.LeaseOrderLine> LeaseOrderLines { get; set; }
+        public DbSet<Domain.LeaseOrderLine> LeaseOrderLines { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

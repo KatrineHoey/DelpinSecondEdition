@@ -42,14 +42,11 @@ namespace Lease.Infrastructure.Migrations
                     b.Property<Guid?>("LeaseOrderleaseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
                     b.HasKey("LeaseOrderLineId");
 
                     b.HasIndex("LeaseOrderleaseId");
 
-                    b.ToTable("LeaseOrderLine");
+                    b.ToTable("LeaseOrderLines");
                 });
 
             modelBuilder.Entity("Lease.Domain.LeaseOrder", b =>
@@ -215,7 +212,7 @@ namespace Lease.Infrastructure.Migrations
 
                             b1.HasKey("LeaseOrderLineId");
 
-                            b1.ToTable("LeaseOrderLine");
+                            b1.ToTable("LeaseOrderLines");
 
                             b1.WithOwner()
                                 .HasForeignKey("LeaseOrderLineId");
@@ -231,7 +228,7 @@ namespace Lease.Infrastructure.Migrations
 
                             b1.HasKey("LeaseOrderLineId");
 
-                            b1.ToTable("LeaseOrderLine");
+                            b1.ToTable("LeaseOrderLines");
 
                             b1.WithOwner()
                                 .HasForeignKey("LeaseOrderLineId");
@@ -247,7 +244,7 @@ namespace Lease.Infrastructure.Migrations
 
                             b1.HasKey("LeaseOrderLineId");
 
-                            b1.ToTable("LeaseOrderLine");
+                            b1.ToTable("LeaseOrderLines");
 
                             b1.WithOwner()
                                 .HasForeignKey("LeaseOrderLineId");
@@ -258,9 +255,12 @@ namespace Lease.Infrastructure.Migrations
                             b1.Property<Guid>("LeaseOrderLineId")
                                 .HasColumnType("uniqueidentifier");
 
+                            b1.Property<Guid>("Value")
+                                .HasColumnType("uniqueidentifier");
+
                             b1.HasKey("LeaseOrderLineId");
 
-                            b1.ToTable("LeaseOrderLine");
+                            b1.ToTable("LeaseOrderLines");
 
                             b1.WithOwner()
                                 .HasForeignKey("LeaseOrderLineId");
@@ -276,7 +276,7 @@ namespace Lease.Infrastructure.Migrations
 
                             b1.HasKey("LeaseOrderLineId");
 
-                            b1.ToTable("LeaseOrderLine");
+                            b1.ToTable("LeaseOrderLines");
 
                             b1.WithOwner()
                                 .HasForeignKey("LeaseOrderLineId");
@@ -292,7 +292,7 @@ namespace Lease.Infrastructure.Migrations
 
                             b1.HasKey("LeaseOrderLineId");
 
-                            b1.ToTable("LeaseOrderLine");
+                            b1.ToTable("LeaseOrderLines");
 
                             b1.WithOwner()
                                 .HasForeignKey("LeaseOrderLineId");
@@ -308,7 +308,7 @@ namespace Lease.Infrastructure.Migrations
 
                             b1.HasKey("LeaseOrderLineId");
 
-                            b1.ToTable("LeaseOrderLine");
+                            b1.ToTable("LeaseOrderLines");
 
                             b1.WithOwner()
                                 .HasForeignKey("LeaseOrderLineId");
@@ -324,7 +324,7 @@ namespace Lease.Infrastructure.Migrations
 
                             b1.HasKey("LeaseOrderLineId");
 
-                            b1.ToTable("LeaseOrderLine");
+                            b1.ToTable("LeaseOrderLines");
 
                             b1.WithOwner()
                                 .HasForeignKey("LeaseOrderLineId");
@@ -340,7 +340,7 @@ namespace Lease.Infrastructure.Migrations
 
                             b1.HasKey("LeaseOrderLineId");
 
-                            b1.ToTable("LeaseOrderLine");
+                            b1.ToTable("LeaseOrderLines");
 
                             b1.WithOwner()
                                 .HasForeignKey("LeaseOrderLineId");

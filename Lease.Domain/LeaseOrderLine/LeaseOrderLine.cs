@@ -36,29 +36,22 @@ namespace Lease.Domain
 
         public LeaseOrderId ParentId { get; private set; }
 
-        public int Order { get; private set; }
-
         //public LeaseOrderLineState State { get; private set; }
 
-        //[ForeignKey("LeaseOrderId")]
-        //public LeaseOrder LeaseOrder { get; set; }
-
-
-        //public LeaseOrderLine(LeaseOrderLineId leaseOrderLineId ,StartDate startDate, EndDate endDate, IsReturned isReturned)
-        //{
-        //    Apply(new LeaseOrderLineEvents.CreateLeaseOrderLine
-        //    {
-        //        LeaseOrderLineId = leaseOrderLineId,
-        //        StartDate = startDate,
-        //        EndDate = endDate,
-        //        IsReturned = isReturned
-        //    }); ;
-        //}
-
-        //protected LeaseOrderLine()
-        //{
-
-        //}
+        public LeaseOrderLine(LeaseOrderLineId leaseOrderLineId, LeaseOrderId leaseOrderId, StartDate startDate, EndDate endDate, IsReturned isReturned, RessourceName ressourceName, RessourcePrice ressourcePrice, Quantity quantity)
+        {
+            Apply(new LeaseOrderEvents.LeaseOrderLineAddedToLeaseOrder
+            {
+                LeaseOrderLineId = leaseOrderLineId,
+                LeaseOrderId = leaseOrderId,
+                StartDate = startDate,
+                EndDate = endDate,
+                IsReturned = isReturned,
+                RessourceName = ressourceName,
+                RessourcePrice = ressourcePrice,
+                Quantity = quantity
+            });
+        }
 
         //public void UpdateStartDate(StartDate startDate)
         //{
@@ -142,7 +135,7 @@ namespace Lease.Domain
                     RessourceName = new RessourceName(e.RessourceName);
                     RessourcePrice = new RessourcePrice(e.RessourcePrice);
                     Quantity = new Quantity(e.Quantity);
-                    LineTotalPrice = new LineTotalPrice(e.LineTotalPrice);
+                    //LineTotalPrice = new LineTotalPrice(e.LineTotalPrice);
                     break;
 
                     //case LeaseOrderLineEvents.CreateLeaseOrderLine e:
@@ -249,13 +242,4 @@ namespace Lease.Domain
         //    protected PictureId() { }
         //}
     }
-
-    //public class LeaseOrderLineId : Value<LeaseOrderLineId>
-    //{
-    //    public LeaseOrderLineId(Guid value) => Value = value;
-
-    //    public Guid Value { get; }
-
-    //    protected LeaseOrderLineId() { }
-    //}
 }

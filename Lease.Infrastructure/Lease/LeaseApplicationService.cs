@@ -48,6 +48,9 @@ namespace Lease.Infrastructure.Lease
                 V1.UpdateTotalPrice cmd => HandleUpdate(cmd.LeaseId,
                         c => c.TotalPriceUpdated(TotalPrice.FromDecimal(cmd.TotalPrice))),
 
+                //LeaseOrderLine
+                V1.AddLeaseOrderLineToLeaseOrder cmd => HandleCreateLeaseOrderLine(cmd),
+
                 _ => Task.CompletedTask
             };
       
@@ -68,6 +71,27 @@ namespace Lease.Infrastructure.Lease
                 );
 
             await _repository.AddLeaseOrder(lease);
+            await _unitOfWork.Commit();
+        }
+
+        private async Task HandleCreateLeaseOrderLine(V1.AddLeaseOrderLineToLeaseOrder cmd)
+        {
+            if (await _repository.LeaseOrderLineExists(cmd.LeaseOrderLineId.ToString()))
+                throw new InvalidOperationException($"Entity with id {cmd.LeaseOrderLineId} already exists");
+
+            var leaseOrderLine = new LeaseOrderLine(
+                    new LeaseOrderLineId(cmd.LeaseOrderLineId),
+                    new LeaseOrderId(cmd.LeaseId),
+                    new StartDate(cmd.StartDate),
+                    new EndDate(cmd.EndDate),
+                    new IsReturned(cmd.IsReturned),
+                    new RessourceName(cmd.RessourceName),
+                    new RessourcePrice(cmd.RessourcePrice),
+                    new Quantity(cmd.Quantity)
+
+                );
+
+            await _repository.AddLeaseOrderLine(leaseOrderLine);
             await _unitOfWork.Commit();
         }
 

@@ -9,7 +9,7 @@ namespace Lease.Domain
     {
         public string Value { get; internal set; }
 
-        internal RessourceName(string value)
+        public RessourceName(string value)
         {
             Value = value;
         }

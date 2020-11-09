@@ -86,6 +86,7 @@ namespace Lease.Domain.Shared.Events
         public class LeaseOrderLineAddedToLeaseOrder 
         {
             public Guid LeaseOrderId { get; set; }
+
             public Guid LeaseOrderLineId { get; set; }
 
             public DateTime StartDate { get;  set; }
@@ -100,7 +101,7 @@ namespace Lease.Domain.Shared.Events
 
             public int Quantity { get;  set; }
 
-            public decimal LineTotalPrice { get;  set; }
+            //public decimal LineTotalPrice { get;  set; }
 
         }
     }
