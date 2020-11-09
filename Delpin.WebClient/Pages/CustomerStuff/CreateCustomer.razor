@@ -14,19 +14,16 @@
 }
 
 @code {
-    //[CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
     CustomerDto.CustomerDetails customer = new CustomerDto.CustomerDetails();
     bool Isloading = false;
 
     async Task Create()
     {
         Isloading = true;
-        if (!string.IsNullOrWhiteSpace(customer.FullName))
-        {
             try
             {
                 var id = Guid.NewGuid();
-                var response = await http.PostAsJsonAsync($"customer?CustomerId={id}&FullName={customer.FullName}" +
+                var response = await http.PostAsJsonAsync($"gateway/customer?CustomerId={id}&FullName={customer.FullName}" +
                     $"&PhoneNo={customer.PhoneNo}&Email={customer.Email}&CustomerType={customer.CustomerType}" +
                     $"&Street={customer.Street}&ZipCode={customer.ZipCode}&City={customer.City}", customer);
                 if (response.IsSuccessStatusCode)
@@ -50,7 +47,7 @@
                 await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
             }
 
-        }
+        
         Isloading = false;
     }
 }

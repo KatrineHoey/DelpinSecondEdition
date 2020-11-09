@@ -23,32 +23,30 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        customer = await http.GetFromJsonAsync<CustomerDto.CustomerDetails>($"customer?CustomerId={CustomerId}");
+        customer = await http.GetFromJsonAsync<CustomerDto.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
 
     }
 
     async Task Edit()
     {
         Isloading = true;
-        if (!string.IsNullOrWhiteSpace(customer.FullName))
-        {
             try
             {
                 HttpResponseMessage response = null;
-                response = await http.PutAsJsonAsync($"customer/fullname?CustomerId={CustomerId}&FullName={customer.FullName}", customer);
+                response = await http.PutAsJsonAsync($"gateway/customer/fullname?CustomerId={CustomerId}&FullName={customer.FullName}", customer);
                 CheckIfFailed(response);
 
 
-                response = await http.PutAsJsonAsync($"customer/phone?CustomerId={CustomerId}&PhoneNo={customer.PhoneNo}", customer);
+                response = await http.PutAsJsonAsync($"gateway/customer/phone?CustomerId={CustomerId}&PhoneNo={customer.PhoneNo}", customer);
                 CheckIfFailed(response);
 
-                response = await http.PutAsJsonAsync($"customer/email?CustomerId={CustomerId}&Email={customer.Email}", customer);
+                response = await http.PutAsJsonAsync($"gateway/customer/email?CustomerId={CustomerId}&Email={customer.Email}", customer);
                 CheckIfFailed(response);
 
-                response = await http.PutAsJsonAsync($"customer/adresse?CustomerId={CustomerId}&Street={customer.Street}&ZipCode={customer.ZipCode}&City={customer.City}", customer);
+                response = await http.PutAsJsonAsync($"gateway/customer/adresse?CustomerId={CustomerId}&Street={customer.Street}&ZipCode={customer.ZipCode}&City={customer.City}", customer);
                 CheckIfFailed(response);
 
-                response = await http.PutAsJsonAsync($"customer/customertype?CustomerId={CustomerId}&CustomerType={customer.CustomerType}", customer);
+                response = await http.PutAsJsonAsync($"gateway/customer/customertype?CustomerId={CustomerId}&CustomerType={customer.CustomerType}", customer);
                 CheckIfFailed(response);
 
 
@@ -73,7 +71,7 @@
                 await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
             }
 
-        }
+        
         Isloading = false;
     }
 

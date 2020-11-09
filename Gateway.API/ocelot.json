@@ -13,9 +13,8 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
 
-
     {
-      "DownstreamPathTemplate": "/customer/{id}",
+      "DownstreamPathTemplate": "/customer?CustomerId={CustomerId}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -23,8 +22,99 @@
           "Port": 44311
         }
       ],
-      "UpstreamPathTemplate": "/gateway/customer/{id}",
-      "UpstreamHttpMethod": [ "GET", "DELETE", "PUT", "POST" ]
+      "UpstreamPathTemplate": "/gateway/customer?CustomerId={CustomerId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+
+    {
+      "DownstreamPathTemplate": "/customer?CustomerId={CustomerId}&IsDeleted={IsDeleted}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44311
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/customer?CustomerId={CustomerId}&IsDeleted={IsDeleted}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/customer?CustomerId={CustomerId}&FullName={FullName}&PhoneNo={PhoneNo}&Email={Email}&CustomerType={CustomerType}&Street={Street}&ZipCode={ZipCode}&City={City}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44311
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/customer?CustomerId={CustomerId}&FullName={FullName}&PhoneNo={PhoneNo}&Email={Email}&CustomerType={CustomerType}&Street={Street}&ZipCode={ZipCode}&City={City}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/customer/fullname?CustomerId={CustomerId}&FullName={FullName}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44311
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/customer/fullname?CustomerId={CustomerId}&FullName={FullName}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/customer/phone?CustomerId={CustomerId}&PhoneNo={PhoneNo}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44311
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/customer/phone?CustomerId={CustomerId}&PhoneNo={PhoneNo}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/customer/email?CustomerId={CustomerId}&Email={Email}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44311
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/customer/email?CustomerId={CustomerId}&Email={Email}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/customer/adresse?CustomerId={CustomerId}&Street={Street}&ZipCode={ZipCode}&City={City}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44311
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/customer/adresse?CustomerId={CustomerId}&Street={Street}&ZipCode={ZipCode}&City={City}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/customer/customertype?CustomerId={CustomerId}&CustomerType={CustomerType}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44311
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/customer/customertype?CustomerId={CustomerId}&CustomerType={CustomerType}",
+      "UpstreamHttpMethod": [ "PUT" ]
     }
+
+
   ]
 }

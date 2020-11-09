@@ -35,7 +35,7 @@ namespace Delpin.WebClient
             services.AddScoped(sp =>
             new HttpClient
             {
-                BaseAddress = new Uri("https://localhost:44311/")
+                BaseAddress = new Uri("https://localhost:44329/")
             });
 
             services.AddModalDialog();

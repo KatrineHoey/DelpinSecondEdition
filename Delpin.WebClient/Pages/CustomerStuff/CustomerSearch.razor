@@ -98,7 +98,7 @@ else
 
     async Task SearchCustomers(string searchterm)
     {
-        customerlist = (await client.GetFromJsonAsync<List<CustomerDto.ActiveCustomerSearchListItem>>($"customer/search?SearchTerm={searchterm}&Page={Page}&PageSize={PageSize}")).ToList();
+        customerlist = (await client.GetFromJsonAsync<List<CustomerDto.ActiveCustomerSearchListItem>>($"gateway/customer/search?SearchTerm={searchterm}&Page={Page}&PageSize={PageSize}")).ToList();
 
     }
 
@@ -119,7 +119,7 @@ else
     {
         if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {customer.FullName}?"))
         {
-            await client.DeleteAsync($"customer?CustomerId={customer.CustomerId}&IsDeleted={true}");
+            await client.DeleteAsync($"gateway/customer?CustomerId={customer.CustomerId}&IsDeleted={true}");
             await SearchCustomers(SearchTerm);
         }
     }
