@@ -25,14 +25,30 @@ namespace Lease.Microservice.Controllers
         [HttpGet]
         public Task<IActionResult> Get()
         {
-            return RequestHandler.HandleQuery(() => _connection.GetAllLease(), _log);
+            //return RequestHandler.HandleQuery(() => _connection.GetAllLease(), _log);
+            return RequestHandler.HandleQuery(() => LeaseOrderQueries.GetAllLease(_connection), _log);
         }
 
 
-        [HttpGet("{LeaseId}")]
+        [HttpGet]
+        [Route("id")]
         public Task<IActionResult> Get(QueryModels.GetLeaseOrderById request)
         {
             return RequestHandler.HandleQuery(() => _connection.GetLeaseById(request), _log);
+        }
+
+        [HttpGet]
+        [Route("customerId")]
+        public Task<IActionResult> Get(QueryModels.GetLeasesByCustomerId request)
+        {
+            return RequestHandler.HandleQuery(() => _connection.GetLeaseByCustomerId(request), _log);
+        }
+
+        [HttpGet]
+        [Route("search")]
+        public Task<IActionResult> Get(QueryModels.GetSearchedLeases request)
+        {
+            return RequestHandler.HandleQuery(() => _connection.GetSearchedLeases(request), _log);
         }
 
         //LeaseOrderLine

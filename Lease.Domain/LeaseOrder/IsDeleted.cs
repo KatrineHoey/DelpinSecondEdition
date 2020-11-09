@@ -9,16 +9,21 @@ namespace Lease.Domain
     {
         public bool Value { get; internal set; }
 
-        protected IsDeleted() { }
-
-        public static IsDeleted FromBool(bool isDeleted)
+        public IsDeleted(bool value)
         {
-            return new IsDeleted(isDeleted);
+            Value = value;
         }
 
-        public IsDeleted(bool value) => Value = value;
+        protected IsDeleted() { }
+
+        public static IsDeleted FromString(bool isDeleted)
+        {
+            return new IsDeleted(Convert.ToBoolean(isDeleted));
+        }
+
 
         public static implicit operator bool(IsDeleted isDeleted) => isDeleted.Value;
+
 
     }
 }

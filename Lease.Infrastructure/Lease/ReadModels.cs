@@ -1,5 +1,6 @@
 using Lease.Domain;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Lease.Infrastructure.Lease
@@ -9,6 +10,10 @@ namespace Lease.Infrastructure.Lease
         public class LeaseOrderDetails
         {
             public Guid LeaseId { get; set; }
+
+            public Guid CustomerId { get; set; }
+
+            public string CustomerName { get; set; }
 
             public string Street { get; set; }
 
@@ -25,28 +30,36 @@ namespace Lease.Infrastructure.Lease
             public bool IsPaid { get; set; }
 
             public decimal TotalPrice { get; set; }
+
+            public List<LeaseOrderLineDetails> leaseOrderLines { get; set; }
         }
 
-        //public class LeaseOrderLineDetails
-        //{
-        //    public Guid LeaseOrderLineId { get; set; }
+        public class LeaseOrderListItem
+        {
+            public Guid LeaseId { get; set; }
+            public DateTime DateCreated { get; set; }
+            public string CustomerName { get; set; }
+            public bool IsPaid { get; set; }
+        }
 
-        //    public DateTime StartDate { get;  set; }
+        public class LeaseOrderLineDetails
+        {
+            public Guid LeaseOrderLineId { get; set; }
 
-        //    public DateTime EndDate { get;  set; }
+            public DateTime StartDate { get; set; }
 
-        //    public bool IsReturned { get;  set; }
+            public DateTime EndDate { get; set; }
 
-        //    public string RessourceName { get;  set; }
+            public bool IsReturned { get; set; }
 
-        //    public decimal RessourcePrice { get;  set; }
+            public string RessourceName { get; set; }
 
-        //    public int Quantity { get;  set; }
+            public decimal RessourcePrice { get; set; }
 
-        //    public decimal LineTotalPrice { get;  set; }
+            public int Quantity { get; set; }
 
-        //    [ForeignKey("LeaseOrderId")]
-        //    public LeaseOrder LeaseOrder { get; set; }
-        //}
+            public decimal LineTotalPrice { get; set; }
+        }
+
     }
 }

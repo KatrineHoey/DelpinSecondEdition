@@ -1,0 +1,53 @@
+﻿@*@page "/resource/create"
+@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+@inject IModalDialogService ModalDialogService
+
+<h3>Opret ny resource</h3>
+
+<CreateResource ButtonText="Opret ny kunde" Customer="@resource"
+              OnValidSubmit="@Create" />
+@if (Isloading == true)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
+}
+
+@code {
+    CustomerDto.CustomerDetails resource = new CustomerDto.CustomerDetails();
+    bool Isloading = false;
+
+    async Task Create()
+    {
+        Isloading = true;
+        try
+        {
+            var id = Guid.NewGuid();
+            var response = await http.PostAsJsonAsync($"gateway/customer?CustomerId={id}&FullName={resource.FullName}" +
+                $"&PhoneNo={resource.PhoneNo}&Email={resource.Email}&CustomerType={resource.CustomerType}" +
+                $"&Street={resource.Street}&ZipCode={resource.ZipCode}&City={resource.City}", resource);
+            if (response.IsSuccessStatusCode)
+            {
+
+                await js.InvokeVoidAsync("alert", $"Resourcen er nu oprettet!");
+
+                ModalDialogParameters returnParameters = new ModalDialogParameters();
+                returnParameters.Add("PhoneNo", resource.PhoneNo.ToString());
+                ModalDialogService.Close(true, returnParameters);
+            }
+            else
+            {
+                await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+            }
+
+        }
+        catch (Exception)
+        {
+
+            await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+        }
+
+
+        Isloading = false;
+    }
+}*@

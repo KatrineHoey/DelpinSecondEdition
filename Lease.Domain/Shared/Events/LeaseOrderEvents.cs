@@ -10,6 +10,7 @@ namespace Lease.Domain.Shared.Events
         {
             public Guid LeaseId { get; set; }
 
+            public Guid CustomerId { get; set; }
             public DateTime DateCreated { get; set; }
 
             public bool IsDeleted { get; set; }

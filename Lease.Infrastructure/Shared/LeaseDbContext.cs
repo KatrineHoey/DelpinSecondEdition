@@ -40,6 +40,7 @@ namespace Lease.Infrastructure.Shared
         {
             builder.HasKey(x => x.leaseId);
             builder.OwnsOne(x => x.Id);
+            builder.OwnsOne(x => x.CustomerId);
             builder.OwnsOne(x => x.Street);
             builder.OwnsOne(x => x.ZipCode);
             builder.OwnsOne(x => x.City);
@@ -65,6 +66,7 @@ namespace Lease.Infrastructure.Shared
             builder.OwnsOne(x => x.RessourcePrice);
             builder.OwnsOne(x => x.Quantity);
             builder.OwnsOne(x => x.LineTotalPrice);
+            
         }
     }
 }

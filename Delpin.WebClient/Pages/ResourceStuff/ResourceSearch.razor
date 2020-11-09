@@ -1,7 +1,124 @@
 ﻿@page "/resource/search"
+@inject HttpClient client
+@inject IJSRuntime js
+@inject IModalDialogService ModalDialog
 
-<h3>Resourcer</h3>
+<section>
+    <h3>Kunder</h3>
+
+    <button @onclick="CreateNew_Clicked" class="btn btn-primary float-right mr-3">Opret ny resource</button>
+
+</section>
+
+<section class="form-inline active-cyan-4 mb-3">
+    <i class="fas fa-search mr-2 myicons" aria-hidden="true"></i>
+    <input @bind-value="@SearchTerm" @onkeyup="Search" class="form-control mr-3 w-75 display-1" type="text" placeholder="Search" aria-label="Search">
+    @if (Isloading == true)
+    {
+        <i class="fa fa-circle-o-notch fa-spin myicons" aria-hidden="true"></i>
+    }
+</section>
+
+
+
+@if (resourcelist == null)
+{
+    <p><em></em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Navn</th>
+                <th>By</th>
+                <th>Tlf.</th>
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in resourcelist)
+            {
+                <tr>
+                    <td>@customer.CustomerId</td>
+                    <td>@customer.FullName</td>
+                    <td>@customer.City</td>
+                    <td>@customer.PhoneNo</td>
+                    <td>
+                        <button class="btn btn-primary float-right mr-3">Se kalender</button>
+                    </td>
+                    <td>
+                        <button @onclick="@(() => Edit_Clicked(customer.CustomerId))" class="btn btn-primary float-right mr-3">Rediger</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(customer))">Slet</button>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
 
 @code {
+    private string SearchTerm { get; set; } = "";
+    private int Page { get; set; } = 0;
+    private int PageSize { get; set; } = 1000;
+    private List<CustomerDto.ActiveCustomerSearchListItem> resourcelist;
+    bool Isloading = false;
+
+    async void CreateNew_Clicked()
+    {
+        ModalDialogResult result = await ModalDialog.ShowDialogAsync<CreateResource>("");
+        if (result.Success)
+        {
+            var searchterm = result.ReturnParameters.Get<string>("PhoneNo");
+            await SearchResources(searchterm);
+        }
+    }
+
+
+    private async Task Search(KeyboardEventArgs eventArgs)
+    {
+        if (eventArgs.Key == "Enter") // fire on enter
+        {
+            Isloading = true;
+            await SearchResources(SearchTerm);
+            Isloading = false;
+        }
+    }
+
+    async Task SearchResources(string searchterm)
+    {
+        resourcelist = (await client.GetFromJsonAsync<List<CustomerDto.ActiveCustomerSearchListItem>>($"gateway/customer/search?SearchTerm={searchterm}&Page={Page}&PageSize={PageSize}")).ToList();
+
+    }
+
+    async void Edit_Clicked(Guid id)
+    {
+        ModalDialogParameters parameters = new ModalDialogParameters();
+        parameters.Add("CustomerId", id);
+
+        ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditResource>("", new ModalDialogOptions(), parameters);
+        if (result.Success)
+        {
+            var searchterm = result.ReturnParameters.Get<string>("PhoneNo");
+            await SearchResources(searchterm);
+        }
+    }
+
+    async Task Delete(CustomerDto.ActiveCustomerSearchListItem customer)
+    {
+        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {customer.FullName}?"))
+        {
+            await client.DeleteAsync($"gateway/customer?CustomerId={customer.CustomerId}&IsDeleted={true}");
+            await SearchResources(SearchTerm);
+        }
+    }
 
 }

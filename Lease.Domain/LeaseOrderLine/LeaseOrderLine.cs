@@ -192,6 +192,7 @@ namespace Lease.Domain
         {
         }
 
+
         //protected override void EnsureValidState()
         //{
         //    var valid =

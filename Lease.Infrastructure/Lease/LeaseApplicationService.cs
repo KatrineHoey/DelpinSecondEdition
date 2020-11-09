@@ -37,7 +37,7 @@ namespace Lease.Infrastructure.Lease
                         c => c.DateCreatedUpdated(DateCreated.FromDateTime(cmd.DateCreated))),
 
                 V1.DeleteLease cmd => HandleUpdate(cmd.LeaseId,
-                        c => c.LeaseDeleted(IsDeleted.FromBool(cmd.IsDeleted))),
+                        c => c.LeaseDeleted(IsDeleted.FromString(cmd.IsDeleted))),
 
                 V1.UpdateIsDelivery cmd => HandleUpdate(cmd.LeaseId,
                         c => c.IsDeliveryUpdated(IsDelivery.FromBool(cmd.IsDelivery))),
@@ -61,6 +61,7 @@ namespace Lease.Infrastructure.Lease
 
             var lease = new LeaseOrder(
                     new LeaseOrderId(cmd.LeaseId),
+                    new CustomerId(cmd.CustomerId),
                     new DateCreated(cmd.DateCreated),
                     new IsDelivery(cmd.IsDelivery),
                     new IsPaid(cmd.IsPaid),

@@ -44,7 +44,7 @@ namespace Delpin.Framework
         protected void Apply(object @event)
         {
             When(@event);
-            _applier(@event);
+            //_applier(@event);
         }
 
         void IInternalEventHandler.Handle(object @event) => When(@event);

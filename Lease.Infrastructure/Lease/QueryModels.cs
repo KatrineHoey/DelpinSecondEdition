@@ -9,9 +9,17 @@ namespace Lease.Infrastructure.Lease
             public Guid LeaseId { get; set; }
         }
 
-        //public class GetLeaseOrderLineById
-        //{
-        //    public Guid LeaseOrderLineId { get; set; }
-        //}
+        public class GetSearchedLeases
+        {
+            public string SearchTerm { get; set; }
+            public int Page { get; set; }
+            public int PageSize { get; set; }
+        }
+
+        public class GetLeasesByCustomerId
+        {
+            public Guid CustomerId { get; set; }
+        }
+
     }
 }

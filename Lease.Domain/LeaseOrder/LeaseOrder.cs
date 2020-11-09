@@ -21,6 +21,8 @@ namespace Lease.Domain
 
         public DateCreated DateCreated { get; private set; }
 
+        public CustomerId CustomerId { get; private set; }
+
         public IsDeleted IsDeleted { get; private set; }
 
         public IsDelivery IsDelivery { get; private set; }
@@ -41,7 +43,7 @@ namespace Lease.Domain
         public LeaseState State { get; private set; }
 
 
-        public LeaseOrder(LeaseOrderId leaseId, DateCreated dateCreated, IsDelivery isDelivery, IsPaid isPaid, Street street, ZipCode zipCode, City city)
+        public LeaseOrder(LeaseOrderId leaseId, CustomerId customerId, DateCreated dateCreated, IsDelivery isDelivery, IsPaid isPaid, Street street, ZipCode zipCode, City city)
         {
             LeaseOrderLines = new List<LeaseOrderLine>();
             Apply(new LeaseOrderEvents.CreateLeaseOrder
@@ -52,7 +54,8 @@ namespace Lease.Domain
                 IsPaid = isPaid,
                 Street = street,
                 ZipCode = zipCode,
-                City = city
+                City = city,
+                CustomerId = customerId 
                 
             });
         }
