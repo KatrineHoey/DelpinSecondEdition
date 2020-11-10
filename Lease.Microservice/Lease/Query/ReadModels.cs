@@ -1,9 +1,8 @@
 using Lease.Domain;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Lease.Infrastructure.Lease
+namespace Lease.Microservice.Lease.Query
 {
     public static class ReadModels
     {

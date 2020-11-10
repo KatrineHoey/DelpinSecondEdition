@@ -1,12 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using Delpin.Framework;
-using Lease.Domain.Shared;
 using Lease.Domain;
 using Lease.Domain.InterFace;
-using static Lease.Infrastructure.Lease.LeaseOrderCommands;
+using static Lease.Microservice.Lease.Command.LeaseOrderCommands;
 
-namespace Lease.Infrastructure.Lease
+namespace Lease.Microservice.Lease.Command
 {
     public class LeaseApplicationService : IApplicationService
     {
@@ -34,17 +33,17 @@ namespace Lease.Infrastructure.Lease
                         c => c.IsDeliveryUpdated(IsDelivery.FromBool(cmd.IsDelivery))),
 
                 V1.UpdateIsPaid cmd => HandleUpdate(cmd.LeaseId,
-                        c => c.IsPaidUpdated(IsPaid.FromString(cmd.IsPaid.ToString()))),
+                        c => c.IsPaidUpdated(IsPaid.FromBool(cmd.IsPaid))),
 
                 V1.UpdateTotalPrice cmd => HandleUpdate(cmd.LeaseId,
-                        c => c.TotalPriceUpdated(TotalPrice.FromDecimal(cmd.TotalPrice))),
+                        c => c.TotalPriceUpdated(TotalPrice.FromInt(cmd.TotalPrice))),
 
                 //LeaseOrderLine
-                V1.AddLeaseOrderLineToLeaseOrder cmd => HandleCreateLeaseOrderLine(cmd),
+                LeaseOrderLineCommands.V1.AddLeaseOrderLineToLeaseOrder cmd => HandleCreateLeaseOrderLine(cmd),
 
-                V1.DeleteLeaseOrderLine cmd => HandleDeleteLeaseOrderLine(cmd.LeaseId),
+                LeaseOrderLineCommands.V1.DeleteLeaseOrderLine cmd => HandleDeleteLeaseOrderLine(cmd.LeaseId),
 
-                V1.UpdateLeaseOrderLine cmd => HandleUpdateLeaseOrderLine(cmd.LeaseOrderLineId,
+                LeaseOrderLineCommands.V1.UpdateLeaseOrderLine cmd => HandleUpdateLeaseOrderLine(cmd.LeaseOrderLineId,
                       c => c.UpdateLeaseOrderLine(StartDate.FromDateTime(cmd.StartDate), EndDate.FromDateTime(cmd.EndDate), IsReturned.FromBool(cmd.IsReturned), RessourceName.FromString( cmd.RessourceName), RessourcePrice.FromInt(cmd.RessourcePrice), Quantity.FromInt(cmd.Quantity))),
 
                 _ => Task.CompletedTask
@@ -71,7 +70,7 @@ namespace Lease.Infrastructure.Lease
             await _unitOfWork.Commit();
         }
 
-        private async Task HandleCreateLeaseOrderLine(V1.AddLeaseOrderLineToLeaseOrder cmd)
+        private async Task HandleCreateLeaseOrderLine(LeaseOrderLineCommands.V1.AddLeaseOrderLineToLeaseOrder cmd)
         {
             if (await _repository.LeaseOrderLineExists(cmd.LeaseOrderLineId))
                 throw new InvalidOperationException($"Entity with id {cmd.LeaseOrderLineId} already exists");

@@ -5,7 +5,7 @@ using Lease.Infrastructure.Shared;
 using Lease.Domain.InterFace;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Lease.Infrastructure.Lease
+namespace Lease.Microservice.Lease.Command
 {
     public class LeaseRepository : ILeaseRepository, IDisposable
     {

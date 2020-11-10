@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapper;
-using Lease.Domain;
 using Lease.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
-using static Lease.Infrastructure.Lease.ReadModels;
+using static Lease.Microservice.Lease.Query.ReadModels;
 
-
-namespace Lease.Infrastructure.Lease
+namespace Lease.Microservice.Lease.Query
 {
     public class LeaseOrderQueries
     {

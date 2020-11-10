@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lease.Domain.Shared.Events
+namespace Lease.Domain
 {
     public static class LeaseOrderEvents
     {
@@ -42,10 +42,7 @@ namespace Lease.Domain.Shared.Events
             public bool IsDeleted { get; set; }
         }
 
-        public class LeaseOrderLineDeleted
-        {
-            public Guid LeaseId { get; set; }
-        }
+
 
         public class IsDeliveryUpdated
         {
@@ -78,42 +75,8 @@ namespace Lease.Domain.Shared.Events
         }
 
 
-        public class LeaseOrderLineAddedToLeaseOrder 
-        {
-            public Guid LeaseOrderId { get; set; }
+        
 
-            public Guid LeaseOrderLineId { get; set; }
 
-            public DateTime StartDate { get;  set; }
-
-            public DateTime EndDate { get;  set; }
-
-            public bool IsReturned { get;  set; }
-
-            public string RessourceName { get;  set; }
-
-            public int RessourcePrice { get;  set; }
-
-            public int Quantity { get;  set; }
-
-        }
-
-        public class LeaseOrderLineUpdated
-        {
-            public Guid LeaseOrderLineId { get; set; }
-
-            public DateTime StartDate { get; set; }
-
-            public DateTime EndDate { get; set; }
-
-            public bool IsReturned { get; set; }
-
-            public string RessourceName { get; set; }
-
-            public int RessourcePrice { get; set; }
-
-            public int Quantity { get; set; }
-
-        }
     }
 }

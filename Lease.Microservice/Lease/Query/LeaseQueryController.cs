@@ -1,14 +1,11 @@
 using System;
 using System.Data.Common;
 using System.Threading.Tasks;
-using Lease.Infrastructure;
-using Lease.Infrastructure.Lease;
-using Lease.Infrastructure.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
-namespace Lease.Microservice.Controllers
+namespace Lease.Microservice.Lease.Query
 {
     [Route("/lease")]
     public class LeaseQueryController : Controller
