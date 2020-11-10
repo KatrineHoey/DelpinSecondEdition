@@ -1,3 +1,4 @@
+using System;
 using System.Data.Common;
 using System.Threading.Tasks;
 using Lease.Infrastructure;
@@ -14,56 +15,82 @@ namespace Lease.Microservice.Controllers
     {
         private static ILogger _log = Log.ForContext<LeaseQueryController>();
         
-        private readonly DbContext _connection;
+        private readonly LeaseOrderQueries _leaseOrderQueries;
 
-        public LeaseQueryController(LeaseDbContext connection)
+        public LeaseQueryController(LeaseOrderQueries leaseOrderQueries)
         {
-            _connection = connection;
+            _leaseOrderQueries = leaseOrderQueries;
         }
 
-        //LeaseOrder
         [HttpGet]
-        public Task<IActionResult> Get()
+        public async Task<IActionResult> Get()
         {
-            //return RequestHandler.HandleQuery(() => _connection.GetAllLease(), _log);
-            return RequestHandler.HandleQuery(() => LeaseOrderQueries.GetAllLease(_connection), _log);
+            try
+            {
+                var model = await _leaseOrderQueries.GetAllLease();
+                return new OkObjectResult(model);
+            }
+            catch (Exception e)
+            {
+                return Errorhandling(e);
+            }
         }
 
 
         [HttpGet]
         [Route("id")]
-        public Task<IActionResult> Get(QueryModels.GetLeaseOrderById request)
+        public async Task<IActionResult> Get(QueryModels.GetLeaseOrderById request)
         {
-            return RequestHandler.HandleQuery(() => _connection.GetLeaseById(request), _log);
+            try
+            {
+                var model = await _leaseOrderQueries.GetLeaseById(request);
+                return new OkObjectResult(model);
+            }
+            catch (Exception e)
+            {
+                return Errorhandling(e);
+            }
         }
 
         [HttpGet]
         [Route("customerId")]
-        public Task<IActionResult> Get(QueryModels.GetLeasesByCustomerId request)
+        public async Task<IActionResult> Get(QueryModels.GetLeasesByCustomerId request)
         {
-            return RequestHandler.HandleQuery(() => _connection.GetLeaseByCustomerId(request), _log);
+            try
+            {
+                var model = await _leaseOrderQueries.GetLeaseByCustomerId(request);
+                return new OkObjectResult(model);
+            }
+            catch (Exception e)
+            {
+                return Errorhandling(e);
+            }
         }
 
         [HttpGet]
         [Route("search")]
-        public Task<IActionResult> Get(QueryModels.GetSearchedLeases request)
+        public async Task<IActionResult> Get(QueryModels.GetSearchedLeases request)
         {
-            return RequestHandler.HandleQuery(() => _connection.GetSearchedLeases(request), _log);
+            try
+            {
+                var model = await _leaseOrderQueries.GetSearchedLeases(request);
+                return new OkObjectResult(model);
+            }
+            catch (Exception e)
+            {
+                return Errorhandling(e);
+            }
         }
 
-        //LeaseOrderLine
+        private IActionResult Errorhandling(Exception e)
+        {
+            _log.Error(e, "Error handling the query");
+            return new BadRequestObjectResult(new
+            {
+                error = e.Message,
+                stackTrace = e.StackTrace
+            });
+        }
 
-        //[HttpGet]
-        //public Task<IActionResult> GetAllLeaseOrderLine()
-        //{
-        //    return RequestHandler.HandleQuery(() => _connection.GetAllLeaseOrderLine(), _log);
-        //}
-
-
-        //[HttpGet("{LeaseOrderLineId}")]
-        //public Task<IActionResult> GetLeaseOrderLineById(QueryModels.GetLeaseOrderLineById request)
-        //{
-        //    return RequestHandler.HandleQuery(() => _connection.GetLeaseOrderLineById(request), _log);
-        //}
     }
 }

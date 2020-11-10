@@ -7,11 +7,11 @@ namespace Lease.Domain
 {
     public class LineTotalPrice :Value<LineTotalPrice>
     {
-        public decimal Value { get; internal set; }
+        public int Value { get; internal set; }
 
         protected LineTotalPrice() { }
 
-        public LineTotalPrice(decimal lineTotalPrice)
+        public LineTotalPrice(int lineTotalPrice)
         {
             if (lineTotalPrice < 0)
                 throw new ArgumentException(
@@ -21,13 +21,13 @@ namespace Lease.Domain
             Value = lineTotalPrice;
         }
 
-        public static LineTotalPrice FromDecimal(decimal lineTotalPrice)
+        public static LineTotalPrice FromDecimal(int lineTotalPrice)
         {
             return new LineTotalPrice(lineTotalPrice);
 
         }
 
-        public static implicit operator decimal(LineTotalPrice lineTotalPrice)
+        public static implicit operator int(LineTotalPrice lineTotalPrice)
         {
             return lineTotalPrice.Value;
         }

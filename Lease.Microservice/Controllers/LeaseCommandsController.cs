@@ -27,31 +27,11 @@ namespace Lease.Microservice.Controllers
         public Task<IActionResult> Post(LeaseOrderCommands.V1.AddLeaseOrderLineToLeaseOrder request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
-        [Route("street")]
+        [Route("address")]
         [HttpPut]
-        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateLeaseStreet request)
+        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateAddress request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
-        [Route("zipcode")]
-        [HttpPut]
-        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateLeaseZipCode request)
-            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
-
-        [Route("city")]
-        [HttpPut]
-        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateLeaseCity request)
-            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
-
-
-        [Route("datecreated")]
-        [HttpPut]
-        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateDateCreated request)
-            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
-
-        [Route("deletelease")]
-        [HttpPut]
-        public Task<IActionResult> Put(LeaseOrderCommands.V1.DeleteLease request)
-            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
         [Route("delivery")]
         [HttpPut]
@@ -68,7 +48,21 @@ namespace Lease.Microservice.Controllers
         public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateTotalPrice request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
+        [Route("leaseorderline")]
+        [HttpPut]
+        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateLeaseOrderLine request)
+            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
 
+        [Route("lease")]
+        [HttpDelete]
+        public Task<IActionResult> Delete(LeaseOrderCommands.V1.DeleteLease request)
+            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
+
+
+        [Route("leaseOrderLine")]
+        [HttpDelete]
+        public Task<IActionResult> Delete(LeaseOrderCommands.V1.DeleteLeaseOrderLine request)
+            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
     }
 }

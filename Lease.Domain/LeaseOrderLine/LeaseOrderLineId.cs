@@ -31,7 +31,7 @@ namespace Lease.Domain
         //GammeltWin
         public LeaseOrderLineId(Guid value) => Value = value;
 
-        public Guid Value { get; }
+        public Guid Value { get; internal set; }
 
         protected LeaseOrderLineId() { }
 

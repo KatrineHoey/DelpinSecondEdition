@@ -4,14 +4,16 @@ using Lease.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lease.Infrastructure.Migrations
 {
     [DbContext(typeof(LeaseDbContext))]
-    partial class LeaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201109190139_noValues")]
+    partial class noValues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace Lease.Infrastructure.Migrations
 
             modelBuilder.Entity("Lease.Domain.LeaseOrder", b =>
                 {
-                    b.Property<Guid>("LeaseOrderId")
+                    b.Property<Guid>("leaseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -55,7 +57,7 @@ namespace Lease.Infrastructure.Migrations
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
 
-                    b.HasKey("LeaseOrderId");
+                    b.HasKey("leaseId");
 
                     b.ToTable("Leases");
                 });
@@ -75,6 +77,9 @@ namespace Lease.Infrastructure.Migrations
                     b.Property<Guid>("LeaseId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("LeaseOrderleaseId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("LineTotalPrice")
                         .HasColumnType("int");
 
@@ -92,7 +97,7 @@ namespace Lease.Infrastructure.Migrations
 
                     b.HasKey("LeaseOrderLineId");
 
-                    b.HasIndex("LeaseId");
+                    b.HasIndex("LeaseOrderleaseId");
 
                     b.ToTable("LeaseOrderLines");
                 });
@@ -101,28 +106,26 @@ namespace Lease.Infrastructure.Migrations
                 {
                     b.OwnsOne("Lease.Domain.LeaseOrderId", "Id", b1 =>
                         {
-                            b1.Property<Guid>("LeaseOrderId")
+                            b1.Property<Guid>("LeaseOrderleaseId")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.Property<Guid>("LeaseOrderIdValue")
+                            b1.Property<Guid>("Value")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.HasKey("LeaseOrderId");
+                            b1.HasKey("LeaseOrderleaseId");
 
                             b1.ToTable("Leases");
 
                             b1.WithOwner()
-                                .HasForeignKey("LeaseOrderId");
+                                .HasForeignKey("LeaseOrderleaseId");
                         });
                 });
 
             modelBuilder.Entity("Lease.Domain.LeaseOrderLine", b =>
                 {
-                    b.HasOne("Lease.Domain.LeaseOrder", "LeaseOrder")
+                    b.HasOne("Lease.Domain.LeaseOrder", null)
                         .WithMany("LeaseOrderLines")
-                        .HasForeignKey("LeaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LeaseOrderleaseId");
 
                     b.OwnsOne("Lease.Domain.LeaseOrderLineId", "Id", b1 =>
                         {

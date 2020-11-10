@@ -19,46 +19,29 @@ namespace Lease.Infrastructure.Lease
 
                 public string City { get; set; }
 
-                public DateTime DateCreated { get; set; }
-
-                public bool IsDeleted { get; set; }
-
                 public bool IsDelivery { get; set; }
 
                 public bool IsPaid { get; set; }
             }
 
-            public class UpdateLeaseStreet
+            public class UpdateAddress
             {
                 public Guid LeaseId { get; set; }
                 public string Street { get; set; }
-   
-            }
-
-            public class UpdateLeaseZipCode
-            {
-                public Guid LeaseId { get; set; }
-                
                 public int ZipCode { get; set; }
-                
-            }
-
-            public class UpdateLeaseCity
-            {
-                public Guid LeaseId { get; set; }
                 public string City { get; set; }
-            }
 
-            public class UpdateDateCreated
-            {
-                public Guid LeaseId { get; set; }
-                public DateTime DateCreated { get; set; }
             }
 
             public class DeleteLease
             {
                 public Guid LeaseId { get; set; }
                 public bool IsDeleted { get; set; }
+            }
+
+            public class DeleteLeaseOrderLine
+            {
+                public Guid LeaseId { get; set; }
             }
 
             public class UpdateIsDelivery
@@ -76,7 +59,7 @@ namespace Lease.Infrastructure.Lease
             public class UpdateTotalPrice
             {
                 public Guid LeaseId { get; set; }
-                public decimal TotalPrice { get; set; }
+                public int TotalPrice { get; set; }
             }
 
             public class AddLeaseOrderLineToLeaseOrder 
@@ -93,16 +76,14 @@ namespace Lease.Infrastructure.Lease
 
                 public string RessourceName { get; set; }
 
-                public decimal RessourcePrice { get; set; }
+                public int RessourcePrice { get; set; }
 
                 public int Quantity { get; set; }
 
             }
 
-            public class UpdateLeaseOrderLineToLeaseOrder
+            public class UpdateLeaseOrderLine
             {
-                public Guid LeaseId { get; set; }
-
                 public Guid LeaseOrderLineId { get; set; }
 
                 public DateTime StartDate { get; set; }
@@ -113,7 +94,7 @@ namespace Lease.Infrastructure.Lease
 
                 public string RessourceName { get; set; }
 
-                public decimal RessourcePrice { get; set; }
+                public int RessourcePrice { get; set; }
 
                 public int Quantity { get; set; }
 

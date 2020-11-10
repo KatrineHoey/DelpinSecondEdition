@@ -23,10 +23,10 @@ namespace Lease.Domain
         {
         }
 
-        public static Quantity FromString(string quantity)
+        public static Quantity FromInt(int quantity)
         {
 
-            if (quantity.IsEmpty())
+            if (quantity.ToString().IsEmpty())
                 throw new ArgumentNullException(nameof(quantity));
 
             return new Quantity(Convert.ToInt32(quantity));

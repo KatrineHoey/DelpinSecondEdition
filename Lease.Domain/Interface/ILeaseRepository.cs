@@ -9,17 +9,18 @@ namespace Lease.Domain.InterFace
     public interface ILeaseRepository
     {
         //LeaseOrder
-        Task<LeaseOrder> LoadLeaseOrder(LeaseOrderId id);
+        Task<LeaseOrder> LoadLeaseOrder(Guid id);
 
         Task AddLeaseOrder(LeaseOrder entity);
 
-        Task<bool> LeaseOrderExists(LeaseOrderId id);
+        Task<bool> LeaseOrderExists(Guid id);
 
         ////LeaseOrderLine
-        Task<LeaseOrderLine> LoadLeaseOrderLine(LeaseOrderLineId id);
+        Task<LeaseOrderLine> LoadLeaseOrderLine(Guid id);
 
         Task AddLeaseOrderLine(LeaseOrderLine entity);
 
-        Task<bool> LeaseOrderLineExists(LeaseOrderLineId id);
+        Task<bool> LeaseOrderLineExists(Guid id);
+        Task DeleteLeaseOrderLine(Guid id);
     }
 }

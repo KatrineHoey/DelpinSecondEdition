@@ -7,11 +7,11 @@ namespace Lease.Domain
 {
     public class RessourcePrice :Value<RessourcePrice>
     {
-        public decimal Value { get; internal set; }
+        public int Value { get; internal set; }
 
         protected RessourcePrice() { }
 
-        public RessourcePrice(decimal ressourcePrice)
+        public RessourcePrice(int ressourcePrice)
         {
             if (ressourcePrice < 0)
                 throw new ArgumentException(
@@ -21,13 +21,13 @@ namespace Lease.Domain
             Value = ressourcePrice;
         }
 
-        public static RessourcePrice FromDecimal(decimal ressourcePrice)
+        public static RessourcePrice FromInt(int ressourcePrice)
         {
             return new RessourcePrice(ressourcePrice);
 
         }
 
-        public static implicit operator decimal(RessourcePrice ressourcePrice)
+        public static implicit operator int(RessourcePrice ressourcePrice)
         {
             return ressourcePrice.Value;
         }

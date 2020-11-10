@@ -1,22 +1,28 @@
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Lease.Domain;
+using Lease.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
 using static Lease.Infrastructure.Lease.ReadModels;
 
 
 namespace Lease.Infrastructure.Lease
 {
-    public static class LeaseOrderQueries
+    public class LeaseOrderQueries
     {
-        [System.Obsolete]
-        public async static Task<List<LeaseOrderDetails>> GetAllLease(DbContext connection)
+        private readonly LeaseDbContext _context;
+        public LeaseOrderQueries(LeaseDbContext leaseDbContext)
         {
-            return connection.Query<LeaseOrder>().AsNoTracking()
-                .AsEnumerable()
+            _context = leaseDbContext;
+        }
+
+        public async  Task<List<LeaseOrderDetails>> GetAllLease()
+        {
+            return await _context.Leases.AsNoTracking()
                 .Where(x => x.IsDeleted == false)
                 .Select(x => new LeaseOrderDetails
                 {
@@ -26,60 +32,8 @@ namespace Lease.Infrastructure.Lease
                     IsDeleted = x.IsDeleted,
                     IsDelivery = x.IsDelivery,
                     IsPaid = x.IsPaid,
-                    LeaseId = x.leaseId,
-                    TotalPrice = x.TotalPrice,
-                    ZipCode = x.ZipCode,
-                })
-                 .OrderByDescending(x => x.DateCreated)
-                 .ToList();
-        }
-
-        [System.Obsolete]
-        public async static Task<LeaseOrderDetails> GetLeaseById(this DbContext connection, QueryModels.GetLeaseOrderById query)
-        {
-            return connection.Query<Domain.LeaseOrder>().AsNoTracking()
-                .AsEnumerable()
-                .Where(x => x.leaseId == query.LeaseId && x.IsDeleted == false)   
-                .Select(x => new LeaseOrderDetails 
-                { 
-                    Street = x.Street,
-                    City = x.City,
-                    DateCreated = x.DateCreated,
-                    IsDeleted = x.IsDeleted,
-                    IsDelivery = x.IsDelivery,
-                    IsPaid = x.IsPaid,
-                    LeaseId = x.leaseId,
-                    TotalPrice = x.TotalPrice,
-                    ZipCode = x.ZipCode,
-                    leaseOrderLines = x.LeaseOrderLines.Select(x => new LeaseOrderLineDetails {
-                        LeaseOrderLineId = x.LeaseOrderLineId,
-                        StartDate = x.StartDate,
-                        EndDate = x.EndDate,
-                        IsReturned = x.IsReturned,
-                        LineTotalPrice = x.LineTotalPrice,
-                        Quantity = x.Quantity,
-                        RessourceName = x.RessourceName,
-                        RessourcePrice = x.RessourcePrice})
-                    .ToList()
-                })
-                .FirstOrDefault();
-        }
-
-        [System.Obsolete]
-        public async static Task<List<LeaseOrderDetails>> GetLeaseByCustomerId(this DbContext connection, QueryModels.GetLeasesByCustomerId query)
-        {
-            return connection.Query<Domain.LeaseOrder>().AsNoTracking()
-                .AsEnumerable()
-                .Where(x => x.CustomerId == query.CustomerId && x.IsDeleted == false)
-                .Select(x => new LeaseOrderDetails
-                {
-                    Street = x.Street,
-                    City = x.City,
-                    DateCreated = x.DateCreated,
-                    IsDeleted = x.IsDeleted,
-                    IsDelivery = x.IsDelivery,
-                    IsPaid = x.IsPaid,
-                    LeaseId = x.leaseId,
+                    LeaseId = x.LeaseOrderId,
+                    CustomerId = x.CustomerId,
                     TotalPrice = x.TotalPrice,
                     ZipCode = x.ZipCode,
                     leaseOrderLines = x.LeaseOrderLines.Select(x => new LeaseOrderLineDetails
@@ -96,27 +50,87 @@ namespace Lease.Infrastructure.Lease
                     .ToList()
                 })
                  .OrderByDescending(x => x.DateCreated)
-                .ToList();
+                 .ToListAsync();
         }
 
-        [System.Obsolete]
-        public async static Task<List<LeaseOrderListItem>> GetSearchedLeases(this DbContext connection, QueryModels.GetSearchedLeases query)
+ 
+        public async Task<LeaseOrderDetails> GetLeaseById(QueryModels.GetLeaseOrderById query)
         {
-            return connection.Query<Domain.LeaseOrder>().AsNoTracking()
-                .AsEnumerable()
-                .Where(x => x.Id.ToString().Contains(query.SearchTerm))
-                .Where(x => x.CustomerId.ToString().Contains(query.SearchTerm))
-                .Where(x => x.City.ToString().Contains(query.SearchTerm))
-                .Where(x => x.ZipCode.ToString().Contains(query.SearchTerm))
-                .Where(x => x.IsDeleted == false)
+            return await _context.Leases.AsNoTracking()
+                .Where(x => x.LeaseOrderId == query.LeaseId && x.IsDeleted == false)   
+                .Select(x => new LeaseOrderDetails 
+                { 
+                    Street = x.Street,
+                    City = x.City,
+                    DateCreated = x.DateCreated,
+                    IsDeleted = x.IsDeleted,
+                    IsDelivery = x.IsDelivery,
+                    IsPaid = x.IsPaid,
+                    CustomerId = x.CustomerId,
+                    LeaseId = x.LeaseOrderId,
+                    TotalPrice = x.TotalPrice,
+                    ZipCode = x.ZipCode,
+                    leaseOrderLines = x.LeaseOrderLines.Select(x => new LeaseOrderLineDetails {
+                        LeaseOrderLineId = x.LeaseOrderLineId,
+                        StartDate = x.StartDate,
+                        EndDate = x.EndDate,
+                        IsReturned = x.IsReturned,
+                        LineTotalPrice = x.LineTotalPrice,
+                        Quantity = x.Quantity,
+                        RessourceName = x.RessourceName,
+                        RessourcePrice = x.RessourcePrice})
+                    .ToList()
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<LeaseOrderDetails>> GetLeaseByCustomerId(QueryModels.GetLeasesByCustomerId query)
+        {
+            return await _context.Leases.AsNoTracking()
+                .Where(x => x.CustomerId == query.CustomerId && x.IsDeleted == false)
+                .Select(x => new LeaseOrderDetails
+                {
+                    Street = x.Street,
+                    City = x.City,
+                    DateCreated = x.DateCreated,
+                    IsDeleted = x.IsDeleted,
+                    IsDelivery = x.IsDelivery,
+                    IsPaid = x.IsPaid,
+                    CustomerId = x.CustomerId,
+                    LeaseId = x.LeaseOrderId,
+                    TotalPrice = x.TotalPrice,
+                    ZipCode = x.ZipCode,
+                    leaseOrderLines = x.LeaseOrderLines.Select(x => new LeaseOrderLineDetails
+                    {
+                        LeaseOrderLineId = x.LeaseOrderLineId,
+                        StartDate = x.StartDate,
+                        EndDate = x.EndDate,
+                        IsReturned = x.IsReturned,
+                        LineTotalPrice = x.LineTotalPrice,
+                        Quantity = x.Quantity,
+                        RessourceName = x.RessourceName,
+                        RessourcePrice = x.RessourcePrice
+                    })
+                    .ToList()
+                })
+                 .OrderByDescending(x => x.DateCreated)
+                .ToListAsync();
+        }
+
+     
+        public async Task<List<LeaseOrderListItem>> GetSearchedLeases(QueryModels.GetSearchedLeases query)
+        {
+            return await _context.Leases.AsNoTracking()
+                .Where(x => x.IsDeleted == false && (x.LeaseOrderId.ToString() == query.SearchTerm 
+                ||x.City.Contains(query.SearchTerm) || x.ZipCode.ToString().Contains(query.SearchTerm)))
                 .Select(x => new LeaseOrderListItem
                 {
                     DateCreated = x.DateCreated,
                     IsPaid = x.IsPaid,
-                    LeaseId = x.leaseId
+                    LeaseId = x.LeaseOrderId
                 })
                 .OrderByDescending(x => x.DateCreated)
-                .ToList();
+                .ToListAsync();
         }
 
     }

@@ -8,11 +8,11 @@ namespace Lease.Domain
 
     public class TotalPrice : Value<TotalPrice>
     {
-        public decimal Value { get; internal set; }
+        public int Value { get; internal set; }
 
         protected TotalPrice() { }
 
-        public TotalPrice(decimal totalPrice)
+        public TotalPrice(int totalPrice)
         {
             if (totalPrice < 0)
                 throw new ArgumentException(
@@ -22,13 +22,13 @@ namespace Lease.Domain
             Value = totalPrice;
         }
 
-        public static TotalPrice FromDecimal(decimal totalPrice) 
+        public static TotalPrice FromDecimal(int totalPrice) 
         {
             return new TotalPrice(totalPrice);
 
         } 
 
-        public static implicit operator decimal(TotalPrice totalPrice)
+        public static implicit operator int(TotalPrice totalPrice)
         {
             return totalPrice.Value;
         }

@@ -11,34 +11,32 @@ namespace Lease.Domain
     public class LeaseOrderLine : Entity<LeaseOrderLineId>
     {
         // Properties to handle the persistence
-        public Guid LeaseOrderLineId
-        {
-            get => Id.Value;
-            set { }
-        }
+        public Guid LeaseOrderLineId { get; private set;}
 
         protected LeaseOrderLine() { }
         // Entity state properties
 
-        public StartDate StartDate { get; private set; }
+        public DateTime StartDate { get; private set; }
 
-        public EndDate EndDate { get; private set; }
+        public DateTime EndDate { get; private set; }
 
-        public IsReturned IsReturned { get; private set; }
+        public bool IsReturned { get; private set; }
 
-        public RessourceName RessourceName { get; private set; }
+        public string RessourceName { get; private set; }
 
-        public RessourcePrice RessourcePrice { get; private set; }
+        public int RessourcePrice { get; private set; }
 
-        public Quantity Quantity { get; private set; }
+        public int Quantity { get; private set; }
 
-        public LineTotalPrice LineTotalPrice { get; private set; }
+        public int LineTotalPrice { get; private set; }
 
-        public LeaseOrderId ParentId { get; private set; }
+        public Guid LeaseId { get; private set; }
+
+        public LeaseOrder LeaseOrder { get; private set; }
 
         //public LeaseOrderLineState State { get; private set; }
 
-        public LeaseOrderLine(LeaseOrderLineId leaseOrderLineId, LeaseOrderId leaseOrderId, StartDate startDate, EndDate endDate, IsReturned isReturned, RessourceName ressourceName, RessourcePrice ressourcePrice, Quantity quantity)
+        public LeaseOrderLine(Guid leaseOrderLineId, Guid leaseOrderId, DateTime startDate, DateTime endDate, bool isReturned, string ressourceName, int ressourcePrice, int quantity)
         {
             Apply(new LeaseOrderEvents.LeaseOrderLineAddedToLeaseOrder
             {
@@ -53,72 +51,21 @@ namespace Lease.Domain
             });
         }
 
-        //public void UpdateStartDate(StartDate startDate)
-        //{
-        //    Apply(new LeaseOrderLineEvents.UpdateStartDate
-        //    {
-        //        LeaseOrderLineId = leaseOrderLineId,
-        //        StartDate = startDate
+        public void UpdateLeaseOrderLine(StartDate startDate, EndDate endDate, IsReturned isReturned, RessourceName ressourceName, RessourcePrice ressourcePrice, Quantity quantity)
+        {
+            Apply(new LeaseOrderEvents.LeaseOrderLineUpdated
+            {
+                LeaseOrderLineId = LeaseOrderLineId,
+                StartDate = startDate,
+                EndDate = endDate,
+                IsReturned = isReturned,
+                RessourceName = ressourceName,
+                RessourcePrice = ressourcePrice,
+                Quantity = quantity,
 
-        //    });
-        //}
+            });
 
-        //public void UpdateEndDate(EndDate endDate)
-        //{
-        //    Apply(new LeaseOrderLineEvents.UpdateEndDate
-        //    {
-        //        LeaseOrderLineId = leaseOrderLineId,
-        //        EndDate = endDate
-
-        //    });
-        //}
-
-        //public void UpdateIsReturned(IsReturned isReturned)
-        //{
-        //    Apply(new LeaseOrderLineEvents.UpdateIsReturned
-        //    {
-        //        LeaseOrderLineId = leaseOrderLineId,
-        //        IsReturned = isReturned,
-
-        //    });
-        //}
-
-        //public void UpdateRessourceName(RessourceName ressourceName)
-        //{
-        //    Apply(new LeaseOrderLineEvents.UpdateRessourceName
-        //    {
-        //        LeaseOrderLineId = leaseOrderLineId,
-        //        RessourceName = ressourceName
-        //    });
-        //}
-
-        //public void UpdateRessourcePrice(RessourcePrice ressourcePrice)
-        //{
-        //    Apply(new LeaseOrderLineEvents.UpdateRessourcePrice
-        //    {
-        //        LeaseOrderLineId = leaseOrderLineId,
-        //        RessourcePrice = ressourcePrice
-        //    });
-        //}
-
-        //public void UpdateQuantity(Quantity quantity)
-        //{
-        //    Apply(new LeaseOrderLineEvents.UpdateQuantity
-        //    {
-        //        LeaseOrderLineId = leaseOrderLineId,
-        //        Quantity = quantity
-        //    });
-        //}
-
-        //public void UpdateLineTotalPrice(LineTotalPrice lineTotalPrice)
-        //{
-        //    Apply(new LeaseOrderLineEvents.UpdateLineTotalPrice
-        //    {
-        //        LeaseOrderLineId = leaseOrderLineId,
-        //        LineTotalPrice = lineTotalPrice
-        //    });
-        //}
-
+        }
 
         protected override void When(object @event)
         {
@@ -126,30 +73,16 @@ namespace Lease.Domain
             {
 
                 case LeaseOrderEvents.LeaseOrderLineAddedToLeaseOrder e:
-                    ParentId = new LeaseOrderId(e.LeaseOrderId);
+                    LeaseId = e.LeaseOrderId;
                     Id = new LeaseOrderLineId(e.LeaseOrderLineId);
                     
-                    StartDate = new StartDate(e.StartDate);
-                    EndDate = new EndDate(e.EndDate);
-                    IsReturned = new IsReturned(e.IsReturned);
-                    RessourceName = new RessourceName(e.RessourceName);
-                    RessourcePrice = new RessourcePrice(e.RessourcePrice);
-                    Quantity = new Quantity(e.Quantity);
-                    //LineTotalPrice = new LineTotalPrice(e.LineTotalPrice);
+                    StartDate = new StartDate( e.StartDate);
+                    EndDate = new EndDate( e.EndDate);
+                    IsReturned = new IsReturned( e.IsReturned);
+                    RessourceName = new RessourceName( e.RessourceName);
+                    RessourcePrice = new RessourcePrice( e.RessourcePrice);
+                    Quantity = new Quantity( e.Quantity);
                     break;
-
-                    //case LeaseOrderLineEvents.CreateLeaseOrderLine e:
-                    //    Id = new LeaseOrderLineId(e.LeaseOrderLineId);
-
-                    //    StartDate = new StartDate(e.StartDate);
-                    //    EndDate = new EndDate(e.EndDate);
-                    //    IsReturned = new IsReturned(e.IsReturned);
-                    //    RessourceName = new RessourceName(e.RessourceName);
-                    //    RessourcePrice = new RessourcePrice(e.RessourcePrice);
-                    //    Quantity = new Quantity(e.Quantity);
-                    //    LineTotalPrice = new LineTotalPrice(e.LineTotalPrice);
-
-                    //    break;
 
                     //case LeaseOrderLineEvents.UpdateStartDate e:
                     //    Id = new LeaseOrderLineId(e.LeaseOrderLineId);

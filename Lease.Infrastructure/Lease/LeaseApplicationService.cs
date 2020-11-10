@@ -24,26 +24,17 @@ namespace Lease.Infrastructure.Lease
             {
                 V1.CreateLease cmd => HandleCreate(cmd),
 
-                V1.UpdateLeaseStreet cmd => HandleUpdate(cmd.LeaseId,
-                        c => c.LeaseStreetUpdate(Street.FromString(cmd.Street))),
-
-                V1.UpdateLeaseZipCode cmd => HandleUpdate(cmd.LeaseId,
-                        c => c.LeaseZipCodeUpdate(ZipCode.FromInt(cmd.ZipCode))),
-
-                V1.UpdateLeaseCity cmd => HandleUpdate(cmd.LeaseId,
-                        c => c.LeaseCityUpdate(City.FromString(cmd.City))),
-
-                V1.UpdateDateCreated cmd => HandleUpdate(cmd.LeaseId,
-                        c => c.DateCreatedUpdated(DateCreated.FromDateTime(cmd.DateCreated))),
+                V1.UpdateAddress cmd => HandleUpdate(cmd.LeaseId,
+                        c => c.LeaseAddressUpdated(Street.FromString(cmd.Street), ZipCode.FromInt(cmd.ZipCode), City.FromString(cmd.City))),
 
                 V1.DeleteLease cmd => HandleUpdate(cmd.LeaseId,
-                        c => c.LeaseDeleted(IsDeleted.FromString(cmd.IsDeleted))),
+                        c => c.LeaseDeleted(IsDeleted.FromBool(cmd.IsDeleted))),
 
                 V1.UpdateIsDelivery cmd => HandleUpdate(cmd.LeaseId,
                         c => c.IsDeliveryUpdated(IsDelivery.FromBool(cmd.IsDelivery))),
 
                 V1.UpdateIsPaid cmd => HandleUpdate(cmd.LeaseId,
-                        c => c.IsPaidUpdated(IsPaid.FromBool(cmd.IsPaid))),
+                        c => c.IsPaidUpdated(IsPaid.FromString(cmd.IsPaid.ToString()))),
 
                 V1.UpdateTotalPrice cmd => HandleUpdate(cmd.LeaseId,
                         c => c.TotalPriceUpdated(TotalPrice.FromDecimal(cmd.TotalPrice))),
@@ -51,23 +42,28 @@ namespace Lease.Infrastructure.Lease
                 //LeaseOrderLine
                 V1.AddLeaseOrderLineToLeaseOrder cmd => HandleCreateLeaseOrderLine(cmd),
 
+                V1.DeleteLeaseOrderLine cmd => HandleDeleteLeaseOrderLine(cmd.LeaseId),
+
+                V1.UpdateLeaseOrderLine cmd => HandleUpdateLeaseOrderLine(cmd.LeaseOrderLineId,
+                      c => c.UpdateLeaseOrderLine(StartDate.FromDateTime(cmd.StartDate), EndDate.FromDateTime(cmd.EndDate), IsReturned.FromBool(cmd.IsReturned), RessourceName.FromString( cmd.RessourceName), RessourcePrice.FromInt(cmd.RessourcePrice), Quantity.FromInt(cmd.Quantity))),
+
                 _ => Task.CompletedTask
             };
       
         private async Task HandleCreate(V1.CreateLease cmd)
         {
-            if (await _repository.LeaseOrderExists(cmd.LeaseId.ToString()))
+            if (await _repository.LeaseOrderExists(cmd.LeaseId))
                 throw new InvalidOperationException($"Entity with id {cmd.LeaseId} already exists");
 
             var lease = new LeaseOrder(
-                    new LeaseOrderId(cmd.LeaseId),
-                    new CustomerId(cmd.CustomerId),
-                    new DateCreated(cmd.DateCreated),
-                    new IsDelivery(cmd.IsDelivery),
-                    new IsPaid(cmd.IsPaid),
-                    new Street(cmd.Street),
-                    new ZipCode(cmd.ZipCode),
-                    new City(cmd.City)
+                    cmd.LeaseId,
+                    cmd.CustomerId,
+                    DateTime.UtcNow,
+                    cmd.IsDelivery,
+                    cmd.IsPaid,
+                    cmd.Street,
+                    cmd.ZipCode,
+                    cmd.City
 
                 );
 
@@ -77,18 +73,18 @@ namespace Lease.Infrastructure.Lease
 
         private async Task HandleCreateLeaseOrderLine(V1.AddLeaseOrderLineToLeaseOrder cmd)
         {
-            if (await _repository.LeaseOrderLineExists(cmd.LeaseOrderLineId.ToString()))
+            if (await _repository.LeaseOrderLineExists(cmd.LeaseOrderLineId))
                 throw new InvalidOperationException($"Entity with id {cmd.LeaseOrderLineId} already exists");
 
             var leaseOrderLine = new LeaseOrderLine(
-                    new LeaseOrderLineId(cmd.LeaseOrderLineId),
-                    new LeaseOrderId(cmd.LeaseId),
-                    new StartDate(cmd.StartDate),
-                    new EndDate(cmd.EndDate),
-                    new IsReturned(cmd.IsReturned),
-                    new RessourceName(cmd.RessourceName),
-                    new RessourcePrice(cmd.RessourcePrice),
-                    new Quantity(cmd.Quantity)
+                    cmd.LeaseOrderLineId,
+                    cmd.LeaseId,
+                    cmd.StartDate,
+                    cmd.EndDate,
+                    cmd.IsReturned,
+                    cmd.RessourceName,
+                    cmd.RessourcePrice,
+                    cmd.Quantity
 
                 );
 
@@ -98,12 +94,36 @@ namespace Lease.Infrastructure.Lease
 
         private async Task HandleUpdate(Guid leaseId,Action<LeaseOrder> operation)
         {
-            var lease = await _repository.LoadLeaseOrder(leaseId.ToString());
+            var lease = await _repository.LoadLeaseOrder(leaseId);
 
             if (lease == null)
                 throw new InvalidOperationException($"Entity with id {leaseId} cannot be found");
 
             operation(lease);
+
+            await _unitOfWork.Commit();
+        }
+
+        private async Task HandleUpdateLeaseOrderLine(Guid leaseorderLineId, Action<LeaseOrderLine> operation)
+        {
+            var lease = await _repository.LoadLeaseOrderLine(leaseorderLineId);
+
+            if (lease == null)
+                throw new InvalidOperationException($"Entity with id {leaseorderLineId} cannot be found");
+
+            operation(lease);
+
+            await _unitOfWork.Commit();
+        }
+
+        private async Task HandleDeleteLeaseOrderLine(Guid id)
+        {
+            var entity = await _repository.LoadLeaseOrderLine(id);
+
+            if (entity == null)
+                throw new InvalidOperationException($"Entity with id {id} cannot be found");
+
+            await _repository.DeleteLeaseOrderLine(id);
 
             await _unitOfWork.Commit();
         }

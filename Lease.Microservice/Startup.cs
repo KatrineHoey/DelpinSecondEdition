@@ -40,6 +40,7 @@ namespace Lease.Microservice
 
             services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
             services.AddScoped<ILeaseRepository, LeaseRepository>();
+            services.AddScoped<LeaseOrderQueries, LeaseOrderQueries>();
 
             services.AddScoped<LeaseApplicationService>();
 

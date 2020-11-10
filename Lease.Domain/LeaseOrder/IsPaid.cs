@@ -11,9 +11,9 @@ namespace Lease.Domain
 
         protected IsPaid() { }
 
-        public static IsPaid FromBool(bool isPaid)
+        public static IsPaid FromString(string isPaid)
         {
-            return new IsPaid(isPaid);
+            return new IsPaid(Convert.ToBoolean(isPaid));
         }
 
         public IsPaid(bool value) => Value = value;

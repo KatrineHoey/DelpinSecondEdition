@@ -16,7 +16,7 @@ namespace Lease.Domain
 
         protected IsDeleted() { }
 
-        public static IsDeleted FromString(bool isDeleted)
+        public static IsDeleted FromBool(bool isDeleted)
         {
             return new IsDeleted(Convert.ToBoolean(isDeleted));
         }
