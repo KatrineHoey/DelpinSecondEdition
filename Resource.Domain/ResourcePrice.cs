@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Resource.Domain
 {
-    class ResourcePrice :Value<ResourcePrice>
+    public class ResourcePrice :Value<ResourcePrice>
     {
         public decimal Value { get; internal set; }
 
