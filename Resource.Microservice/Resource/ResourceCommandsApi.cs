@@ -34,10 +34,11 @@ namespace Resource.Microservice.Resource
         public Task<IActionResult> Put(Commands.V1.UpdateResourcePrice request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
-        [Route("IsDeleted")]
-        [HttpPut]
+        [HttpDelete]
         public Task<IActionResult> Put(Commands.V1.ResourceDeleted request)
-            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
+        {
+            return RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
+        }
 
     }
 }

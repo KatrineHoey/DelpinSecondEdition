@@ -30,7 +30,7 @@ namespace Resource.Microservice.Resource
                     ),
                 V1.UpdateResourceNo cmd =>
                 HandleUpdate(cmd.Id,
-                    c => c.UpdateResourceNo(ResourceNo.FromString(Convert.ToString(cmd.RessourceNo))
+                    c => c.UpdateResourceNo(ResourceNo.FromInt(cmd.RessourceNo)
                         )
                     ),
                 V1.UpdateResourcePrice cmd =>
@@ -56,8 +56,8 @@ namespace Resource.Microservice.Resource
                 throw new InvalidOperationException(
                     $"Entity with id {cmd.Id} already exists");
 
-            var resource = new Domain.Resource(
-                new ResourceId(cmd.Id)
+            var resource = new Domain.Resource(new ResourceId(cmd.Id), ResourceName.FromString(cmd.ResourceName), ResourceNo.FromInt(cmd.ResourceNo), ResourcePrice.FromDecimal(cmd.ResourcePrice)
+
             );
 
             await _store.Save<Domain.Resource, ResourceId>(resource);

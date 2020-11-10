@@ -23,7 +23,7 @@ namespace Resource.Domain
         // Satisfy the serialization requirements
         protected Resource() { }
 
-        public Resource(ResourceId resourceId, ResourceName resourceName, ResourceNo resourceNo, ResourcePrice resourcePrice, IsDeleted isDeleted)
+        public Resource(ResourceId resourceId, ResourceName resourceName, ResourceNo resourceNo, ResourcePrice resourcePrice)
         {
             Apply(new Events.ResourceRegistered
             {
@@ -35,10 +35,10 @@ namespace Resource.Domain
             });
         }
 
-        public Resource(ResourceId resourceId)
-        {
-            Id = resourceId;
-        }
+        //public Resource(ResourceId resourceId)
+        //{
+        //    Id = resourceId;
+        //}
        
         public void UpdateName(ResourceName resourceName)
         {
@@ -106,6 +106,31 @@ namespace Resource.Domain
             }
         }
 
+        //protected override void EnsureValidState()
+        //{
+        //    bool valid =
+        //        Id != null &&
+        //        (State switch
+        //        {
+        //            ResourceState.PendingReview =>
+        //                ResourceName != null &&
+        //                ResourceNo != null &&
+        //                ResourcePrice != null &&
+        //                IsDeleted != null,
+
+        //            ResourceState.Active =>
+        //                ResourceName != null &&
+        //                ResourceNo != null &&
+        //                ResourcePrice != null &&
+        //                IsDeleted != null,
+        //            _ => true
+        //        });
+        //    if (!valid)
+        //    {
+        //        throw new DomainExceptions.InvalidEntityState(this, $"Post-checks failed in state {State}");
+        //    }
+        //}
+
         protected override void EnsureValidState()
         {
             bool valid =
@@ -115,14 +140,12 @@ namespace Resource.Domain
                     ResourceState.PendingReview =>
                         ResourceName != null &&
                         ResourceNo != null &&
-                        ResourcePrice != null &&
-                        IsDeleted != null,
+                        ResourcePrice != null,
 
                     ResourceState.Active =>
                         ResourceName != null &&
                         ResourceNo != null &&
-                        ResourcePrice != null &&
-                        IsDeleted != null,
+                        ResourcePrice != null,
                     _ => true
                 });
             if (!valid)

@@ -21,13 +21,9 @@ namespace Resource.Domain
 
         public int Value { get; internal set; }
 
-        public static ResourceNo FromString(string resourceNo)
+        public static ResourceNo FromInt(int text)
         {
-            if (resourceNo.IsEmpty())
-            {
-                throw new ArgumentNullException(nameof(resourceNo));
-            }
-            return new ResourceNo(Convert.ToInt32(resourceNo));
+            return new ResourceNo(Convert.ToInt32(text));
         }
 
         public static implicit operator int(ResourceNo resourceNo)
