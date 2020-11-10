@@ -1,37 +1,64 @@
+//{
+//  "iisSettings": {
+//    "windowsAuthentication": false,
+//    "anonymousAuthentication": true,
+//    "iisExpress": {
+//      "applicationUrl": "http://localhost:64440",
+//      "sslPort": 44319
+//    }
+//  },
+//  "$schema": "http://json.schemastore.org/launchsettings.json",
+//  "profiles": {
+//    "IIS Express": {
+//      "commandName": "IISExpress",
+//      "launchBrowser": true,
+//      "launchUrl": "index.html",
+//      "environmentVariables": {
+//        "ASPNETCORE_ENVIRONMENT": "Development"
+//      }
+//    },
+//    "Resource.Microservice": {
+//      "commandName": "Project",
+//      "launchBrowser": true,
+//      "launchUrl": "index.html",
+//      "environmentVariables": {
+//        "ASPNETCORE_ENVIRONMENT": "Development"
+//      },
+//      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+//    },
+//    "Docker": {
+//      "commandName": "Docker",
+//      "launchBrowser": true,
+//      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/index.html",
+//      "publishAllPorts": true,
+//      "useSSL": true
+//    }
+//  }
+//}
 {
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:64440",
-      "sslPort": 44319
+      "applicationUrl": "http://localhost:49919/",
+      "sslPort": 44364
     }
   },
-  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Resource.Microservice": {
+    "Marketplace": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
-    },
-    "Docker": {
-      "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/index.html",
-      "publishAllPorts": true,
-      "useSSL": true
     }
   }
 }

@@ -7,10 +7,11 @@ using System.Text;
 
 namespace Resource.Domain
 {
-    class Resource : AggregateRoot<ResourceId>
+    public class Resource : AggregateRoot<ResourceId>
     {
         // Properties to handle the persistence
-        public Guid resourceId { get; private set; }
+        //public Guid resourceId { get; private set; }
+
 
         // Aggregate state properties
         public ResourceName ResourceName { get; set; }
@@ -30,16 +31,20 @@ namespace Resource.Domain
                 ResourceName = resourceName,
                 ResourceNo = resourceNo,
                 ResourcePrice = resourcePrice,
-                IsDeleted = isDeleted
+                //IsDeleted = isDeleted
             });
         }
 
-
+        public Resource(ResourceId resourceId)
+        {
+            Id = resourceId;
+        }
+       
         public void UpdateName(ResourceName resourceName)
         {
             Apply(new Events.ResourceNameUpdated
             {
-                ResourceId = resourceId,
+                ResourceId = Id,
                 ResourceName = resourceName
             });
         }
@@ -48,7 +53,7 @@ namespace Resource.Domain
         {
             Apply(new Events.ResourceNoUpdated
             {
-                ResourceId = resourceId,
+                ResourceId = Id,
                 ResourceNo = resourceNo
             }); ;
         }
@@ -57,16 +62,16 @@ namespace Resource.Domain
         {
             Apply(new Events.ResourcePriceUpdated
             {
-                ResourceId=resourceId,
-                ResourcePrice=resourcePrice                    
-            });
+                ResourceId = Id,
+                ResourcePrice = resourcePrice
+            }) ;
         }
 
         public void ResourceDeleted(IsDeleted isDeleted)
         {
             Apply(new Events.ResourceDeleted
             {
-                ResourceId = resourceId,
+                ResourceId = Id,
                 IsDeleted = isDeleted
             });
         }
@@ -80,7 +85,7 @@ namespace Resource.Domain
                     ResourceName = new ResourceName(e.ResourceName);
                     ResourceNo = new ResourceNo(e.ResourceNo);
                     ResourcePrice = new ResourcePrice(e.ResourcePrice);
-                    IsDeleted = new IsDeleted(e.IsDeleted);
+                    //IsDeleted = new IsDeleted(e.IsDeleted);
                     break;
                 case Events.ResourceDeleted e:
                     Id = new ResourceId(e.ResourceId);

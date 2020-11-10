@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Delpin.Framework;
+using EventStore.ClientAPI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,23 +13,40 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Resource.Infrastructure;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace Resource.Microservice
 {
 
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment environment, IConfiguration configuration)
         {
+            Environment = environment;
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
+        private IHostingEnvironment Environment { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            var esConnection = EventStoreConnection.Create(
+                Configuration["eventStore:connectionString"],
+                ConnectionSettings.Create().KeepReconnecting(),
+                Environment.ApplicationName);
+            var store = new EsAggregateStore(esConnection);
+
+            services.AddSingleton(esConnection);
+            services.AddSingleton<IAggregateStore>(store);
+
+            services.AddSingleton(new Resource.ResourceApplicationService(store));
+
+            services.AddSingleton<IHostedService, HostedService>();
+            services.AddMvc();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -65,4 +84,5 @@ namespace Resource.Microservice
             });
         }
     }
+
 }

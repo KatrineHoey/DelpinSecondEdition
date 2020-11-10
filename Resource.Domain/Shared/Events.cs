@@ -12,7 +12,7 @@ namespace Resource.Domain.Shared
             public int ResourceNo { get; set; }
             public string ResourceName { get; set; }
             public decimal ResourcePrice { get; set; }
-            public bool IsDeleted { get; set; }
+            //public bool IsDeleted { get; set; }
         }
 
 
