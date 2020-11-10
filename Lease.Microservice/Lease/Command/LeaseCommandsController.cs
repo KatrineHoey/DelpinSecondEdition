@@ -1,11 +1,9 @@
 using System.Threading.Tasks;
-
-using Lease.Infrastructure.Lease;
 using Lease.Infrastructure.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
-namespace Lease.Microservice.Controllers
+namespace Lease.Microservice.Lease.Command
 {
     [Route("/lease")]
     public class LeaseCommandsController : Controller
@@ -24,7 +22,7 @@ namespace Lease.Microservice.Controllers
 
         [Route("AddLeaseOrderLine")]
         [HttpPost]
-        public Task<IActionResult> Post(LeaseOrderCommands.V1.AddLeaseOrderLineToLeaseOrder request)
+        public Task<IActionResult> Post(LeaseOrderLineCommands.V1.AddLeaseOrderLineToLeaseOrder request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
         [Route("address")]
@@ -50,7 +48,7 @@ namespace Lease.Microservice.Controllers
 
         [Route("leaseorderline")]
         [HttpPut]
-        public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateLeaseOrderLine request)
+        public Task<IActionResult> Put(LeaseOrderLineCommands.V1.UpdateLeaseOrderLine request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
 
@@ -62,7 +60,7 @@ namespace Lease.Microservice.Controllers
 
         [Route("leaseOrderLine")]
         [HttpDelete]
-        public Task<IActionResult> Delete(LeaseOrderCommands.V1.DeleteLeaseOrderLine request)
+        public Task<IActionResult> Delete(LeaseOrderLineCommands.V1.DeleteLeaseOrderLine request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
     }
 }

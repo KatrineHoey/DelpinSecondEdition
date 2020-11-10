@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Delpin.Framework;
-
 using Lease.Domain.Shared;
-using Lease.Domain.Shared.Events;
 
 namespace Lease.Domain
 {
@@ -82,13 +80,7 @@ namespace Lease.Domain
             });
         }
 
-        public void LeaseOrderLineDeleted()
-        {
-            Apply(new LeaseOrderEvents.LeaseOrderLineDeleted
-            {
-                LeaseId = LeaseOrderId
-            });
-        }
+
 
         public void IsDeliveryUpdated(IsDelivery isDelivery)
         {
@@ -121,8 +113,6 @@ namespace Lease.Domain
 
         protected override void When(object @event)
         {
-            LeaseOrderLine leaseOrderLine;
-
             switch (@event)
             {
                 case LeaseOrderEvents.CreateLeaseOrder e:
@@ -170,17 +160,6 @@ namespace Lease.Domain
                     Id = new LeaseOrderId(e.LeaseId);
                     TotalPrice = e.TotalPrice;
                     break;
-
-                // LeaseOrderLine
-                case LeaseOrderEvents.LeaseOrderLineAddedToLeaseOrder e:
-                    leaseOrderLine = new LeaseOrderLine(Apply);
-                    ApplyToEntity(leaseOrderLine, e);
-                    LeaseOrderLines.Add(leaseOrderLine);
-                    break;
-
-                case LeaseOrderEvents.LeaseOrderLineDeleted e:
-                    Id = new LeaseOrderId(e.LeaseId);
-                    break;
             }
         }
 
@@ -209,8 +188,6 @@ namespace Lease.Domain
                         && Street != null
                         && ZipCode != null
                         && City != null,
-
-
                     _ => true
                 });
 
