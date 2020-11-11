@@ -1,0 +1,173 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/lease",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/lease/id?LeaseId={LeaseId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/id?LeaseId={LeaseId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/lease/customerId?CustomerId={CustomerId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/customerId?CustomerId={CustomerId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/lease/search?SearchTerm={SearchTerm}&Page={Page}&PageSize={PageSize}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/search?SearchTerm={SearchTerm}&Page={Page}&PageSize={PageSize}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/lease?LeaseId={LeaseId}&CustomerId={CustomerId}&Street={Street}&ZipCode={ZipCode}&City={City}&IsDelivery={IsDelivery}&IsPaid={IsPaid}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease?LeaseId={LeaseId}&CustomerId={CustomerId}&Street={Street}&ZipCode={ZipCode}&City={City}&IsDelivery={IsDelivery}&IsPaid={IsPaid}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/lease/AddLeaseOrderLine?LeaseId={LeaseId}&LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/AddLeaseOrderLine?LeaseId={LeaseId}&LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/lease/address?LeaseId={LeaseId}&Street={Street}&ZipCode}ZipCode&City={City}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/address?LeaseId={LeaseId}&Street={Street}&ZipCode}ZipCode&City={City}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/lease/delivery?LeaseId={LeaseId}&IsDelivery={IsDelivery}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/delivery?LeaseId={LeaseId}&IsDelivery={IsDelivery}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/lease/paid?LeaseId={LeaseId}&IsPaid={IsPaid}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/paid?LeaseId={LeaseId}&IsPaid={IsPaid}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/lease/price?LeaseId={LeaseId}&TotalPrice={TotalPrice}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/price?LeaseId={LeaseId}&TotalPrice={TotalPrice}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/lease/leaseorderline?LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/leaseorderline?LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/lease/lease?LeaseId={LeaseId}&IsDeleted={IsDeleted}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/lease?LeaseId={LeaseId}&IsDeleted={IsDeleted}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/lease/leaseOrderLine?LeaseId={LeaseId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/leaseOrderLine?LeaseId={LeaseId}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    }
+
+  ]
+}

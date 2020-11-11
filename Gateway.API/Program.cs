@@ -26,7 +26,8 @@ namespace Gateway.API
                 {
                     config
                     .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
-                    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+                    .AddJsonFile("ocelotCustomer.json", optional: false, reloadOnChange: true)
+                    .AddJsonFile("ocelotLease.json", optional: false, reloadOnChange: true);
                 });
     }
 }

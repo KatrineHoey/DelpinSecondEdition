@@ -7,7 +7,7 @@ using Lease.Domain.Shared;
 
 namespace Lease.Domain
 {
-    public class LeaseOrder : AggregateRoot<LeaseOrderId>
+    public class LeaseOrder : Shared.AggregateRoot<LeaseOrderId>
     {
         // Properties to handle the persistence
         public Guid LeaseOrderId { get; private set; }
