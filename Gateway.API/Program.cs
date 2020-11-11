@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Ocelot.DependencyInjection;
+using Ocelot;
+using Ocelot.Middleware;
 
 namespace Gateway.API
 {
@@ -13,7 +16,7 @@ namespace Gateway.API
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder2(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,12 +25,41 @@ namespace Gateway.API
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-            .ConfigureAppConfiguration((hostingContext, config) =>
+                .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     config
-                    .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
-                    .AddJsonFile("ocelotCustomer.json", optional: false, reloadOnChange: true)
-                    .AddJsonFile("ocelotLease.json", optional: false, reloadOnChange: true);
+                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                        .AddJsonFile("appsettings.json", true, true)
+                        .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
+                        .AddOcelot((IWebHostEnvironment)hostingContext.HostingEnvironment)
+                        .AddEnvironmentVariables();
                 });
+
+
+        public static IHostBuilder CreateHostBuilder2(string[] args) =>
+              Host.CreateDefaultBuilder(args)
+                 .ConfigureWebHostDefaults(webBuilder =>
+                 {
+                     webBuilder.UseUrls("http://*:9000")
+                       .ConfigureAppConfiguration((hostingContext, config) =>
+                       {
+                           config
+                               .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                               .AddJsonFile("ocelot.json")
+                               .AddEnvironmentVariables();
+
+                           config.AddOcelot(hostingContext.HostingEnvironment);
+
+                       })
+                                         .ConfigureServices(services =>
+                                          {
+                                              services.AddOcelot();
+                                          })
+                     .Configure(app =>
+                     {
+                         app.UseOcelot().Wait();
+                     });
+                 });
     }
 }
+
