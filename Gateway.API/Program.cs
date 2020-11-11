@@ -16,7 +16,7 @@ namespace Gateway.API
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder2(args).Build().Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -29,10 +29,7 @@ namespace Gateway.API
                 {
                     config
                         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
-                        .AddJsonFile("appsettings.json", true, true)
-                        .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
-                        .AddOcelot((IWebHostEnvironment)hostingContext.HostingEnvironment)
-                        .AddEnvironmentVariables();
+                        .AddJsonFile("ocelot.json", true, true);
                 });
 
 

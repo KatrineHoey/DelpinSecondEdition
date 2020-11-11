@@ -107,7 +107,7 @@ else
         ModalDialogParameters parameters = new ModalDialogParameters();
         parameters.Add("CustomerId", id);
 
-        ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditCustomer>("", new ModalDialogOptions(), parameters);
+        ModalDialogResult result = await ModalDialog.ShowDialogAsync<Delpin.WebClient.Pages.LeaseStuff.EditLease>("", new ModalDialogOptions(), parameters);
         if (result.Success)
         {
             var searchterm = result.ReturnParameters.Get<string>("PhoneNo");
