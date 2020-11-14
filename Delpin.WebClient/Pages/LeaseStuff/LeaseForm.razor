@@ -1,5 +1,54 @@
-﻿<h3>LeaseForm</h3>
+﻿<EditForm Model="@Lease" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="simple-form ">
+
+        <div class="form-group">
+            <label>Kundenavn:</label>
+            <InputText @bind-Value="@Lease.CustomerName" readonly class="form-control" />
+            <ValidationMessage For="@(() => Lease.CustomerName)" />
+        </div>
+        <div class="form-group">
+            <label>Oprettet:</label>
+            <InputDate @bind-Value="@Lease.DateCreated" readonly class="form-control" />
+            <ValidationMessage For="@(() => Lease.DateCreated)" />
+        </div>
+        <div class="form-group">
+            <label>Vejnavn og number:</label>
+            <InputText @bind-Value="@Lease.Street" class="form-control" />
+            <ValidationMessage For="@(() => Lease.Street)" />
+        </div>
+        <div class="form-group">
+            <label>Postnummer:</label>
+            <InputNumber @bind-Value="@Lease.ZipCode" class="form-control" />
+            <ValidationMessage For="@(() => Lease.ZipCode)" />
+        </div>
+        <div class="form-group">
+            <label>By:</label>
+            <InputText @bind-Value="@Lease.City" class="form-control" />
+            <ValidationMessage For="@(() => Lease.City)" />
+        </div>
+        <div class="form-group">
+            <label>Skal leveres?:</label>
+            <InputCheckbox @bind-Value="@Lease.IsDelivery" class="form-control" />
+            <ValidationMessage For="@(() => Lease.IsDelivery)" />
+        </div>
+        <div class="form-group">
+            <label>Er betalt?:</label>
+            <InputCheckbox @bind-Value="@Lease.IsPaid" class="form-control" />
+            <ValidationMessage For="@(() => Lease.IsPaid)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">
+        @ButtonText
+    </button>
+
+</EditForm>
+
 
 @code {
+    [Parameter] public LeaseDto.LeaseOrderDetails Lease { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Gem";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
 
+    private CustomerTypeEnum CurrentChoice { get; set; }
 }

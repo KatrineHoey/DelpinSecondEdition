@@ -47,7 +47,7 @@ else
                 <td>@customer.City</td>
                 <td>@customer.PhoneNo</td>
                 <td>
-                    <button class="btn btn-primary float-right mr-3">Opret ny ordre</button>
+                    <button @onclick="@(() => CreateNewLease_Clicked(customer.CustomerId, customer.FullName))" class="btn btn-primary float-right mr-3">Opret ny ordre</button>
                 </td>
                 <td>
                     <button class="btn btn-primary float-right mr-3">Se ordre</button>
@@ -122,6 +122,15 @@ else
             await client.DeleteAsync($"gateway/customer?CustomerId={customer.CustomerId}&IsDeleted={true}");
             await SearchCustomers(SearchTerm);
         }
+    }
+
+    async void CreateNewLease_Clicked(Guid id, string customerName)
+    {
+        ModalDialogParameters parameters = new ModalDialogParameters();
+        parameters.Add("CustomerId", id);
+        parameters.Add("CustomerName", customerName);
+
+        ModalDialogResult result = await ModalDialog.ShowDialogAsync<LeaseStuff.CreateLease>("", new ModalDialogOptions(), parameters);
     }
 
 }

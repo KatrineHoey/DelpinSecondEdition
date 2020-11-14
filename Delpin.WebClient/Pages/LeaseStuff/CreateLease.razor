@@ -1,5 +1,60 @@
-﻿<h3>CreateLease</h3>
+﻿@page "/lease/create/{customerId}"
+@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+@inject IModalDialogService ModalDialogService
+
+<h3>Opret ny kunde</h3>
+
+<LeaseForm ButtonText="Opret ny ordre" Lease="@lease"
+              OnValidSubmit="@Create" />
+@if (Isloading == true)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
+}
 
 @code {
+    [Parameter] public Guid CustomerId { get; set; }
+    [Parameter] public string CustomerName { get; set; }
 
+    LeaseDto.LeaseOrderDetails lease = new LeaseDto.LeaseOrderDetails();
+    bool Isloading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        lease.CustomerId = CustomerId;
+        lease.CustomerName = CustomerName;
+    }
+
+    async Task Create()
+    {
+        Isloading = true;
+        try
+        {
+            var id = Guid.NewGuid();
+            var response = await http.PostAsJsonAsync($"gateway/lease?LeaseId={id}&CustomerId={lease.CustomerId}&Street={lease.Street}&ZipCode={lease.ZipCode}&City={lease.City}&IsDelivery={lease.IsDelivery}&IsPaid={lease.IsPaid}", lease);
+            if (response.IsSuccessStatusCode)
+            {
+
+                await js.InvokeVoidAsync("alert", $"Ordren er nu oprettet!");
+
+                ModalDialogParameters returnParameters = new ModalDialogParameters();
+                returnParameters.Add("CustomerId", lease.CustomerId.ToString());
+                ModalDialogService.Close(true, returnParameters);
+            }
+            else
+            {
+                await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+            }
+
+        }
+        catch (Exception)
+        {
+
+            await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+        }
+
+
+        Isloading = false;
+    }
 }

@@ -1,5 +1,85 @@
-﻿<h3>EditLease</h3>
+﻿@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+@inject IModalDialogService ModalDialogService
+
+<h3>Ændre i ordre</h3>
+
+<LeaseForm ButtonText="Gem" Lease="@lease"
+              OnValidSubmit="@Edit" />
+@if (Isloading == true)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
+}
+
+
 
 @code {
+    [Parameter] public Guid LeaseId { get; set; }
 
+    LeaseDto.LeaseOrderDetails lease = new LeaseDto.LeaseOrderDetails();
+    bool Isloading = false;
+    bool everythingWentGood = true;
+
+    protected async override Task OnParametersSetAsync()
+    {
+        lease = await http.GetFromJsonAsync<LeaseDto.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
+
+    }
+
+    async Task Edit()
+    {
+        Isloading = true;
+        try
+        {
+            HttpResponseMessage response = null;
+            //response = await http.PutAsJsonAsync($"gateway/customer/fullname?CustomerId={CustomerId}&FullName={customer.FullName}", customer);
+            //CheckIfFailed(response);
+
+
+            //response = await http.PutAsJsonAsync($"gateway/customer/phone?CustomerId={CustomerId}&PhoneNo={customer.PhoneNo}", customer);
+            //CheckIfFailed(response);
+
+            //response = await http.PutAsJsonAsync($"gateway/customer/email?CustomerId={CustomerId}&Email={customer.Email}", customer);
+            //CheckIfFailed(response);
+
+            //response = await http.PutAsJsonAsync($"gateway/customer/adresse?CustomerId={CustomerId}&Street={customer.Street}&ZipCode={customer.ZipCode}&City={customer.City}", customer);
+            //CheckIfFailed(response);
+
+            //response = await http.PutAsJsonAsync($"gateway/customer/customertype?CustomerId={CustomerId}&CustomerType={customer.CustomerType}", customer);
+            //CheckIfFailed(response);
+
+
+            if (everythingWentGood == true)
+            {
+
+                await js.InvokeVoidAsync("alert", $"Ordren er nu opdateret!");
+
+                ModalDialogParameters returnParameters = new ModalDialogParameters();
+                returnParameters.Add("CustomerId", lease.CustomerId.ToString());
+                ModalDialogService.Close(true, returnParameters);
+            }
+            else
+            {
+                await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+            }
+
+        }
+        catch (Exception)
+        {
+
+            await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+        }
+
+
+        Isloading = false;
+    }
+
+    private void CheckIfFailed(HttpResponseMessage response)
+    {
+        if (!response.IsSuccessStatusCode)
+        {
+            everythingWentGood = false;
+        }
+    }
 }

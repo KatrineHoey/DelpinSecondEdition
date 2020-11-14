@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Delpin.Shared.LeaseModels
@@ -9,18 +10,18 @@ namespace Delpin.Shared.LeaseModels
         public class LeaseOrderDetails
         {
             public Guid LeaseId { get; set; }
-
+            [Required(ErrorMessage = "KundeId mangler.")]
             public Guid CustomerId { get; set; }
-
+            [Required(ErrorMessage = "Navn mangler.")]
             public string CustomerName { get; set; }
-
+            [Required(ErrorMessage = "Vejnavn og number mangler.")]
             public string Street { get; set; }
-
+            [Required(ErrorMessage = "Postnummer mangler.")]
             public int ZipCode { get; set; }
-
+            [Required(ErrorMessage = "By mangler.")]
             public string City { get; set; }
-
-            public DateTime DateCreated { get; set; }
+            [Required(ErrorMessage = "Dato mangler.")]
+            public DateTime DateCreated { get; set; } = DateTime.UtcNow;
 
             public bool IsDeleted { get; set; }
 

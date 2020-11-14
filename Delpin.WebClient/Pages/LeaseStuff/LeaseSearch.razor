@@ -6,7 +6,6 @@
 <section>
     <h3>Ordre</h3>
 
-    <button @onclick="CreateNew_Clicked" class="btn btn-primary float-right mr-3">Opret ny ordre</button>
 
 </section>
 
@@ -47,13 +46,7 @@ else
                     <td>@lease.DateCreated</td>
                     <td>@lease.IsPaid</td>
                     <td>
-                        <button class="btn btn-primary float-right mr-3">Opret ny ordre</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary float-right mr-3">Se ordre</button>
-                    </td>
-                    <td>
-                        <button @onclick="@(() => Edit_Clicked(lease.LeaseId))" class="btn btn-primary float-right mr-3">Rediger</button>
+                        <button @onclick="@(() => Edit_Clicked(lease.LeaseId))" class="btn btn-primary float-right mr-3">Se/Rediger</button>
                     </td>
                     <td>
                         <button class="btn btn-danger" @onclick="@(() => Delete(lease))">Slet</button>
@@ -77,18 +70,14 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        await GetListOfLease();
+    }
+
+    private async Task GetListOfLease()
+    {
         orderlist = (await client.GetFromJsonAsync<List<LeaseDto.LeaseOrderListItem>>("gateway/lease")).ToList();
     }
 
-    async void CreateNew_Clicked()
-    {
-        ModalDialogResult result = await ModalDialog.ShowDialogAsync<CreateLease>("");
-        if (result.Success)
-        {
-            var searchterm = result.ReturnParameters.Get<string>("PhoneNo");
-            await SearchLeases(searchterm);
-        }
-    }
 
 
     private async Task Search(KeyboardEventArgs eventArgs)
@@ -123,8 +112,8 @@ else
     {
         if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {lease.LeaseId}?"))
         {
-            await client.DeleteAsync($"gateway/lease?LeaseId={lease.LeaseId}&IsDeleted={true}");
-            await SearchLeases(SearchTerm);
+            await client.DeleteAsync($"gateway/lease/lease?LeaseId={lease.LeaseId}&IsDeleted={true}");
+            await GetListOfLease();
         }
     }
 
