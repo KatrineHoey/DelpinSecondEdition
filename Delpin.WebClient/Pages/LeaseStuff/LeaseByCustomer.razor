@@ -1,0 +1,85 @@
+﻿@inject HttpClient client
+@inject IJSRuntime js
+@inject IModalDialogService ModalDialog
+
+<h3>Kundens ordre</h3>
+
+
+@if (orderlist == null)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons" aria-hidden="true"></i>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Kundenavn</th>
+                <th>Oprettet</th>
+                <th>Er betalt?</th>
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var lease in orderlist)
+            {
+                <tr>
+                    <td>@lease.LeaseId</td>
+                    <td>@lease.CustomerName</td>
+                    <td>@lease.DateCreated</td>
+                    <td>@lease.IsPaid</td>
+                    <td>
+                        <a href="lease/details/@lease.LeaseId.ToString()" class="btn btn-primary float-right mr-3">Se detaljer</a>
+                    </td>
+                    <td>
+                        <button @onclick="@(() => Edit_Clicked(lease.LeaseId))" class="btn btn-primary float-right mr-3">Rediger</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(lease))">Slet</button>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter] public Guid CustomerId { get; set; }
+    private List<LeaseDto.LeaseOrderListItem> orderlist;
+    bool Isloading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetListOfLease();
+    }
+
+    private async Task GetListOfLease()
+    {
+        orderlist = (await client.GetFromJsonAsync<List<LeaseDto.LeaseOrderListItem>>($"gateway/lease/customerId?CustomerId={CustomerId}")).ToList();
+    }
+
+    async void Edit_Clicked(Guid id)
+    {
+        ModalDialogParameters parameters = new ModalDialogParameters();
+        parameters.Add("LeaseId", id);
+
+        ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditLease>("", new ModalDialogOptions(), parameters);
+        if (result.Success)
+        {
+            var searchterm = result.ReturnParameters.Get<string>("LeaseId");
+        }
+    }
+
+    async Task Delete(LeaseDto.LeaseOrderListItem lease)
+    {
+        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {lease.LeaseId}?"))
+        {
+            await client.DeleteAsync($"gateway/lease/lease?LeaseId={lease.LeaseId}&IsDeleted={true}");
+            await GetListOfLease();
+        }
+    }
+
+}
