@@ -40,19 +40,22 @@ else
         <tbody>
             @foreach (var lease in orderlist)
             {
-                <tr>
-                    <td>@lease.LeaseId</td>
-                    <td>@lease.CustomerName</td>
-                    <td>@lease.DateCreated</td>
-                    <td>@lease.IsPaid</td>
-                    <td>
-                        <button @onclick="@(() => Edit_Clicked(lease.LeaseId))" class="btn btn-primary float-right mr-3">Se/Rediger</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-danger" @onclick="@(() => Delete(lease))">Slet</button>
-                    </td>
+            <tr>
+                <td>@lease.LeaseId</td>
+                <td>@lease.CustomerName</td>
+                <td>@lease.DateCreated</td>
+                <td>@lease.IsPaid</td>
+                <td>
+                    <a href="lease/details/@lease.LeaseId.ToString()" class="btn btn-primary float-right mr-3">Se detaljer</a>
+                </td>
+                <td>
+                    <button @onclick="@(() => Edit_Clicked(lease.LeaseId))" class="btn btn-primary float-right mr-3">Rediger</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" @onclick="@(() => Delete(lease))">Slet</button>
+                </td>
 
-                </tr>
+            </tr>
             }
         </tbody>
     </table>

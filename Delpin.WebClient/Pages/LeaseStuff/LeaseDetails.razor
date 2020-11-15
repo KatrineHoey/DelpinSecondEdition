@@ -1,0 +1,57 @@
+﻿@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+@inject IModalDialogService ModalDialog
+
+@page "/lease/details/{LeaseId}"
+
+
+<section>
+    <h3>Ordredetaljer</h3>
+    <p>ID: @LeaseId</p>
+
+    <button @onclick="Edit_Clicked" class="btn btn-primary float-right mr-3">Rediger ordre</button>
+
+</section>
+
+@if (lease == null)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons" aria-hidden="true"></i>
+}
+else
+{
+    <p>KundeId: @lease.CustomerId</p>
+    <p>Kundenavn: @lease.CustomerName</p>
+    <p>Adresse: @lease.Street</p>
+    <p>By: @lease.ZipCode @lease.City</p>
+    <p>Skal leveres? @lease.IsDelivery</p>
+    <p>Er betalt? @lease.IsPaid</p>
+    <p>Totalpris: @lease.TotalPrice</p>
+    <p>Er slettet? @lease.IsDeleted</p>
+}
+
+
+@code {
+    [Parameter] public string LeaseId { get; set; }
+    LeaseDto.LeaseOrderDetails lease = new LeaseDto.LeaseOrderDetails();
+    bool Isloading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Isloading = true;
+        lease = await http.GetFromJsonAsync<LeaseDto.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
+        Isloading = false;
+    }
+
+    async void Edit_Clicked()
+    {
+        ModalDialogParameters parameters = new ModalDialogParameters();
+        parameters.Add("LeaseId", Guid.Parse(LeaseId));
+
+        ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditLease>("", new ModalDialogOptions(), parameters);
+        if (result.Success)
+        {
+            var searchterm = result.ReturnParameters.Get<string>("LeaseId");
+        }
+    }
+}

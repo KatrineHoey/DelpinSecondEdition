@@ -44,6 +44,7 @@
                 ModalDialogParameters returnParameters = new ModalDialogParameters();
                 returnParameters.Add("CustomerId", lease.CustomerId.ToString());
                 ModalDialogService.Close(true, returnParameters);
+                uriHelper.NavigateTo($"lease/details/{id.ToString()}");
             }
             else
             {
