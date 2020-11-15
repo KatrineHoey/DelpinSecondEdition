@@ -47,7 +47,7 @@ else
                 <td>@customer.City</td>
                 <td>@customer.PhoneNo</td>
                 <td>
-                    <button @onclick="@(() => CreateNewLease_Clicked(customer.CustomerId, customer.FullName))" class="btn btn-primary float-right mr-3">Opret ny ordre</button>
+                    <button @onclick="@(() => CreateNewLease_Clicked(customer.CustomerId))" class="btn btn-primary float-right mr-3">Opret ny ordre</button>
                 </td>
                 <td>
                     <button class="btn btn-primary float-right mr-3">Se ordre</button>
@@ -107,7 +107,7 @@ else
         ModalDialogParameters parameters = new ModalDialogParameters();
         parameters.Add("CustomerId", id);
 
-        ModalDialogResult result = await ModalDialog.ShowDialogAsync<Delpin.WebClient.Pages.LeaseStuff.EditLease>("", new ModalDialogOptions(), parameters);
+        ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditCustomer>("", new ModalDialogOptions(), parameters);
         if (result.Success)
         {
             var searchterm = result.ReturnParameters.Get<string>("PhoneNo");
@@ -124,11 +124,10 @@ else
         }
     }
 
-    async void CreateNewLease_Clicked(Guid id, string customerName)
+    async void CreateNewLease_Clicked(Guid customerId)
     {
         ModalDialogParameters parameters = new ModalDialogParameters();
-        parameters.Add("CustomerId", id);
-        parameters.Add("CustomerName", customerName);
+        parameters.Add("CustomerId", customerId);
 
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<LeaseStuff.CreateLease>("", new ModalDialogOptions(), parameters);
     }

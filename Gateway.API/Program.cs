@@ -32,31 +32,6 @@ namespace Gateway.API
                         .AddJsonFile("ocelot.json", true, true);
                 });
 
-
-        public static IHostBuilder CreateHostBuilder2(string[] args) =>
-              Host.CreateDefaultBuilder(args)
-                 .ConfigureWebHostDefaults(webBuilder =>
-                 {
-                     webBuilder.UseUrls("http://*:9000")
-                       .ConfigureAppConfiguration((hostingContext, config) =>
-                       {
-                           config
-                               .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
-                               .AddJsonFile("ocelot.json")
-                               .AddEnvironmentVariables();
-
-                           config.AddOcelot(hostingContext.HostingEnvironment);
-
-                       })
-                                         .ConfigureServices(services =>
-                                          {
-                                              services.AddOcelot();
-                                          })
-                     .Configure(app =>
-                     {
-                         app.UseOcelot().Wait();
-                     });
-                 });
     }
 }
 

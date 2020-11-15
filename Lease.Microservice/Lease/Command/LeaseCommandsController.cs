@@ -25,11 +25,13 @@ namespace Lease.Microservice.Lease.Command
         public Task<IActionResult> Post(LeaseOrderLineCommands.V1.AddLeaseOrderLineToLeaseOrder request)
             => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
 
-        [Route("address")]
+
+        [Route("adresse")]
         [HttpPut]
         public Task<IActionResult> Put(LeaseOrderCommands.V1.UpdateAddress request)
-            => RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
-
+        {
+            return RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
+        }
 
         [Route("delivery")]
         [HttpPut]

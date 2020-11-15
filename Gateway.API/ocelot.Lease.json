@@ -77,9 +77,8 @@
       "UpstreamPathTemplate": "/gateway/lease/AddLeaseOrderLine?LeaseId={LeaseId}&LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
       "UpstreamHttpMethod": [ "POST" ]
     },
-
     {
-      "DownstreamPathTemplate": "/lease/address?LeaseId={LeaseId}&Street={Street}&ZipCode}ZipCode&City={City}",
+      "DownstreamPathTemplate": "/lease/adresse?LeaseId={LeaseId}&Street={Street}&ZipCode={ZipCode}&City={City}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -87,10 +86,9 @@
           "Port": 44337
         }
       ],
-      "UpstreamPathTemplate": "/gateway/lease/address?LeaseId={LeaseId}&Street={Street}&ZipCode}ZipCode&City={City}",
+      "UpstreamPathTemplate": "/gateway/lease/adresse?LeaseId={LeaseId}&Street={Street}&ZipCode={ZipCode}&City={City}",
       "UpstreamHttpMethod": [ "PUT" ]
     },
-
     {
       "DownstreamPathTemplate": "/lease/delivery?LeaseId={LeaseId}&IsDelivery={IsDelivery}",
       "DownstreamScheme": "https",

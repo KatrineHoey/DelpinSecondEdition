@@ -24,6 +24,7 @@
     protected async override Task OnParametersSetAsync()
     {
         lease = await http.GetFromJsonAsync<LeaseDto.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
+        lease.CustomerName = "Vi mangler at gemme navn";
 
     }
 
@@ -33,21 +34,18 @@
         try
         {
             HttpResponseMessage response = null;
-            //response = await http.PutAsJsonAsync($"gateway/customer/fullname?CustomerId={CustomerId}&FullName={customer.FullName}", customer);
-            //CheckIfFailed(response);
+
+            response = await http.PutAsJsonAsync($"gateway/lease/adresse?LeaseId={LeaseId}&Street={lease.Street}&ZipCode={lease.ZipCode}&City={lease.City}", lease);
+            CheckIfFailed(response);
+
+            response = await http.PutAsJsonAsync($"gateway/lease/delivery?LeaseId={LeaseId}&IsDelivery={lease.IsDelivery}", lease);
+            CheckIfFailed(response);
 
 
-            //response = await http.PutAsJsonAsync($"gateway/customer/phone?CustomerId={CustomerId}&PhoneNo={customer.PhoneNo}", customer);
-            //CheckIfFailed(response);
+            response = await http.PutAsJsonAsync($"gateway/lease/paid?LeaseId={LeaseId}&IsPaid={lease.IsPaid}", lease);
+            CheckIfFailed(response);
 
-            //response = await http.PutAsJsonAsync($"gateway/customer/email?CustomerId={CustomerId}&Email={customer.Email}", customer);
-            //CheckIfFailed(response);
 
-            //response = await http.PutAsJsonAsync($"gateway/customer/adresse?CustomerId={CustomerId}&Street={customer.Street}&ZipCode={customer.ZipCode}&City={customer.City}", customer);
-            //CheckIfFailed(response);
-
-            //response = await http.PutAsJsonAsync($"gateway/customer/customertype?CustomerId={CustomerId}&CustomerType={customer.CustomerType}", customer);
-            //CheckIfFailed(response);
 
 
             if (everythingWentGood == true)

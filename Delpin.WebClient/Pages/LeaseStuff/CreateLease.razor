@@ -15,15 +15,18 @@
 
 @code {
     [Parameter] public Guid CustomerId { get; set; }
-    [Parameter] public string CustomerName { get; set; }
 
     LeaseDto.LeaseOrderDetails lease = new LeaseDto.LeaseOrderDetails();
     bool Isloading = false;
 
     protected override async Task OnInitializedAsync()
     {
-        lease.CustomerId = CustomerId;
-        lease.CustomerName = CustomerName;
+        var customer = await http.GetFromJsonAsync<CustomerDto.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
+        lease.CustomerId = customer.CustomerId;
+        lease.CustomerName = customer.FullName;
+        lease.Street = customer.Street;
+        lease.ZipCode = customer.ZipCode;
+        lease.City = customer.City;
     }
 
     async Task Create()
