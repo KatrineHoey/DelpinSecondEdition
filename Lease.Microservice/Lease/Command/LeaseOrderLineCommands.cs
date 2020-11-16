@@ -14,6 +14,8 @@ namespace Lease.Microservice.Lease.Command
 
                 public Guid LeaseOrderLineId { get; set; }
 
+                public Guid RessourceId { get; set; }
+
                 public DateTime StartDate { get; set; }
 
                 public DateTime EndDate { get; set; }

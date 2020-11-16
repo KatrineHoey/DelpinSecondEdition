@@ -58,6 +58,8 @@ namespace Lease.Microservice.Lease.Query
             public int Quantity { get; set; }
 
             public decimal LineTotalPrice { get; set; }
+
+            public Guid RessourceId { get; set; }
         }
 
     }

@@ -29,6 +29,8 @@ namespace Lease.Domain
 
             public int Quantity { get; set; }
 
+            public Guid RessourceId { get; set; }
+
         }
 
         public class LeaseOrderLineUpdated

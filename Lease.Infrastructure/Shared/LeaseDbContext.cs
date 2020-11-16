@@ -39,8 +39,6 @@ namespace Lease.Infrastructure.Shared
 
             modelBuilder.Entity<LeaseOrderLine>()
                 .OwnsOne(x => x.Id);
-
-
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

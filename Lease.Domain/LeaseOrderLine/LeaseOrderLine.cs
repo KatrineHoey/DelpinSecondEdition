@@ -31,14 +31,17 @@ namespace Lease.Domain
 
         public Guid LeaseId { get; private set; }
 
+        public Guid RessourceId { get; private set; }
+
         public LeaseOrder LeaseOrder { get; private set; }
 
-        public LeaseOrderLine(Guid leaseOrderLineId, Guid leaseOrderId, DateTime startDate, DateTime endDate, bool isReturned, string ressourceName, int ressourcePrice, int quantity)
+        public LeaseOrderLine(Guid leaseOrderLineId, Guid leaseOrderId,Guid ressourceId, DateTime startDate, DateTime endDate, bool isReturned, string ressourceName, int ressourcePrice, int quantity)
         {
             Apply(new LeaseOrderLineEvents.LeaseOrderLineAddedToLeaseOrder
             {
                 LeaseOrderLineId = leaseOrderLineId,
                 LeaseOrderId = leaseOrderId,
+                RessourceId = ressourceId,
                 StartDate = startDate,
                 EndDate = endDate,
                 IsReturned = isReturned,
@@ -59,9 +62,7 @@ namespace Lease.Domain
                 RessourceName = ressourceName,
                 RessourcePrice = ressourcePrice,
                 Quantity = quantity,
-
             });
-
         }
 
         public void LeaseOrderLineDeleted()
@@ -79,6 +80,7 @@ namespace Lease.Domain
 
                 case LeaseOrderLineEvents.LeaseOrderLineAddedToLeaseOrder e:
                     LeaseId = e.LeaseOrderId;
+                    RessourceId = e.RessourceId;
                     Id = new LeaseOrderLineId(e.LeaseOrderLineId);                    
                     StartDate = new StartDate( e.StartDate);
                     EndDate = new EndDate( e.EndDate);

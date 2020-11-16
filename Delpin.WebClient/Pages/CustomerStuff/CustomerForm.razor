@@ -37,7 +37,7 @@
             @foreach (var choice in new[] { CustomerTypeEnum.Erhverv, CustomerTypeEnum.Privat })
             {
                 <label>
-                    <input name="type" type="radio"
+                    <input name="type" type="radio" 
                            value="@choice"
                            checked="@(Customer.CustomerType == choice)"
                            @onchange="@(() => { Customer.CustomerType = choice; })">

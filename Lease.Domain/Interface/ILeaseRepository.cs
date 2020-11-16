@@ -21,6 +21,7 @@ namespace Lease.Domain.InterFace
         Task AddLeaseOrderLine(LeaseOrderLine entity);
 
         Task<bool> LeaseOrderLineExists(Guid id);
+
         Task DeleteLeaseOrderLine(Guid id);
     }
 }

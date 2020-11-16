@@ -1014,9 +1014,6 @@
 
     //Update Adress
     {
-      //"DownstreamPathTemplate": "/lease/address?LeaseId={LeaseId}&Street={Street}&ZipCode}ZipCode&City={City}",
-      //"UpstreamPathTemplate": "/gateway/lease/address?LeaseId={LeaseId}&Street={Street}&ZipCode}ZipCode&City={City}",
-
       "DownstreamPathTemplate": "/lease/adresse?LeaseId={LeaseId}&Street={Street}&ZipCode={ZipCode}&City={City}",
       "UpstreamPathTemplate": "/gateway/lease/adresse?LeaseId={LeaseId}&Street={Street}&ZipCode={ZipCode}&City={City}",
 

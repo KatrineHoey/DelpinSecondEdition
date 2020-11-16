@@ -78,6 +78,7 @@ namespace Lease.Microservice.Lease.Command
             var leaseOrderLine = new LeaseOrderLine(
                     cmd.LeaseOrderLineId,
                     cmd.LeaseId,
+                    cmd.RessourceId,
                     cmd.StartDate,
                     cmd.EndDate,
                     cmd.IsReturned,

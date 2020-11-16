@@ -45,6 +45,5 @@ namespace Lease.Microservice.Lease.Command
             var line = await _dbContext.LeaseOrderLines.FindAsync(id);
               _dbContext.LeaseOrderLines.Remove(line);
         }
-   
     }
 }

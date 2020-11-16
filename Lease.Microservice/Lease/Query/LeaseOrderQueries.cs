@@ -12,6 +12,7 @@ namespace Lease.Microservice.Lease.Query
     public class LeaseOrderQueries
     {
         private readonly LeaseDbContext _context;
+
         public LeaseOrderQueries(LeaseDbContext leaseDbContext)
         {
             _context = leaseDbContext;
@@ -33,6 +34,7 @@ namespace Lease.Microservice.Lease.Query
                     CustomerId = x.CustomerId,
                     TotalPrice = x.TotalPrice,
                     ZipCode = x.ZipCode,
+                    
                     leaseOrderLines = x.LeaseOrderLines.Select(x => new LeaseOrderLineDetails
                     {
                         LeaseOrderLineId = x.LeaseOrderLineId,
@@ -42,7 +44,8 @@ namespace Lease.Microservice.Lease.Query
                         LineTotalPrice = x.LineTotalPrice,
                         Quantity = x.Quantity,
                         RessourceName = x.RessourceName,
-                        RessourcePrice = x.RessourcePrice
+                        RessourcePrice = x.RessourcePrice,
+                        RessourceId = x.RessourceId
                     })
                     .ToList()
                 })
@@ -75,7 +78,9 @@ namespace Lease.Microservice.Lease.Query
                         LineTotalPrice = x.LineTotalPrice,
                         Quantity = x.Quantity,
                         RessourceName = x.RessourceName,
-                        RessourcePrice = x.RessourcePrice})
+                        RessourcePrice = x.RessourcePrice,
+                        RessourceId = x.RessourceId
+                    })
                     .ToList()
                 })
                 .FirstOrDefaultAsync();
@@ -106,7 +111,8 @@ namespace Lease.Microservice.Lease.Query
                         LineTotalPrice = x.LineTotalPrice,
                         Quantity = x.Quantity,
                         RessourceName = x.RessourceName,
-                        RessourcePrice = x.RessourcePrice
+                        RessourcePrice = x.RessourcePrice,
+                        RessourceId = x.RessourceId
                     })
                     .ToList()
                 })
