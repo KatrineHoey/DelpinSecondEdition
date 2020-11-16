@@ -45,5 +45,28 @@ namespace Lease.Microservice.Lease.Command
             var line = await _dbContext.LeaseOrderLines.FindAsync(id);
               _dbContext.LeaseOrderLines.Remove(line);
         }
+
+
+        //Buyer
+        public async Task<Buyer> LoadBuyer(Guid id)
+        {
+            return await _dbContext.Buyers.FindAsync(id);
+        }
+
+        public async Task AddBuyer(Buyer entity)
+        {
+            await _dbContext.Buyers.AddAsync(entity);
+        }
+
+        public async Task<bool> BuyerExists(Guid id)
+        {
+            return await _dbContext.Buyers.FindAsync(id) != null;
+        }
+
+        public async Task DeleteBuyer(Guid id)
+        {
+            var buyer = await _dbContext.Buyers.FindAsync(id);
+            _dbContext.Buyers.Remove(buyer);
+        }
     }
 }

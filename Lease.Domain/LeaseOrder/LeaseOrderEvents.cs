@@ -11,6 +11,8 @@ namespace Lease.Domain
             public Guid LeaseId { get; set; }
 
             public Guid CustomerId { get; set; }
+
+            public string CustomerName { get; set; }
             public DateTime DateCreated { get; set; }
 
             public bool IsDeleted { get; set; }

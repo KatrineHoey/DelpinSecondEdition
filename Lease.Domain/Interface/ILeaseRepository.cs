@@ -23,5 +23,14 @@ namespace Lease.Domain.InterFace
         Task<bool> LeaseOrderLineExists(Guid id);
 
         Task DeleteLeaseOrderLine(Guid id);
+
+        //Buyer
+        Task<Buyer> LoadBuyer(Guid id);
+
+        Task AddBuyer(Buyer entity);
+
+        Task<bool> BuyerExists(Guid id);
+
+        Task DeleteBuyer(Guid id);
     }
 }

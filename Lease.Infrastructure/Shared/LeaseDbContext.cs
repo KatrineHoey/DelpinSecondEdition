@@ -21,12 +21,15 @@ namespace Lease.Infrastructure.Shared
 
         public DbSet<LeaseOrderLine> LeaseOrderLines { get; set; }
 
+        public DbSet<Buyer> Buyers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<LeaseOrderLine>()
-                .HasOne(p => p.LeaseOrder)
-                .WithMany(b => b.LeaseOrderLines)
-                .HasForeignKey(p => p.LeaseId);
+            //LeaseOrder
+            modelBuilder.Entity<LeaseOrder>()
+                .HasOne(p => p.Buyer)
+                .WithMany(p => p.LeaseOrders)
+                .HasForeignKey(p => p.BuyerId);
 
             modelBuilder.Entity<LeaseOrder>()
                 .HasKey(x => x.LeaseOrderId);
@@ -34,11 +37,32 @@ namespace Lease.Infrastructure.Shared
             modelBuilder.Entity<LeaseOrder>()
                 .OwnsOne(x => x.Id);
 
+
+            //LeaseOrderLine
+            modelBuilder.Entity<LeaseOrderLine>()
+                .HasOne(p => p.LeaseOrder)
+                .WithMany(b => b.LeaseOrderLines)
+                .HasForeignKey(p => p.LeaseId);
+
             modelBuilder.Entity<LeaseOrderLine>()
                 .HasKey(x => x.LeaseOrderLineId);
 
             modelBuilder.Entity<LeaseOrderLine>()
                 .OwnsOne(x => x.Id);
+
+            //Buyer
+
+            modelBuilder.Entity<Buyer>()
+                .HasKey(x => x.BuyerId);
+
+            modelBuilder.Entity<Buyer>()
+                .OwnsOne(x => x.Id);
+
+            modelBuilder.Entity<Buyer>()
+                .OwnsOne(x => x.BuyerName);
+
+
+
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

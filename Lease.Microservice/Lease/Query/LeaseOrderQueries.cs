@@ -31,7 +31,7 @@ namespace Lease.Microservice.Lease.Query
                     IsDelivery = x.IsDelivery,
                     IsPaid = x.IsPaid,
                     LeaseId = x.LeaseOrderId,
-                    CustomerId = x.CustomerId,
+                    CustomerId = x.Buyer.BuyerId,
                     TotalPrice = x.TotalPrice,
                     ZipCode = x.ZipCode,
                     
@@ -66,7 +66,7 @@ namespace Lease.Microservice.Lease.Query
                     IsDeleted = x.IsDeleted,
                     IsDelivery = x.IsDelivery,
                     IsPaid = x.IsPaid,
-                    CustomerId = x.CustomerId,
+                    CustomerId = x.Buyer.BuyerId,
                     LeaseId = x.LeaseOrderId,
                     TotalPrice = x.TotalPrice,
                     ZipCode = x.ZipCode,
@@ -89,7 +89,7 @@ namespace Lease.Microservice.Lease.Query
         public async Task<List<LeaseOrderDetails>> GetLeaseByCustomerId(QueryModels.GetLeasesByCustomerId query)
         {
             return await _context.Leases.AsNoTracking()
-                .Where(x => x.CustomerId == query.CustomerId && x.IsDeleted == false)
+                .Where(x => x.Buyer.BuyerId == query.CustomerId && x.IsDeleted == false)
                 .Select(x => new LeaseOrderDetails
                 {
                     Street = x.Street,
@@ -98,7 +98,7 @@ namespace Lease.Microservice.Lease.Query
                     IsDeleted = x.IsDeleted,
                     IsDelivery = x.IsDelivery,
                     IsPaid = x.IsPaid,
-                    CustomerId = x.CustomerId,
+                    CustomerId = x.Buyer.BuyerId,
                     LeaseId = x.LeaseOrderId,
                     TotalPrice = x.TotalPrice,
                     ZipCode = x.ZipCode,

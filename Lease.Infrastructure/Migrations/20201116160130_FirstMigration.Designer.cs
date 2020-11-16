@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lease.Infrastructure.Migrations
 {
     [DbContext(typeof(LeaseDbContext))]
-    [Migration("20201109190139_noValues")]
-    partial class noValues
+    [Migration("20201116160130_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,17 +21,28 @@ namespace Lease.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Lease.Domain.Buyer", b =>
+                {
+                    b.Property<Guid>("BuyerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BuyerId");
+
+                    b.ToTable("Buyers");
+                });
+
             modelBuilder.Entity("Lease.Domain.LeaseOrder", b =>
                 {
-                    b.Property<Guid>("leaseId")
+                    b.Property<Guid>("LeaseOrderId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BuyerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
@@ -45,9 +56,6 @@ namespace Lease.Infrastructure.Migrations
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
-
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
@@ -57,7 +65,9 @@ namespace Lease.Infrastructure.Migrations
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
 
-                    b.HasKey("leaseId");
+                    b.HasKey("LeaseOrderId");
+
+                    b.HasIndex("BuyerId");
 
                     b.ToTable("Leases");
                 });
@@ -77,14 +87,14 @@ namespace Lease.Infrastructure.Migrations
                     b.Property<Guid>("LeaseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("LeaseOrderleaseId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("LineTotalPrice")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("RessourceId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RessourceName")
                         .HasColumnType("nvarchar(max)");
@@ -97,35 +107,78 @@ namespace Lease.Infrastructure.Migrations
 
                     b.HasKey("LeaseOrderLineId");
 
-                    b.HasIndex("LeaseOrderleaseId");
+                    b.HasIndex("LeaseId");
 
                     b.ToTable("LeaseOrderLines");
                 });
 
-            modelBuilder.Entity("Lease.Domain.LeaseOrder", b =>
+            modelBuilder.Entity("Lease.Domain.Buyer", b =>
                 {
-                    b.OwnsOne("Lease.Domain.LeaseOrderId", "Id", b1 =>
+                    b.OwnsOne("Lease.Domain.BuyerId", "Id", b1 =>
                         {
-                            b1.Property<Guid>("LeaseOrderleaseId")
+                            b1.Property<Guid>("BuyerId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<Guid>("Value")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.HasKey("LeaseOrderleaseId");
+                            b1.HasKey("BuyerId");
+
+                            b1.ToTable("Buyers");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BuyerId");
+                        });
+
+                    b.OwnsOne("Lease.Domain.BuyerName", "BuyerName", b1 =>
+                        {
+                            b1.Property<Guid>("BuyerId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Value")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("BuyerId");
+
+                            b1.ToTable("Buyers");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BuyerId");
+                        });
+                });
+
+            modelBuilder.Entity("Lease.Domain.LeaseOrder", b =>
+                {
+                    b.HasOne("Lease.Domain.Buyer", "Buyer")
+                        .WithMany("LeaseOrders")
+                        .HasForeignKey("BuyerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Lease.Domain.LeaseOrderId", "Id", b1 =>
+                        {
+                            b1.Property<Guid>("LeaseOrderId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<Guid>("LeaseOrderIdValue")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.HasKey("LeaseOrderId");
 
                             b1.ToTable("Leases");
 
                             b1.WithOwner()
-                                .HasForeignKey("LeaseOrderleaseId");
+                                .HasForeignKey("LeaseOrderId");
                         });
                 });
 
             modelBuilder.Entity("Lease.Domain.LeaseOrderLine", b =>
                 {
-                    b.HasOne("Lease.Domain.LeaseOrder", null)
+                    b.HasOne("Lease.Domain.LeaseOrder", "LeaseOrder")
                         .WithMany("LeaseOrderLines")
-                        .HasForeignKey("LeaseOrderleaseId");
+                        .HasForeignKey("LeaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.OwnsOne("Lease.Domain.LeaseOrderLineId", "Id", b1 =>
                         {

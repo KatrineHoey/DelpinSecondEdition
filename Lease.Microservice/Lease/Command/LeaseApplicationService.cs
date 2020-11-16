@@ -56,7 +56,7 @@ namespace Lease.Microservice.Lease.Command
 
             var lease = new LeaseOrder(
                     cmd.LeaseId,
-                    cmd.CustomerId,
+                    new BuyerId(cmd.CustomerId),
                     DateTime.UtcNow,
                     cmd.IsDelivery,
                     cmd.IsPaid,
@@ -92,6 +92,20 @@ namespace Lease.Microservice.Lease.Command
             await _unitOfWork.Commit();
         }
 
+        private async Task HandleCreateBuyer(BuyerCommands.V1.CreateBuyer cmd)
+        {
+            if (await _repository.BuyerExists(cmd.BuyerId))
+                throw new InvalidOperationException($"Entity with id {cmd.BuyerId} already exists");
+
+            var buyer = new Buyer(
+                new BuyerId(cmd.BuyerId),
+                BuyerName.FromString(cmd.BuyerName)
+                );
+
+            await _repository.AddBuyer(buyer);
+            await _unitOfWork.Commit();
+        }
+
         private async Task HandleUpdate(Guid leaseId,Action<LeaseOrder> operation)
         {
             var lease = await _repository.LoadLeaseOrder(leaseId);
@@ -116,6 +130,18 @@ namespace Lease.Microservice.Lease.Command
             await _unitOfWork.Commit();
         }
 
+        private async Task HandleUpdateBuyer(Guid buyerId, Action<Buyer> operation)
+        {
+            var buyer = await _repository.LoadBuyer(buyerId);
+
+            if (buyer == null)
+                throw new InvalidOperationException($"Entity with id {buyerId} cannot be found");
+
+            operation(buyer);
+
+            await _unitOfWork.Commit();
+        }
+
         private async Task HandleDeleteLeaseOrderLine(Guid id)
         {
             var entity = await _repository.LoadLeaseOrderLine(id);
@@ -124,6 +150,19 @@ namespace Lease.Microservice.Lease.Command
                 throw new InvalidOperationException($"Entity with id {id} cannot be found");
 
             await _repository.DeleteLeaseOrderLine(id);
+
+            await _unitOfWork.Commit();
+        }
+
+
+        private async Task HandleDeleteBuyer(Guid id)
+        {
+            var entity = await _repository.LoadBuyer(id);
+
+            if (entity == null)
+                throw new InvalidOperationException($"Entity with id {id} cannot be found");
+
+            await _repository.DeleteBuyer(id);
 
             await _unitOfWork.Commit();
         }

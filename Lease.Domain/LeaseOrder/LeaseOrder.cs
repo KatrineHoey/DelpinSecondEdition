@@ -19,8 +19,6 @@ namespace Lease.Domain
 
         public DateTime DateCreated { get; private set; }
 
-        public Guid CustomerId { get; private set; }
-
         public bool IsDeleted { get; private set; }
 
         public bool IsDelivery { get; private set; }
@@ -35,13 +33,14 @@ namespace Lease.Domain
 
         public string City { get; private set; }
 
+        public Guid BuyerId { get; set; }
+
+        public Buyer Buyer { get; private set; }
+
         public List<LeaseOrderLine> LeaseOrderLines { get; }
 
 
-        public LeaseState State { get; private set; }
-
-
-        public LeaseOrder(Guid leaseId, Guid customerId, DateTime dateCreated, bool isDelivery, bool isPaid, string street, int zipCode, string city)
+        public LeaseOrder(Guid leaseId, Guid buyer, DateTime dateCreated, bool isDelivery, bool isPaid, string street, int zipCode, string city)
         {
             LeaseOrderLines = new List<LeaseOrderLine>();
             Apply(new LeaseOrderEvents.CreateLeaseOrder
@@ -53,7 +52,7 @@ namespace Lease.Domain
                 Street = street,
                 ZipCode = zipCode,
                 City = city,
-                CustomerId = customerId 
+                CustomerId = buyer,
                 
             });
         }
@@ -122,7 +121,7 @@ namespace Lease.Domain
                     IsDeleted = e.IsDeleted;
                     IsDelivery = e.IsDelivery;
                     IsPaid = e.IsPaid;
-                    CustomerId = e.CustomerId;
+                    BuyerId = new BuyerId(e.CustomerId);
                     TotalPrice = e.TotalPrice;
                     Street = e.Street;
                     ZipCode = e.ZipCode;
@@ -165,42 +164,12 @@ namespace Lease.Domain
 
         protected override void EnsureValidState()
         {
-            var valid =
-                Id != null &&
-                (State switch
-                {
-                    LeaseState.PendingReview =>
-                         DateCreated != null
-                        && IsDeleted != null
-                        && IsDelivery != null
-                        && IsPaid != null
-                        && TotalPrice != null
-                        && Street != null
-                        && ZipCode != null
-                        && City != null,
-
-                    LeaseState.Active =>
-                         DateCreated != null
-                        && IsDeleted != null
-                        && IsDelivery != null
-                        && IsPaid != null
-                        && TotalPrice != null
-                        && Street != null
-                        && ZipCode != null
-                        && City != null,
-                    _ => true
-                });
+            var valid = Id != null;
 
             if (!valid)
-                throw new DomainExceptions.InvalidEntityState(this, $"Post-checks failed in state {State}");
+                throw new DomainExceptions.InvalidEntityState(this,
+                    $"Post-checks failed.");
         }
 
-        public enum LeaseState
-        {
-            PendingReview = 1,
-            Active = 2,
-            Inactive = 3,
-            MarkedAsSold = 4
-        }
     }
 }
