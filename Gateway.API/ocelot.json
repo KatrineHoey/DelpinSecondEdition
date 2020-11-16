@@ -742,8 +742,8 @@
       "DownstreamHttpVersion": null
     },
     {
-      "DownstreamPathTemplate": "/lease/customerId?CustomerId={CustomerId}",
-      "UpstreamPathTemplate": "/gateway/lease/customerId?CustomerId={CustomerId}",
+      "DownstreamPathTemplate": "/lease/BuyerId?BuyerId={BuyerId}",
+      "UpstreamPathTemplate": "/gateway/lease/BuyerId?BuyerId={BuyerId}",
       "UpstreamHttpMethod": [ "GET" ],
       "DownstreamHttpMethod": null,
       "AddHeadersToRequest": {},
@@ -876,8 +876,8 @@
       "DownstreamHttpVersion": null
     },
     {
-      "DownstreamPathTemplate": "/lease?LeaseId={LeaseId}&CustomerId={CustomerId}&Street={Street}&ZipCode={ZipCode}&City={City}&IsDelivery={IsDelivery}&IsPaid={IsPaid}",
-      "UpstreamPathTemplate": "/gateway/lease?LeaseId={LeaseId}&CustomerId={CustomerId}&Street={Street}&ZipCode={ZipCode}&City={City}&IsDelivery={IsDelivery}&IsPaid={IsPaid}",
+      "DownstreamPathTemplate": "/lease?LeaseId={LeaseId}&BuyerId={BuyerId}&Street={Street}&ZipCode={ZipCode}&City={City}&IsDelivery={IsDelivery}&IsPaid={IsPaid}",
+      "UpstreamPathTemplate": "/gateway/lease?LeaseId={LeaseId}&BuyerId={BuyerId}&Street={Street}&ZipCode={ZipCode}&City={City}&IsDelivery={IsDelivery}&IsPaid={IsPaid}",
       "UpstreamHttpMethod": [ "POST" ],
       "DownstreamHttpMethod": null,
       "AddHeadersToRequest": {},

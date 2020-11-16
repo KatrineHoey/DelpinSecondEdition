@@ -50,12 +50,12 @@ namespace Lease.Microservice.Lease.Query
         }
 
         [HttpGet]
-        [Route("customerId")]
-        public async Task<IActionResult> Get(QueryModels.GetLeasesByCustomerId request)
+        [Route("BuyerId")]
+        public async Task<IActionResult> Get(QueryModels.GetLeasesByBuyerId request)
         {
             try
             {
-                var model = await _leaseOrderQueries.GetLeaseByCustomerId(request);
+                var model = await _leaseOrderQueries.GetLeaseByBuyerId(request);
                 return new OkObjectResult(model);
             }
             catch (Exception e)

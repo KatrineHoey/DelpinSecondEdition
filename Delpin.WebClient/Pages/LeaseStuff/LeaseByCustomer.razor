@@ -58,7 +58,7 @@ else
 
     private async Task GetListOfLease()
     {
-        orderlist = (await client.GetFromJsonAsync<List<LeaseDto.LeaseOrderListItem>>($"gateway/lease/customerId?CustomerId={CustomerId}")).ToList();
+        orderlist = (await client.GetFromJsonAsync<List<LeaseDto.LeaseOrderListItem>>($"gateway/lease/BuyerId?BuyerId={CustomerId}")).ToList();
     }
 
     async void Edit_Clicked(Guid id)

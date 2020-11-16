@@ -56,7 +56,7 @@ namespace Lease.Microservice.Lease.Command
 
             var lease = new LeaseOrder(
                     cmd.LeaseId,
-                    new BuyerId(cmd.CustomerId),
+                    new BuyerId(cmd.BuyerId),
                     DateTime.UtcNow,
                     cmd.IsDelivery,
                     cmd.IsPaid,

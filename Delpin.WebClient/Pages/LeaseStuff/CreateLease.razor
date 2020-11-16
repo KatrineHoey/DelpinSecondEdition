@@ -22,8 +22,8 @@
     protected override async Task OnInitializedAsync()
     {
         var customer = await http.GetFromJsonAsync<CustomerDto.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
-        lease.CustomerId = customer.CustomerId;
-        lease.CustomerName = customer.FullName;
+        lease.BuyerId = customer.CustomerId;
+        lease.BuyerName = customer.FullName;
         lease.Street = customer.Street;
         lease.ZipCode = customer.ZipCode;
         lease.City = customer.City;
@@ -35,14 +35,14 @@
         try
         {
             var id = Guid.NewGuid();
-            var response = await http.PostAsJsonAsync($"gateway/lease?LeaseId={id}&CustomerId={lease.CustomerId}&Street={lease.Street}&ZipCode={lease.ZipCode}&City={lease.City}&IsDelivery={lease.IsDelivery}&IsPaid={lease.IsPaid}", lease);
+            var response = await http.PostAsJsonAsync($"gateway/lease?LeaseId={id}&BuyerId={lease.BuyerId}&Street={lease.Street}&ZipCode={lease.ZipCode}&City={lease.City}&IsDelivery={lease.IsDelivery}&IsPaid={lease.IsPaid}", lease);
             if (response.IsSuccessStatusCode)
             {
 
                 await js.InvokeVoidAsync("alert", $"Ordren er nu oprettet!");
 
                 ModalDialogParameters returnParameters = new ModalDialogParameters();
-                returnParameters.Add("CustomerId", lease.CustomerId.ToString());
+                returnParameters.Add("CustomerId", lease.BuyerId.ToString());
                 ModalDialogService.Close(true, returnParameters);
                 uriHelper.NavigateTo($"lease/details/{id.ToString()}");
             }

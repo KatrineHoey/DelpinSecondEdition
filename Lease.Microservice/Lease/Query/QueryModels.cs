@@ -16,9 +16,9 @@ namespace Lease.Microservice.Lease.Query
             public int PageSize { get; set; }
         }
 
-        public class GetLeasesByCustomerId
+        public class GetLeasesByBuyerId
         {
-            public Guid CustomerId { get; set; }
+            public Guid BuyerId { get; set; }
         }
 
     }

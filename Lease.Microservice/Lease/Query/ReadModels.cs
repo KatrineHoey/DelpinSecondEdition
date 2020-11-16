@@ -10,9 +10,9 @@ namespace Lease.Microservice.Lease.Query
         {
             public Guid LeaseId { get; set; }
 
-            public Guid CustomerId { get; set; }
+            public Guid BuyerId { get; set; }
 
-            public string CustomerName { get; set; }
+            public string BuyerName { get; set; }
 
             public string Street { get; set; }
 
@@ -37,7 +37,7 @@ namespace Lease.Microservice.Lease.Query
         {
             public Guid LeaseId { get; set; }
             public DateTime DateCreated { get; set; }
-            public string CustomerName { get; set; }
+            public string BuyerName { get; set; }
             public bool IsPaid { get; set; }
         }
 

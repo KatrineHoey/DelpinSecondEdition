@@ -24,7 +24,6 @@
     protected async override Task OnParametersSetAsync()
     {
         lease = await http.GetFromJsonAsync<LeaseDto.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
-        lease.CustomerName = "Vi mangler at gemme navn";
 
     }
 
@@ -54,7 +53,7 @@
                 await js.InvokeVoidAsync("alert", $"Ordren er nu opdateret!");
 
                 ModalDialogParameters returnParameters = new ModalDialogParameters();
-                returnParameters.Add("CustomerId", lease.CustomerId.ToString());
+                returnParameters.Add("CustomerId", lease.BuyerId.ToString());
                 ModalDialogService.Close(true, returnParameters);
             }
             else

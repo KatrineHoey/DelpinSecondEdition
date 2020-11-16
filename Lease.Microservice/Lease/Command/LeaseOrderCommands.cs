@@ -11,7 +11,7 @@ namespace Lease.Microservice.Lease.Command
             {
                 public Guid LeaseId { get; set; }
 
-                public Guid CustomerId { get; set; }
+                public Guid BuyerId { get; set; }
 
                 public string Street { get; set; }
 

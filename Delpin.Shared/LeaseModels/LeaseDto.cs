@@ -12,10 +12,10 @@ namespace Delpin.Shared.LeaseModels
             public Guid LeaseId { get; set; }
 
             [Required(ErrorMessage = "KundeId mangler.")]
-            public Guid CustomerId { get; set; }
+            public Guid BuyerId { get; set; }
 
             [Required(ErrorMessage = "Navn mangler.")]
-            public string CustomerName { get; set; }
+            public string BuyerName { get; set; }
 
             [Required(ErrorMessage = "Vejnavn og number mangler.")]
             public string Street { get; set; }

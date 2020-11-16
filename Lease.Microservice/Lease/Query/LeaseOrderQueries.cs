@@ -31,7 +31,8 @@ namespace Lease.Microservice.Lease.Query
                     IsDelivery = x.IsDelivery,
                     IsPaid = x.IsPaid,
                     LeaseId = x.LeaseOrderId,
-                    CustomerId = x.Buyer.BuyerId,
+                    BuyerId = x.Buyer.BuyerId,
+                    BuyerName = x.Buyer.BuyerName,
                     TotalPrice = x.TotalPrice,
                     ZipCode = x.ZipCode,
                     
@@ -66,7 +67,8 @@ namespace Lease.Microservice.Lease.Query
                     IsDeleted = x.IsDeleted,
                     IsDelivery = x.IsDelivery,
                     IsPaid = x.IsPaid,
-                    CustomerId = x.Buyer.BuyerId,
+                    BuyerId = x.Buyer.BuyerId,
+                    BuyerName = x.Buyer.BuyerName,
                     LeaseId = x.LeaseOrderId,
                     TotalPrice = x.TotalPrice,
                     ZipCode = x.ZipCode,
@@ -86,10 +88,10 @@ namespace Lease.Microservice.Lease.Query
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<List<LeaseOrderDetails>> GetLeaseByCustomerId(QueryModels.GetLeasesByCustomerId query)
+        public async Task<List<LeaseOrderDetails>> GetLeaseByBuyerId(QueryModels.GetLeasesByBuyerId query)
         {
             return await _context.Leases.AsNoTracking()
-                .Where(x => x.Buyer.BuyerId == query.CustomerId && x.IsDeleted == false)
+                .Where(x => x.Buyer.BuyerId == query.BuyerId && x.IsDeleted == false)
                 .Select(x => new LeaseOrderDetails
                 {
                     Street = x.Street,
@@ -98,7 +100,8 @@ namespace Lease.Microservice.Lease.Query
                     IsDeleted = x.IsDeleted,
                     IsDelivery = x.IsDelivery,
                     IsPaid = x.IsPaid,
-                    CustomerId = x.Buyer.BuyerId,
+                    BuyerId = x.Buyer.BuyerId,
+                    BuyerName = x.Buyer.BuyerName.Value,
                     LeaseId = x.LeaseOrderId,
                     TotalPrice = x.TotalPrice,
                     ZipCode = x.ZipCode,
