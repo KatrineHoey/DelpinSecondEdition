@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Delpin.Shared\Delpin.Shared.csproj" />
+    <ProjectReference Include="..\Lease.Application\Lease.Application.csproj" />
     <ProjectReference Include="..\Lease.Domain\Lease.Domain.csproj" />
     <ProjectReference Include="..\Lease.Infrastructure\Lease.Infrastructure.csproj" />
   </ItemGroup>

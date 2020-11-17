@@ -1,8 +1,9 @@
 using System;
 using System.Security.Permissions;
 
-namespace Lease.Microservice.Lease.Command
-{
+namespace Lease.Application.Command
+{ 
+
     public static class LeaseOrderCommands
     {
         public static class V1

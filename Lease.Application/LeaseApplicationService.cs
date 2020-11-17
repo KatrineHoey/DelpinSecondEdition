@@ -1,11 +1,12 @@
 using System;
 using System.Threading.Tasks;
 using Delpin.Framework;
+using Lease.Application;
 using Lease.Domain;
-using Lease.Domain.InterFace;
-using static Lease.Microservice.Lease.Command.LeaseOrderCommands;
+using Lease.Application.Command;
+using static Lease.Application.Command.LeaseOrderCommands;
 
-namespace Lease.Microservice.Lease.Command
+namespace Lease.Application
 {
     public class LeaseApplicationService : IApplicationService
     {

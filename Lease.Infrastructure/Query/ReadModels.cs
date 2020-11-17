@@ -2,8 +2,8 @@ using Lease.Domain;
 using System;
 using System.Collections.Generic;
 
-namespace Lease.Microservice.Lease.Query
-{
+namespace Lease.Intrastructure.Query
+{ 
     public static class ReadModels
     {
         public class LeaseOrderDetails

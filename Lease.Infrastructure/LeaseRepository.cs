@@ -2,10 +2,10 @@ using System;
 using System.Threading.Tasks;
 using Lease.Domain;
 using Lease.Infrastructure.Shared;
-using Lease.Domain.InterFace;
 using System.Security.Cryptography.X509Certificates;
+using Lease.Application;
 
-namespace Lease.Microservice.Lease.Command
+namespace Lease.Intrastructure
 {
     public class LeaseRepository : ILeaseRepository, IDisposable
     {

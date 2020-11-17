@@ -7,13 +7,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Lease.Domain.InterFace;
 using Lease.Microservice.Lease.Command;
 using Lease.Microservice.Lease.Query;
 using MassTransit;
 using System;
 using GreenPipes;
 using Lease.Microservice.Consumers;
+using Lease.Application;
+//using Lease.Intrastructure.Command;
+using Lease.Intrastructure.Query;
+using Lease.Intrastructure;
+
 
 namespace Lease.Microservice
 {

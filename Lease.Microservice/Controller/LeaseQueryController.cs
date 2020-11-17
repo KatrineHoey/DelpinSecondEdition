@@ -1,6 +1,7 @@
 using System;
 using System.Data.Common;
 using System.Threading.Tasks;
+using Lease.Intrastructure.Query;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;

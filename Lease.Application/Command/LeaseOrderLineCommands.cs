@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lease.Microservice.Lease.Command
+namespace Lease.Application.Command
 {
     public static class LeaseOrderLineCommands
     {

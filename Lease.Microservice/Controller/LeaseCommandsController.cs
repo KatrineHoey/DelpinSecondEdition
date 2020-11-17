@@ -1,5 +1,8 @@
 using System.Threading.Tasks;
+using Lease.Application;
 using Lease.Infrastructure.Shared;
+using Lease.Intrastructure;
+using Lease.Application.Command;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 

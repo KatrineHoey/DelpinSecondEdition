@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Lease.Application\Lease.Application.csproj" />
     <ProjectReference Include="..\Lease.Domain\Lease.Domain.csproj" />
   </ItemGroup>
 

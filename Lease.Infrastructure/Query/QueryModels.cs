@@ -1,7 +1,8 @@
 using System;
 
-namespace Lease.Microservice.Lease.Query
-{
+namespace Lease.Intrastructure.Query
+{ 
+
     public static class QueryModels
     {
         public class GetLeaseOrderById

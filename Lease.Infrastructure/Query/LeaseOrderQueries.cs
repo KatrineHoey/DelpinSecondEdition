@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lease.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
-using static Lease.Microservice.Lease.Query.ReadModels;
+using static Lease.Intrastructure.Query.ReadModels;
 
-namespace Lease.Microservice.Lease.Query
+namespace Lease.Intrastructure.Query
 {
     public class LeaseOrderQueries
     {
