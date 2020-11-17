@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
 
-namespace Customer.Microservice.Infrastructure
+namespace Customer.Infrastructure.Shared
 {
     public static class RequestHandler
     {

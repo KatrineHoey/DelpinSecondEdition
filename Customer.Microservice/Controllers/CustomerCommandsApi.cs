@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
-using Customer.Microservice.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Delpin.Shared.CustomerModels;
 using MassTransit;
+using Customer.Infrastructure.Shared;
+using Customer.Application.Command;
 
-namespace Customer.Microservice.Customer
+namespace Customer.Microservice.Controllers
 {
     [Route("/customer")]
     public class CustomerCommandsApi : Controller

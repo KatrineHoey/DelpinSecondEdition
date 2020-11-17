@@ -6,10 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static Customer.Microservice.Customer.QueryModels;
+using static Customer.Infrastructure.Query.QueryModels;
 using static Delpin.Shared.CustomerModels.ReadModels;
 
-namespace Customer.Microservice.Customer
+namespace Customer.Infrastructure.Query
 {
     public static class Queries
     {

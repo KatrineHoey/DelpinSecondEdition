@@ -1,6 +1,5 @@
 ﻿using Customer.Domain.Customer;
 using Delpin.Framework;
-using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using static Delpin.Shared.CustomerModels.CustomerCommandsDto;
 
-namespace Customer.Microservice.Customer
+namespace Customer.Application.Command
 {
     public class CustomerApplicationService : IApplicationService
     {

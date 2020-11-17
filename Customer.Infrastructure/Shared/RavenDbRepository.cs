@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace Customer.Microservice.Infrastructure
+namespace Customer.Infrastructure.Shared
 {
     public class RavenDbRepository<T, TId>
         where T : AggregateRoot<TId>
