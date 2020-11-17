@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Delpin.Framework;
 using Lease.Application;
 using Lease.Domain;
-using Lease.Application.Command;
-using static Lease.Application.Command.LeaseOrderCommands;
+using Delpin.Shared.LeaseModels;
+using static Delpin.Shared.LeaseModels.LeaseOrderCommands;
 
 namespace Lease.Application
 {

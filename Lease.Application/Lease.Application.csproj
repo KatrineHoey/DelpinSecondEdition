@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Delpin.Shared\Delpin.Shared.csproj" />
     <ProjectReference Include="..\Lease.Domain\Lease.Domain.csproj" />
   </ItemGroup>
 

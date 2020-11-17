@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static Customer.Microservice.Customer.QueryModels;
-using static Customer.Microservice.Customer.ReadModels;
+using static Delpin.Shared.CustomerModels.ReadModels;
 
 namespace Customer.Microservice.Customer
 {
@@ -26,7 +26,7 @@ namespace Customer.Microservice.Customer
                         FullName = x.FullName.Value,
                         PhoneNo = x.PhoneNo.Value,
                         Email = x.Email.Value,
-                        CustomerType = x.CustomerType.Value,
+                        CustomerType = (Delpin.Shared.CustomerModels.CustomerTypeEnum)x.CustomerType.Value,
                         Street = x.Adresse.Street.Value,
                         City = x.Adresse.City.Value,
                         ZipCode = x.Adresse.ZipCode.Value,

@@ -5,11 +5,6 @@ using System.Text;
 
 namespace Delpin.Shared.CustomerModels
 {
-    public enum CustomerTypeEnum
-    {
-        Erhverv = 1,
-        Privat = 2
-    }
     public static class CustomerDto
     {
         public class CustomerDetails

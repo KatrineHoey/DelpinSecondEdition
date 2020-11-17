@@ -1,7 +1,7 @@
 using System;
 using System.Security.Permissions;
 
-namespace Lease.Application.Command
+namespace Delpin.Shared.LeaseModels
 { 
 
     public static class LeaseOrderCommands

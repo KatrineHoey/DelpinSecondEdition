@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lease.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
-using static Lease.Intrastructure.Query.ReadModels;
+using static Delpin.Shared.LeaseModels.ReadModels;
 
 namespace Lease.Intrastructure.Query
 {
