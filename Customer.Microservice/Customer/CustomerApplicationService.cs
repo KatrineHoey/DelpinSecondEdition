@@ -1,11 +1,12 @@
 ﻿using Customer.Domain.Customer;
 using Delpin.Framework;
+using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using static Customer.Microservice.Customer.Commands;
+using static Delpin.Shared.CustomerModels.CustomerCommandsDto;
 
 namespace Customer.Microservice.Customer
 {
@@ -14,9 +15,7 @@ namespace Customer.Microservice.Customer
         private readonly ICustomerRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CustomerApplicationService(
-            ICustomerRepository repository, IUnitOfWork unitOfWork
-        )
+        public CustomerApplicationService(ICustomerRepository repository, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -29,12 +28,8 @@ namespace Customer.Microservice.Customer
                 V1.RegisterCustomer cmd =>
                     HandleCreate(cmd),
                 V1.UpdateCustomerFullName cmd =>
-                    HandleUpdate(
-                        cmd.CustomerId,
-                        profile => profile.UpdateName(
-                            FullName.FromString(cmd.FullName)
-                        )
-                    ),
+                    HandleUpdate(cmd.CustomerId, profile => profile.UpdateName(FullName.FromString(cmd.FullName))),
+
                 V1.UpdateCustomerEmail cmd =>
                     HandleUpdate(
                         cmd.CustomerId,
@@ -86,7 +81,6 @@ namespace Customer.Microservice.Customer
                 new CustomerId(cmd.CustomerId),
                 FullName.FromString(cmd.FullName),
                 Adresse.FromString(cmd.Street, cmd.ZipCode, cmd.City),
-                //new Adresse(Street.FromString(cmd.Street), ZipCode.FromString(cmd.ZipCode.ToString()), City.FromString(cmd.City)),
                 PhoneNo.FromString(cmd.PhoneNo.ToString()),
                 Email.FromString(cmd.Email),
                 CustomerType.FromString(cmd.CustomerType.ToString())
@@ -112,6 +106,8 @@ namespace Customer.Microservice.Customer
             operation(customer);
 
             await _unitOfWork.Commit();
+
+
         }
     }
 }

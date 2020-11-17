@@ -46,6 +46,14 @@ namespace Lease.Microservice.Lease.Command
                 LeaseOrderLineCommands.V1.UpdateLeaseOrderLine cmd => HandleUpdateLeaseOrderLine(cmd.LeaseOrderLineId,
                       c => c.UpdateLeaseOrderLine(StartDate.FromDateTime(cmd.StartDate), EndDate.FromDateTime(cmd.EndDate), IsReturned.FromBool(cmd.IsReturned), RessourceName.FromString( cmd.RessourceName), RessourcePrice.FromInt(cmd.RessourcePrice), Quantity.FromInt(cmd.Quantity))),
 
+                //Buyer
+                BuyerCommands.V1.CreateBuyer cmd => HandleCreateBuyer(cmd),
+
+                BuyerCommands.V1.DeleteBuyer cmd => HandleDeleteBuyer(cmd.BuyerId),
+
+                BuyerCommands.V1.UpdateBuyer cmd => HandleUpdateBuyer(cmd.BuyerId,
+                    c => c.UpdateBuyer(BuyerName.FromString(cmd.BuyerName))),
+
                 _ => Task.CompletedTask
             };
       

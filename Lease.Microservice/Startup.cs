@@ -10,6 +10,10 @@ using Microsoft.OpenApi.Models;
 using Lease.Domain.InterFace;
 using Lease.Microservice.Lease.Command;
 using Lease.Microservice.Lease.Query;
+using MassTransit;
+using System;
+using GreenPipes;
+using Lease.Microservice.Consumers;
 
 namespace Lease.Microservice
 {
@@ -34,6 +38,36 @@ namespace Lease.Microservice
             services.AddScoped<LeaseOrderQueries, LeaseOrderQueries>();
 
             services.AddScoped<LeaseApplicationService>();
+
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<BuyerCreateConsumer>();
+                x.AddConsumer<BuyerUpdateNameConsumer>();
+                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+                {
+                    cfg.UseHealthCheck(provider);
+                    cfg.Host(new Uri("rabbitmq://localhost"), h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+                    cfg.ReceiveEndpoint("CustomerQueue", ep =>
+                    {
+                        ep.PrefetchCount = 16;
+                        ep.UseMessageRetry(r => r.Interval(2, 100));
+                        ep.ConfigureConsumer<BuyerCreateConsumer>(provider);
+                    });
+                    cfg.ReceiveEndpoint("CustomerUpdateQueue", ep =>
+                    {
+                        ep.PrefetchCount = 16;
+                        ep.UseMessageRetry(r => r.Interval(2, 100));
+                        ep.ConfigureConsumer<BuyerUpdateNameConsumer>(provider);
+                    });
+                }));
+
+            });
+            services.AddMassTransitHostedService();
+
 
             services.AddControllers();
 

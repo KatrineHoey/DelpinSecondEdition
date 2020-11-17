@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit" Version="7.0.6" />
+    <PackageReference Include="MassTransit.AspNetCore" Version="7.0.6" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="7.0.6" />
     <PackageReference Include="RavenDB.Client" Version="5.0.3" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
@@ -17,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Customer.Domain\Customer.Domain.csproj" />
     <ProjectReference Include="..\Delpin.Framework\Delpin.Framework.csproj" />
+    <ProjectReference Include="..\Delpin.Shared\Delpin.Shared.csproj" />
   </ItemGroup>
 
 

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using static Customer.Domain.Customer.CustomerType;
+using System.Text;
 
-namespace Customer.Microservice.Customer
+namespace Delpin.Shared.CustomerModels
 {
-    public class Commands
+    public static class CustomerCommandsDto
     {
         public static class V1
         {
@@ -21,7 +19,7 @@ namespace Customer.Microservice.Customer
                 public int ZipCode { get; set; }
                 public string City { get; set; }
 
-                
+
 
             }
 
