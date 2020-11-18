@@ -1,13 +1,12 @@
 ﻿using Delpin.Shared.CustomerModels;
 using Lease.Application;
 using Lease.Intrastructure;
-using Lease.Application.Command;
-//using Lease.Microservice.Lease.Command;
 using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Delpin.Shared.LeaseModels;
 
 namespace Lease.Microservice.Consumers
 {

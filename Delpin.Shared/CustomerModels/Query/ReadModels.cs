@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static Customer.Domain.Customer.CustomerType;
 
-namespace Customer.Microservice.Customer
+namespace Delpin.Shared.CustomerModels
 {
+    public enum CustomerTypeEnum
+    {
+        Erhverv = 1,
+        Privat = 2
+    }
     public static class ReadModels
     {
         public class CustomerDetails

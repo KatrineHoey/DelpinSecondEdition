@@ -1,8 +1,7 @@
-using Lease.Domain;
 using System;
 using System.Collections.Generic;
 
-namespace Lease.Intrastructure.Query
+namespace Delpin.Shared.LeaseModels
 { 
     public static class ReadModels
     {

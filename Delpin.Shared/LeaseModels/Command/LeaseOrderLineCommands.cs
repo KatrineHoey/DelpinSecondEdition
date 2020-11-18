@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lease.Application.Command
+namespace Delpin.Shared.LeaseModels
 {
     public static class LeaseOrderLineCommands
     {

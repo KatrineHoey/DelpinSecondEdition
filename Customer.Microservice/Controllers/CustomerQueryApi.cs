@@ -1,4 +1,5 @@
-﻿using Customer.Microservice.Infrastructure;
+﻿using Customer.Infrastructure.Query;
+using Customer.Infrastructure.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Raven.Client.Documents.Session;
 using Serilog;
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Customer.Microservice.Customer
+namespace Customer.Microservice.Controllers
 {
     [Route("/customer")]
     public class CustomerQueryApi : Controller
