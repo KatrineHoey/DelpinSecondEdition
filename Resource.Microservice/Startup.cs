@@ -83,7 +83,7 @@ namespace Resource.Microservice
             }
 
             //Comment this out and turn the other section on
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -93,16 +93,16 @@ namespace Resource.Microservice
             });
 
             //Set all those active, if it doesn't work
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
-            //app.UseRouting();
+            app.UseRouting();
 
-            //app.UseAuthorization();
+            app.UseAuthorization();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //});
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 
