@@ -7,5 +7,7 @@ Before you run it:
 
 2) Resource.Microservice uses docker. Therefor you have to Download Docker on your device. Open docker desktop, and use the command "Docker-Compose up" inside Command prompt while standing in the same path as the yml file in Resource.Microservice. EventStore is available at http://localhost:2113/ or http://localhost:1113/. Username:admin and Password:changeit
 
-3) To run it you need to choose startup-project. You have to start: Delpin.WebClient, Gateway.API, Customer.Microservice, Lease.Microservie and Resource.Microservice. 
+3) The project uses RabbitMQ, so you need to have this running. 
+
+4) To run it you need to choose startup-project. You have to start: Delpin.WebClient, Gateway.API, Customer.Microservice, Lease.Microservie and Resource.Microservice. 
 
