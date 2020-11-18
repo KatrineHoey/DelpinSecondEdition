@@ -31,15 +31,81 @@ else
 }
 
 
+<section>
+
+    <button @onclick="AddLeaseOrderlines_Clicked" class="btn btn-primary float-right mr-3">Tilføj OrderLinje</button>
+
+</section>
+
+
+@if (orderlist == null)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons" aria-hidden="true"></i>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Start Dato</th>
+                <th>Slut Dato</th>
+                <th>Afleveret?</th>
+                <th>Vare Navn</th>
+                <th>Vare Pris</th>
+                <th>Antal</th>
+                <th>Total</th>
+
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+           @foreach (var lease in orderlist)
+            {
+                <tr>
+                    <td>@lease.LeaseOrderLineId</td>
+                    <td>@lease.StartDate</td>
+                    <td>@lease.EndDate</td>
+                    <td>@lease.IsReturned</td>
+                    <td>@lease.RessourceName</td>
+                    <td>@lease.RessourcePrice</td>
+                    <td>@lease.Quantity</td>
+                    <td>@lease.LineTotalPrice</td>
+
+                    <td>
+                        <a href="lease/details/@lease.LeaseOrderLineId.ToString()" class="btn btn-primary float-right mr-3">Se detaljer</a>
+                    </td>
+                    <td>
+                        <button @onclick="@(() => EditLeaseOrderLine_Clicked(lease.LeaseOrderLineId))" class="btn btn-primary float-right mr-3">Rediger</button>
+                    </td>
+                    <td>
+
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+}
+
+
 @code {
     [Parameter] public string LeaseId { get; set; }
-    LeaseDto.LeaseOrderDetails lease = new LeaseDto.LeaseOrderDetails();
+    LeaseViewModel.LeaseOrderDetails lease = new LeaseViewModel.LeaseOrderDetails();
+
+
+    private List<LeaseViewModel.LeaseOrderLineDetails> orderlist;
+
+
     bool Isloading = false;
 
     protected override async Task OnInitializedAsync()
     {
         Isloading = true;
-        lease = await http.GetFromJsonAsync<LeaseDto.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
+        lease = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
         Isloading = false;
     }
 
@@ -54,4 +120,28 @@ else
             var searchterm = result.ReturnParameters.Get<string>("LeaseId");
         }
     }
+
+    async void AddLeaseOrderlines_Clicked()
+    {
+        ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("");
+    }
+
+    async void EditLeaseOrderLine_Clicked(Guid id)
+    {
+
+    }
+
+    async Task Delete(LeaseViewModel.LeaseOrderListItem lease)
+    {
+
+    }
+
+
+    private async Task GetListOfLease()
+    {
+        orderlist = (await http.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderLineDetails>>($"gateway/lease/id?LeaseId={LeaseId}")).ToList();
+    }
+
+
+
 }

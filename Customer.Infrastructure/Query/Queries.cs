@@ -26,7 +26,7 @@ namespace Customer.Infrastructure.Query
                         FullName = x.FullName.Value,
                         PhoneNo = x.PhoneNo.Value,
                         Email = x.Email.Value,
-                        CustomerType = (Delpin.Shared.CustomerModels.CustomerTypeEnum)x.CustomerType.Value,
+                        CustomerType = (Delpin.Shared.Enum.CustomerTypeEnum)x.CustomerType.Value,
                         Street = x.Adresse.Street.Value,
                         City = x.Adresse.City.Value,
                         ZipCode = x.Adresse.ZipCode.Value,

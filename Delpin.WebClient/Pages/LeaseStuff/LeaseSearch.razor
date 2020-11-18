@@ -40,22 +40,22 @@ else
         <tbody>
             @foreach (var lease in orderlist)
             {
-            <tr>
-                <td>@lease.LeaseId</td>
-                <td>@lease.CustomerName</td>
-                <td>@lease.DateCreated</td>
-                <td>@lease.IsPaid</td>
-                <td>
-                    <a href="lease/details/@lease.LeaseId.ToString()" class="btn btn-primary float-right mr-3">Se detaljer</a>
-                </td>
-                <td>
-                    <button @onclick="@(() => Edit_Clicked(lease.LeaseId))" class="btn btn-primary float-right mr-3">Rediger</button>
-                </td>
-                <td>
-                    <button class="btn btn-danger" @onclick="@(() => Delete(lease))">Slet</button>
-                </td>
+                <tr>
+                    <td>@lease.LeaseId</td>
+                    <td>@lease.CustomerName</td>
+                    <td>@lease.DateCreated</td>
+                    <td>@lease.IsPaid</td>
+                    <td>
+                        <a href="lease/details/@lease.LeaseId.ToString()" class="btn btn-primary float-right mr-3">Se detaljer</a>
+                    </td>
+                    <td>
+                        <button @onclick="@(() => Edit_Clicked(lease.LeaseId))" class="btn btn-primary float-right mr-3">Rediger</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(lease))">Slet</button>
+                    </td>
 
-            </tr>
+                </tr>
             }
         </tbody>
     </table>
@@ -68,7 +68,7 @@ else
     private string SearchTerm { get; set; } = "";
     private int Page { get; set; } = 0;
     private int PageSize { get; set; } = 1000;
-    private List<LeaseDto.LeaseOrderListItem> orderlist;
+    private List<LeaseViewModel.LeaseOrderListItem> orderlist;
     bool Isloading = false;
 
     protected override async Task OnInitializedAsync()
@@ -78,7 +78,7 @@ else
 
     private async Task GetListOfLease()
     {
-        orderlist = (await client.GetFromJsonAsync<List<LeaseDto.LeaseOrderListItem>>("gateway/lease")).ToList();
+        orderlist = (await client.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderListItem>>("gateway/lease")).ToList();
     }
 
 
@@ -95,7 +95,7 @@ else
 
     async Task SearchLeases(string searchterm)
     {
-        orderlist = (await client.GetFromJsonAsync<List<LeaseDto.LeaseOrderListItem>>($"gateway/customer/search?SearchTerm={searchterm}&Page={Page}&PageSize={PageSize}")).ToList();
+        orderlist = (await client.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderListItem>>($"gateway/customer/search?SearchTerm={searchterm}&Page={Page}&PageSize={PageSize}")).ToList();
 
     }
 
@@ -111,7 +111,7 @@ else
         }
     }
 
-    async Task Delete(LeaseDto.LeaseOrderListItem lease)
+    async Task Delete(LeaseViewModel.LeaseOrderListItem lease)
     {
         if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {lease.LeaseId}?"))
         {

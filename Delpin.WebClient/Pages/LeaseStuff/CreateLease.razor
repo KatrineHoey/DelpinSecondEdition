@@ -4,7 +4,7 @@
 @inject IJSRuntime js
 @inject IModalDialogService ModalDialogService
 
-<h3>Opret ny kunde</h3>
+<h3>Opret ny ordre</h3>
 
 <LeaseForm ButtonText="Opret ny ordre" Lease="@lease"
               OnValidSubmit="@Create" />
@@ -16,12 +16,14 @@
 @code {
     [Parameter] public Guid CustomerId { get; set; }
 
-    LeaseDto.LeaseOrderDetails lease = new LeaseDto.LeaseOrderDetails();
+    LeaseViewModel.LeaseOrderDetails lease = new LeaseViewModel.LeaseOrderDetails();
+
+    
     bool Isloading = false;
 
     protected override async Task OnInitializedAsync()
     {
-        var customer = await http.GetFromJsonAsync<CustomerDto.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
+        var customer = await http.GetFromJsonAsync<CustomerViewModel.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
         lease.BuyerId = customer.CustomerId;
         lease.BuyerName = customer.FullName;
         lease.Street = customer.Street;

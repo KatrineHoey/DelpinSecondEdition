@@ -17,13 +17,13 @@
 @code {
     [Parameter] public Guid LeaseId { get; set; }
 
-    LeaseDto.LeaseOrderDetails lease = new LeaseDto.LeaseOrderDetails();
+    LeaseViewModel.LeaseOrderDetails lease = new LeaseViewModel.LeaseOrderDetails();
     bool Isloading = false;
     bool everythingWentGood = true;
 
     protected async override Task OnParametersSetAsync()
     {
-        lease = await http.GetFromJsonAsync<LeaseDto.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
+        lease = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
 
     }
 

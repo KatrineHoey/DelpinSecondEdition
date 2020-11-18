@@ -37,9 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delpin.WebClient", "Delpin.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lease.Application", "Lease.Application\Lease.Application.csproj", "{BB2B7E78-3540-417E-A932-6F056C440C1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.Infrastructure", "Customer.Infrastructure\Customer.Infrastructure.csproj", "{F587F581-6686-4A95-AF9D-F5D47A71F6ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.Infrastructure", "Customer.Infrastructure\Customer.Infrastructure.csproj", "{F587F581-6686-4A95-AF9D-F5D47A71F6ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.Application", "Customer.Application\Customer.Application.csproj", "{813738E3-A6B8-4102-9952-05F9B68F14A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.Application", "Customer.Application\Customer.Application.csproj", "{813738E3-A6B8-4102-9952-05F9B68F14A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

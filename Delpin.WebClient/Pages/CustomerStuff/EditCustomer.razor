@@ -17,13 +17,13 @@
 @code {
     [Parameter] public Guid CustomerId { get; set; }
 
-    CustomerDto.CustomerDetails customer = new CustomerDto.CustomerDetails();
+    CustomerViewModel.CustomerDetails customer = new CustomerViewModel.CustomerDetails();
     bool Isloading = false;
     bool everythingWentGood = true;
 
     protected async override Task OnParametersSetAsync()
     {
-        customer = await http.GetFromJsonAsync<CustomerDto.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
+        customer = await http.GetFromJsonAsync<CustomerViewModel.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
 
     }
 

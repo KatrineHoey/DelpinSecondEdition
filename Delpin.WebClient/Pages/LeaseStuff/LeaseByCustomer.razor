@@ -48,7 +48,7 @@ else
 
 @code {
     [Parameter] public Guid CustomerId { get; set; }
-    private List<LeaseDto.LeaseOrderListItem> orderlist;
+    private List<LeaseViewModel.LeaseOrderListItem> orderlist;
     bool Isloading = false;
 
     protected override async Task OnInitializedAsync()
@@ -58,7 +58,7 @@ else
 
     private async Task GetListOfLease()
     {
-        orderlist = (await client.GetFromJsonAsync<List<LeaseDto.LeaseOrderListItem>>($"gateway/lease/BuyerId?BuyerId={CustomerId}")).ToList();
+        orderlist = (await client.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderListItem>>($"gateway/lease/BuyerId?BuyerId={CustomerId}")).ToList();
     }
 
     async void Edit_Clicked(Guid id)
@@ -73,7 +73,7 @@ else
         }
     }
 
-    async Task Delete(LeaseDto.LeaseOrderListItem lease)
+    async Task Delete(LeaseViewModel.LeaseOrderListItem lease)
     {
         if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {lease.LeaseId}?"))
         {

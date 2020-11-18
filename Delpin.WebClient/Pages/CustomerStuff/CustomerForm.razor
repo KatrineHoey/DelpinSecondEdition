@@ -34,7 +34,7 @@
         </div>        
         <div class="form-group">
             <label>Kundetype:</label>
-            @foreach (var choice in new[] { CustomerTypeEnum.Erhverv, CustomerTypeEnum.Privat })
+            @foreach (var choice in new[] { Delpin.WebClient.Enum.CustomerTypeEnum.Erhverv, Delpin.WebClient.Enum.CustomerTypeEnum.Privat })
             {
                 <label>
                     <input name="type" type="radio" 
@@ -56,9 +56,9 @@
 
 
 @code {
-    [Parameter] public CustomerDto.CustomerDetails Customer { get; set; }
+    [Parameter] public CustomerViewModel.CustomerDetails Customer { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Gem";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
-    private CustomerTypeEnum CurrentChoice {get; set; }
+    private Delpin.WebClient.Enum.CustomerTypeEnum CurrentChoice {get; set; }
 }

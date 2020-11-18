@@ -9,45 +9,56 @@
 <CustomerForm ButtonText="Opret ny kunde" Customer="@customer"
               OnValidSubmit="@Create" />
 @if (Isloading == true)
-{
+ {
     <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
-}
+ }
 
 @code {
-    CustomerDto.CustomerDetails customer = new CustomerDto.CustomerDetails();
+    CustomerViewModel.CustomerDetails customer = new CustomerViewModel.CustomerDetails();
+
     bool Isloading = false;
 
     async Task Create()
     {
+        
+        CustomerDto.CustomerDetails customerDto = CustomerDetailsMapper.Map(customer);
+
         Isloading = true;
-            try
+        try
+        {
+
+            var id = Guid.NewGuid();
+            var response = await http.PostAsJsonAsync
+            (
+                $"gateway/customer?CustomerId={id}&FullName={customerDto.FullName}" +
+                $"&PhoneNo={customerDto.PhoneNo}&Email={customerDto.Email}&CustomerType={customerDto.CustomerType}" +
+                $"&Street={customerDto.Street}&ZipCode={customerDto.ZipCode}&City={customerDto.City}", customerDto
+            );
+
+            
+
+            if (response.IsSuccessStatusCode)
             {
-                var id = Guid.NewGuid();
-                var response = await http.PostAsJsonAsync($"gateway/customer?CustomerId={id}&FullName={customer.FullName}" +
-                    $"&PhoneNo={customer.PhoneNo}&Email={customer.Email}&CustomerType={customer.CustomerType}" +
-                    $"&Street={customer.Street}&ZipCode={customer.ZipCode}&City={customer.City}", customer);
-                if (response.IsSuccessStatusCode)
-                {
 
-                    await js.InvokeVoidAsync("alert", $"Kunden er nu oprettet!");
+                await js.InvokeVoidAsync("alert", $"Kunden er nu oprettet!");
 
-                    ModalDialogParameters returnParameters = new ModalDialogParameters();
-                    returnParameters.Add("PhoneNo", customer.PhoneNo.ToString());
-                    ModalDialogService.Close(true, returnParameters);
-                }
-                else
-                {
-                    await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
-                }
-
+                ModalDialogParameters returnParameters = new ModalDialogParameters();
+                returnParameters.Add("PhoneNo", customer.PhoneNo.ToString());
+                ModalDialogService.Close(true, returnParameters);
             }
-            catch (Exception)
+            else
             {
-
                 await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
             }
 
-        
+        }
+        catch (Exception)
+        {
+
+            await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+        }
+
+
         Isloading = false;
     }
 }
