@@ -38,14 +38,9 @@ namespace Resource.Infrastructure
 
             var page = await _connection.ReadStreamEventsForwardAsync(stream, 0, 1024, false);
 
-            aggregate.Load(page.Events.Select(ResolvedEvent =>
-            {
-                var meta = JsonConvert.DeserializeObject<EventMetadata>(Encoding.UTF8.GetString(ResolvedEvent.Event.Metadata));
-                var dataType = Type.GetType(meta.ClrType);
-                var jsonData = Encoding.UTF8.GetString(ResolvedEvent.Event.Data);
-                var data = JsonConvert.DeserializeObject(jsonData, dataType);
-                return data;
-            }).ToArray());
+            aggregate.Load(page.Events.Select(
+                ResolvedEvent => ResolvedEvent.Deserialize()).ToArray());
+
             return aggregate;
         }
 

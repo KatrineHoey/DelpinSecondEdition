@@ -10,10 +10,12 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Resource.Infrastructure;
+using Resource.Microservice.Projections;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace Resource.Microservice
@@ -45,8 +47,23 @@ namespace Resource.Microservice
 
             services.AddSingleton(new Resource.ResourceApplicationService(store));
 
-            services.AddSingleton<IHostedService, HostedService>();
-            services.AddMvc();
+            var resourceDetails = new List<ReadModels.ResourceDetails>();
+            services.AddSingleton<IEnumerable<ReadModels.ResourceDetails>>(resourceDetails);
+
+            var projectionManager = new ProjectionManager(esConnection,
+                new ResourceDetailsProjection(resourceDetails),
+                new ResourceUpcasters(esConnection));
+
+            //services.AddSingleton<IHostedService, EventStoreService>();
+            services.AddSingleton<IHostedService>(
+                new EventStoreService(esConnection, projectionManager));
+            
+            //if it doesn't work, then try the one beneath
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //this
+            //services.AddMvc();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -65,6 +82,9 @@ namespace Resource.Microservice
                 app.UseDeveloperExceptionPage();
             }
 
+            //Comment this out and turn the other section on
+            app.UseMvcWithDefaultRoute();
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -72,16 +92,17 @@ namespace Resource.Microservice
                 c.RoutePrefix = string.Empty;
             });
 
-            app.UseHttpsRedirection();
+            //Set all those active, if it doesn't work
+            //app.UseHttpsRedirection();
 
-            app.UseRouting();
+            //app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
         }
     }
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Resource.Domain.Shared
 {
-    class Events
+    public class Events
     {
         public class ResourceRegistered
         {
