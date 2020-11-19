@@ -33,38 +33,37 @@ else
 
 <section>
 
-    <button @onclick="AddLeaseOrderlines_Clicked" class="btn btn-primary float-right mr-3">Tilføj OrderLinje</button>
+    <button @onclick="@(() => AddLeaseOrderlines_Clicked())" class="btn btn-primary float-right mr-3">Tilføj OrderLinje</button>
 
 </section>
 
 
-@if (orderlist == null)
-{
-    <i class="fa fa-circle-o-notch fa-spin myicons" aria-hidden="true"></i>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Start Dato</th>
-                <th>Slut Dato</th>
-                <th>Afleveret?</th>
-                <th>Vare Navn</th>
-                <th>Vare Pris</th>
-                <th>Antal</th>
-                <th>Total</th>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Start Dato</th>
+            <th>Slut Dato</th>
+            <th>Afleveret?</th>
+            <th>Vare Navn</th>
+            <th>Vare Pris</th>
+            <th>Antal</th>
+            <th>Total</th>
 
-                <th> </th>
-                <th> </th>
-            </tr>
-        </thead>
-        <tbody>
+            <th> </th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+
+       @if (orderlist == null)
+        {
+            <i class="fa fa-circle-o-notch fa-spin myicons" aria-hidden="true"></i>
+        }
+        else
+        {
            @foreach (var lease in orderlist)
             {
                 <tr>
-                    <td>@lease.LeaseOrderLineId</td>
                     <td>@lease.StartDate</td>
                     <td>@lease.EndDate</td>
                     <td>@lease.IsReturned</td>
@@ -80,22 +79,19 @@ else
                         <button @onclick="@(() => EditLeaseOrderLine_Clicked(lease.LeaseOrderLineId))" class="btn btn-primary float-right mr-3">Rediger</button>
                     </td>
                     <td>
-
                     </td>
 
                 </tr>
-
             }
-        </tbody>
-
-    </table>
-}
+        }
+    </tbody>
+</table>
 
 
 @code {
     [Parameter] public string LeaseId { get; set; }
-    LeaseViewModel.LeaseOrderDetails lease = new LeaseViewModel.LeaseOrderDetails();
 
+    LeaseViewModel.LeaseOrderDetails lease = new LeaseViewModel.LeaseOrderDetails();
 
     private List<LeaseViewModel.LeaseOrderLineDetails> orderlist;
 
@@ -106,8 +102,12 @@ else
     {
         Isloading = true;
         lease = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
+
+        //orderlist = (await http.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderLineDetails>>($"gateway/lease/id?LeaseId={LeaseId}")).ToList();
+
         Isloading = false;
     }
+
 
     async void Edit_Clicked()
     {
@@ -123,7 +123,10 @@ else
 
     async void AddLeaseOrderlines_Clicked()
     {
-        ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("");
+        ModalDialogParameters parameters = new ModalDialogParameters();
+        parameters.Add("LeaseId", Guid.Parse(LeaseId));
+
+        ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("", new ModalDialogOptions(),parameters);
     }
 
     async void EditLeaseOrderLine_Clicked(Guid id)
@@ -131,17 +134,21 @@ else
 
     }
 
-    async Task Delete(LeaseViewModel.LeaseOrderListItem lease)
+    async Task Delete(LeaseViewModel.AddLeaseOrderLineToLeaseOrder lease)
     {
+        LeaseDto.AddLeaseOrderLineToLeaseOrder leaseDto = AddLeaseOrderLineToLeaseOrderMapper.Map(lease);
 
+        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {leaseDto.RessourceName}?"))
+        {
+            await http.DeleteAsync($"gateway/lease/leaseOrderLine?LeaseId={leaseDto.LeaseId}");
+            await GetLeaseOrderLine();
+        }
     }
 
-
-    private async Task GetListOfLease()
+    async Task GetLeaseOrderLine()
     {
-        orderlist = (await http.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderLineDetails>>($"gateway/lease/id?LeaseId={LeaseId}")).ToList();
+        orderlist = (await http.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderLineDetails>>($"gateway/lease/id?LeaseId={LeaseId}"));
+
     }
-
-
 
 }

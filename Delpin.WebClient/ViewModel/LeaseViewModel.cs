@@ -52,9 +52,36 @@ namespace Delpin.WebClient.ViewModel
             public bool IsPaid { get; set; }
         }
 
+
+        public class AddLeaseOrderLineToLeaseOrder
+        {
+            public Guid LeaseId { get; set; }
+
+            public Guid LeaseOrderLineId { get; set; }
+
+            public Guid RessourceId { get; set; }
+
+            public DateTime StartDate { get; set; }
+
+            public DateTime EndDate { get; set; }
+
+            public bool IsReturned { get; set; }
+
+            public string RessourceName { get; set; }
+
+            public int RessourcePrice { get; set; }
+
+            public int Quantity { get; set; }
+
+        }
+
         public class LeaseOrderLineDetails
         {
+            public Guid LeaseId { get; set; }
+
             public Guid LeaseOrderLineId { get; set; }
+
+            public Guid RessourceId { get; set; }
 
             [Required(ErrorMessage = "Start dato mangler.")]
             public DateTime StartDate { get; set; }
@@ -76,29 +103,5 @@ namespace Delpin.WebClient.ViewModel
             public decimal LineTotalPrice { get; set; }
         }
 
-        public class LeaseOrderLineListItem 
-        {
-            public Guid LeaseOrderLineId { get; set; }
-
-            
-            public DateTime StartDate { get; set; }
-
-            
-            public DateTime EndDate { get; set; }
-
-            public bool IsReturned { get; set; }
-
-            
-            public string RessourceName { get; set; }
-
-            
-            public decimal RessourcePrice { get; set; }
-
-            
-            public int Quantity { get; set; }
-
-            public decimal LineTotalPrice { get; set; }
-
-        }
     }
 }

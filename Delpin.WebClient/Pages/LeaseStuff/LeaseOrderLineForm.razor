@@ -1,36 +1,36 @@
-﻿<EditForm Model="@Lease" OnValidSubmit="@OnValidSubmit">
+﻿<EditForm Model="@LeaseOrder" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
     <div class="simple-form ">
 
         <div class="form-group">
             <label>Start Dato:</label>
-            <InputDate @bind-Value="@Lease.StartDate" readonly class="form-control" />
-            <ValidationMessage For="@(() => Lease.StartDate)" />
+            <InputDate @bind-Value="@LeaseOrderLine.StartDate" readonly class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.StartDate)" />
         </div>
         <div class="form-group">
             <label>Slut Dato:</label>
-            <InputDate @bind-Value="@Lease.EndDate" readonly class="form-control" />
-            <ValidationMessage For="@(() => Lease.EndDate)" />
+            <InputDate @bind-Value="@LeaseOrderLine.EndDate" readonly class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.EndDate)" />
         </div>
         <div class="form-group">
             <label>Tilbage Leveret:</label>
-            <InputCheckbox @bind-Value="@Lease.IsReturned" class="form-control" />
-            <ValidationMessage For="@(() => Lease.IsReturned)" />
+            <InputCheckbox @bind-Value="@LeaseOrderLine.IsReturned" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.IsReturned)" />
         </div>
         <div class="form-group">
             <label>Vare navn:</label>
-            <InputText @bind-Value="@Lease.RessourceName" class="form-control" />
-            <ValidationMessage For="@(() => Lease.RessourceName)" />
+            <InputText @bind-Value="@LeaseOrderLine.RessourceName" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.RessourceName)" />
         </div>
         <div class="form-group">
             <label>Vare Pris:</label>
-            <InputNumber @bind-Value="@Lease.RessourcePrice" class="form-control" />
-            <ValidationMessage For="@(() => Lease.RessourcePrice)" />
+            <InputNumber @bind-Value="@LeaseOrderLine.RessourcePrice" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.RessourcePrice)" />
         </div>
         <div class="form-group">
             <label>Antal:</label>
-            <InputNumber @bind-Value="@Lease.Quantity" class="form-control" />
-            <ValidationMessage For="@(() => Lease.Quantity)" />
+            <InputNumber @bind-Value="@LeaseOrderLine.Quantity" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.Quantity)" />
         </div>
         
     </div>
@@ -42,7 +42,8 @@
 
 
 @code {
-    [Parameter] public LeaseViewModel.LeaseOrderLineDetails Lease { get; set; }
+    [Parameter] public LeaseViewModel.LeaseOrderDetails LeaseOrder { get; set; }
+    [Parameter] public LeaseViewModel.LeaseOrderLineDetails LeaseOrderLine { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Gem";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 

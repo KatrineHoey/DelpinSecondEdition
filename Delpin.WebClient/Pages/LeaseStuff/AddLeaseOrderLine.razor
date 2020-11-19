@@ -1,4 +1,4 @@
-﻿@page "/leaseOrderLine/create/{customerId}"
+﻿@page "/leaseOrderLine/create/{LeaseId}"
 @inject HttpClient http
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
@@ -14,33 +14,35 @@
 }
 
 @code {
-    [Parameter] public Guid LeaseId { get; set; }
+    [Parameter] public string LeaseId { get; set; }
 
-    LeaseViewModel.LeaseOrderLineDetails LeaseOrderline = new LeaseViewModel.LeaseOrderLineDetails();
+    LeaseViewModel.AddLeaseOrderLineToLeaseOrder LeaseOrderline = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
 
     bool Isloading = false;
 
     async Task Create()
     {
-        LeaseDto.LeaseOrderLineDetails LeaseDto = LeaseOrderLineDetailsMapper.Map(LeaseOrderline);
+        LeaseDto.AddLeaseOrderLineToLeaseOrder leaseDto = AddLeaseOrderLineToLeaseOrderMapper.Map(LeaseOrderline);
 
         Isloading = true;
         try
         {
 
             var LeaseOrderLineId = Guid.NewGuid();
+            var RessourceId = Guid.NewGuid();
             var response = await http.PostAsJsonAsync
                 (
 
-                $"gateway/lease/AddLeaseOrderLine?LeaseId={LeaseId}" +
+                $"gateway/lease/AddLeaseOrderLine?LeaseId={leaseDto.LeaseId}" +
                 $"LeaseOrderLineId={LeaseOrderLineId}" +
-                $"StartDate={LeaseDto.StartDate}" +
-                $"EndDate={LeaseDto.EndDate}" +
-                $"IsReturned={LeaseDto.IsReturned}" +
-                $"RessourceName={LeaseDto.RessourceName}" +
-                $"RessourcePrice={LeaseDto.RessourcePrice}" +
-                $"Quantity={LeaseDto.Quantity}"
-                , LeaseDto
+                $"RessourceId={RessourceId}" +
+                $"StartDate={leaseDto.StartDate}" +
+                $"EndDate={leaseDto.EndDate}" +
+                $"IsReturned={leaseDto.IsReturned}" +
+                $"RessourceName={leaseDto.RessourceName}" +
+                $"RessourcePrice={leaseDto.RessourcePrice}" +
+                $"Quantity={leaseDto.Quantity}"
+                , leaseDto
 
                 );
 
@@ -48,7 +50,6 @@
             {
 
                 await js.InvokeVoidAsync("alert", $"OrderLinjen er nu tilføjet!");
-
 
             }
             else
@@ -62,7 +63,6 @@
 
             await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
         }
-
 
         Isloading = false;
     }
