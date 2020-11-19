@@ -18,33 +18,39 @@
 
     LeaseViewModel.LeaseOrderDetails lease = new LeaseViewModel.LeaseOrderDetails();
 
-    
+
     bool Isloading = false;
 
     protected override async Task OnInitializedAsync()
     {
+        LeaseDto.LeaseOrderDetails leaseDto = LeaseOrderDetailsMapper.Map(lease);
+
         var customer = await http.GetFromJsonAsync<CustomerViewModel.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
-        lease.BuyerId = customer.CustomerId;
-        lease.BuyerName = customer.FullName;
-        lease.Street = customer.Street;
-        lease.ZipCode = customer.ZipCode;
-        lease.City = customer.City;
+        leaseDto.BuyerId = customer.CustomerId;
+        leaseDto.BuyerName = customer.FullName;
+        leaseDto.Street = customer.Street;
+        leaseDto.ZipCode = customer.ZipCode;
+        leaseDto.City = customer.City;
     }
 
     async Task Create()
     {
+
         Isloading = true;
+
+        LeaseDto.LeaseOrderDetails leaseDto = LeaseOrderDetailsMapper.Map(lease);
+
         try
         {
             var id = Guid.NewGuid();
-            var response = await http.PostAsJsonAsync($"gateway/lease?LeaseId={id}&BuyerId={lease.BuyerId}&Street={lease.Street}&ZipCode={lease.ZipCode}&City={lease.City}&IsDelivery={lease.IsDelivery}&IsPaid={lease.IsPaid}", lease);
+            var response = await http.PostAsJsonAsync($"gateway/lease?LeaseId={id}&BuyerId={leaseDto.BuyerId}&Street={leaseDto.Street}&ZipCode={leaseDto.ZipCode}&City={leaseDto.City}&IsDelivery={leaseDto.IsDelivery}&IsPaid={leaseDto.IsPaid}", leaseDto);
             if (response.IsSuccessStatusCode)
             {
 
                 await js.InvokeVoidAsync("alert", $"Ordren er nu oprettet!");
 
                 ModalDialogParameters returnParameters = new ModalDialogParameters();
-                returnParameters.Add("CustomerId", lease.BuyerId.ToString());
+                returnParameters.Add("CustomerId", leaseDto.BuyerId.ToString());
                 ModalDialogService.Close(true, returnParameters);
                 uriHelper.NavigateTo($"lease/details/{id.ToString()}");
             }

@@ -22,6 +22,8 @@
 
     async Task Create()
     {
+        LeaseDto.LeaseOrderLineDetails LeaseDto = LeaseOrderLineDetailsMapper.Map(LeaseOrderline);
+
         Isloading = true;
         try
         {
@@ -32,13 +34,13 @@
 
                 $"gateway/lease/AddLeaseOrderLine?LeaseId={LeaseId}" +
                 $"LeaseOrderLineId={LeaseOrderLineId}" +
-                $"StartDate={LeaseOrderline.StartDate}" +
-                $"EndDate={LeaseOrderline.EndDate}" +
-                $"IsReturned={LeaseOrderline.IsReturned}" +
-                $"RessourceName={LeaseOrderline.RessourceName}" +
-                $"RessourcePrice={LeaseOrderline.RessourcePrice}" +
-                $"Quantity={LeaseOrderline.Quantity}"
-                ,LeaseOrderline
+                $"StartDate={LeaseDto.StartDate}" +
+                $"EndDate={LeaseDto.EndDate}" +
+                $"IsReturned={LeaseDto.IsReturned}" +
+                $"RessourceName={LeaseDto.RessourceName}" +
+                $"RessourcePrice={LeaseDto.RessourcePrice}" +
+                $"Quantity={LeaseDto.Quantity}"
+                , LeaseDto
 
                 );
 

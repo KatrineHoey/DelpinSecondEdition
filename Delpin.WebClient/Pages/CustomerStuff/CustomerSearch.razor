@@ -73,6 +73,7 @@ else
     private int Page { get; set; } = 0;
     private int PageSize { get; set; } = 1000;
     private List<CustomerViewModel.ActiveCustomerSearchListItem> customerlist;
+
     bool Isloading = false;
 
     async void CreateNew_Clicked()
@@ -117,9 +118,11 @@ else
 
     async Task Delete(CustomerViewModel.ActiveCustomerSearchListItem customer)
     {
-        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {customer.FullName}?"))
+        CustomerDto.ActiveCustomerSearchListItem customerDto = ActiveCustomerSearchListItemMapper.Map(customer);
+
+        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {customerDto.FullName}?"))
         {
-            await client.DeleteAsync($"gateway/customer?CustomerId={customer.CustomerId}&IsDeleted={true}");
+            await client.DeleteAsync($"gateway/customer?CustomerId={customerDto.CustomerId}&IsDeleted={true}");
             await SearchCustomers(SearchTerm);
         }
     }

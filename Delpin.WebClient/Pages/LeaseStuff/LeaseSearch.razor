@@ -69,6 +69,9 @@ else
     private int Page { get; set; } = 0;
     private int PageSize { get; set; } = 1000;
     private List<LeaseViewModel.LeaseOrderListItem> orderlist;
+
+
+
     bool Isloading = false;
 
     protected override async Task OnInitializedAsync()
@@ -96,7 +99,6 @@ else
     async Task SearchLeases(string searchterm)
     {
         orderlist = (await client.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderListItem>>($"gateway/customer/search?SearchTerm={searchterm}&Page={Page}&PageSize={PageSize}")).ToList();
-
     }
 
     async void Edit_Clicked(Guid id)
@@ -113,9 +115,11 @@ else
 
     async Task Delete(LeaseViewModel.LeaseOrderListItem lease)
     {
-        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {lease.LeaseId}?"))
+        LeaseDto.LeaseOrderListItem leaseDto = LeaseOrderListItemMapper.Map(lease);
+
+        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {leaseDto.LeaseId}?"))
         {
-            await client.DeleteAsync($"gateway/lease/lease?LeaseId={lease.LeaseId}&IsDeleted={true}");
+            await client.DeleteAsync($"gateway/lease/lease?LeaseId={leaseDto.LeaseId}&IsDeleted={true}");
             await GetListOfLease();
         }
     }

@@ -75,9 +75,11 @@ else
 
     async Task Delete(LeaseViewModel.LeaseOrderListItem lease)
     {
-        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {lease.LeaseId}?"))
+        LeaseDto.LeaseOrderListItem leaseDto = LeaseOrderListItemMapper.Map(lease);
+
+        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {leaseDto.LeaseId}?"))
         {
-            await client.DeleteAsync($"gateway/lease/lease?LeaseId={lease.LeaseId}&IsDeleted={true}");
+            await client.DeleteAsync($"gateway/lease/lease?LeaseId={leaseDto.LeaseId}&IsDeleted={true}");
             await GetListOfLease();
         }
     }
