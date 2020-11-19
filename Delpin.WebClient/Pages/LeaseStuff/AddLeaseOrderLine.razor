@@ -1,0 +1,69 @@
+﻿@page "/leaseOrderLine/create/{customerId}"
+@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+@inject IModalDialogService ModalDialogService
+
+<h3>Tilføj OrderLinje</h3>
+
+<LeaseOrderLineForm ButtonText="Tilføj OrderLinje" Lease="@LeaseOrderline"
+              OnValidSubmit="@Create" />
+@if (Isloading == true)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
+}
+
+@code {
+    [Parameter] public Guid LeaseId { get; set; }
+
+    LeaseViewModel.LeaseOrderLineDetails LeaseOrderline = new LeaseViewModel.LeaseOrderLineDetails();
+
+    bool Isloading = false;
+
+    async Task Create()
+    {
+        LeaseDto.LeaseOrderLineDetails LeaseDto = LeaseOrderLineDetailsMapper.Map(LeaseOrderline);
+
+        Isloading = true;
+        try
+        {
+
+            var LeaseOrderLineId = Guid.NewGuid();
+            var response = await http.PostAsJsonAsync
+                (
+
+                $"gateway/lease/AddLeaseOrderLine?LeaseId={LeaseId}" +
+                $"LeaseOrderLineId={LeaseOrderLineId}" +
+                $"StartDate={LeaseDto.StartDate}" +
+                $"EndDate={LeaseDto.EndDate}" +
+                $"IsReturned={LeaseDto.IsReturned}" +
+                $"RessourceName={LeaseDto.RessourceName}" +
+                $"RessourcePrice={LeaseDto.RessourcePrice}" +
+                $"Quantity={LeaseDto.Quantity}"
+                , LeaseDto
+
+                );
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                await js.InvokeVoidAsync("alert", $"OrderLinjen er nu tilføjet!");
+
+
+            }
+            else
+            {
+                await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+            }
+
+        }
+        catch (Exception)
+        {
+
+            await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+        }
+
+
+        Isloading = false;
+    }
+}

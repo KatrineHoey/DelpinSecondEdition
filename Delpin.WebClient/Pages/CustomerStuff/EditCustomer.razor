@@ -17,61 +17,66 @@
 @code {
     [Parameter] public Guid CustomerId { get; set; }
 
-    CustomerDto.CustomerDetails customer = new CustomerDto.CustomerDetails();
+    CustomerViewModel.CustomerDetails customer = new CustomerViewModel.CustomerDetails();
+
+    
+
     bool Isloading = false;
     bool everythingWentGood = true;
 
     protected async override Task OnParametersSetAsync()
     {
-        customer = await http.GetFromJsonAsync<CustomerDto.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
+        customer = await http.GetFromJsonAsync<CustomerViewModel.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
 
     }
 
     async Task Edit()
     {
+        CustomerDto.CustomerDetails customerDto = CustomerDetailsMapper.Map(customer);
+
         Isloading = true;
-            try
+        try
+        {
+            HttpResponseMessage response = null;
+            response = await http.PutAsJsonAsync($"gateway/customer/fullname?CustomerId={CustomerId}&FullName={customerDto.FullName}", customerDto);
+            CheckIfFailed(response);
+
+
+            response = await http.PutAsJsonAsync($"gateway/customer/phone?CustomerId={CustomerId}&PhoneNo={customerDto.PhoneNo}", customerDto);
+            CheckIfFailed(response);
+
+            response = await http.PutAsJsonAsync($"gateway/customer/email?CustomerId={CustomerId}&Email={customerDto.Email}", customerDto);
+            CheckIfFailed(response);
+
+            response = await http.PutAsJsonAsync($"gateway/customer/adresse?CustomerId={CustomerId}&Street={customerDto.Street}&ZipCode={customerDto.ZipCode}&City={customerDto.City}", customerDto);
+            CheckIfFailed(response);
+
+            response = await http.PutAsJsonAsync($"gateway/customer/customertype?CustomerId={CustomerId}&CustomerType={customerDto.CustomerType}", customerDto);
+            CheckIfFailed(response);
+
+
+            if (everythingWentGood == true)
             {
-                HttpResponseMessage response = null;
-                response = await http.PutAsJsonAsync($"gateway/customer/fullname?CustomerId={CustomerId}&FullName={customer.FullName}", customer);
-                CheckIfFailed(response);
 
+                await js.InvokeVoidAsync("alert", $"Kunden er nu opdateret!");
 
-                response = await http.PutAsJsonAsync($"gateway/customer/phone?CustomerId={CustomerId}&PhoneNo={customer.PhoneNo}", customer);
-                CheckIfFailed(response);
-
-                response = await http.PutAsJsonAsync($"gateway/customer/email?CustomerId={CustomerId}&Email={customer.Email}", customer);
-                CheckIfFailed(response);
-
-                response = await http.PutAsJsonAsync($"gateway/customer/adresse?CustomerId={CustomerId}&Street={customer.Street}&ZipCode={customer.ZipCode}&City={customer.City}", customer);
-                CheckIfFailed(response);
-
-                response = await http.PutAsJsonAsync($"gateway/customer/customertype?CustomerId={CustomerId}&CustomerType={customer.CustomerType}", customer);
-                CheckIfFailed(response);
-
-
-                if (everythingWentGood == true)
-                {
-
-                    await js.InvokeVoidAsync("alert", $"Kunden er nu opdateret!");
-
-                    ModalDialogParameters returnParameters = new ModalDialogParameters();
-                    returnParameters.Add("PhoneNo", customer.PhoneNo.ToString());
-                    ModalDialogService.Close(true, returnParameters);
-                }
-                else
-                {
-                    await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
-                }
-
+                ModalDialogParameters returnParameters = new ModalDialogParameters();
+                returnParameters.Add("PhoneNo", customerDto.PhoneNo.ToString());
+                ModalDialogService.Close(true, returnParameters);
             }
-            catch (Exception)
+            else
             {
-
                 await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
             }
 
-        
+        }
+        catch (Exception)
+        {
+
+            await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+        }
+
+
         Isloading = false;
     }
 

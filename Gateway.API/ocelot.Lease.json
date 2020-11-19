@@ -1,5 +1,8 @@
 {
   "Routes": [
+    //LeaseOrder-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    //GetAllLease
     {
       "DownstreamPathTemplate": "/lease",
       "DownstreamScheme": "https",
@@ -13,6 +16,7 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
 
+    //GetLeaseByLeaseId
     {
       "DownstreamPathTemplate": "/lease/id?LeaseId={LeaseId}",
       "DownstreamScheme": "https",
@@ -26,6 +30,7 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
 
+    //GetLeaseByBuyerId
     {
       "DownstreamPathTemplate": "/lease/BuyerId?BuyerId={BuyerId}",
       "DownstreamScheme": "https",
@@ -39,6 +44,7 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
 
+    //GetLease
     {
       "DownstreamPathTemplate": "/lease/search?SearchTerm={SearchTerm}&Page={Page}&PageSize={PageSize}",
       "DownstreamScheme": "https",
@@ -52,6 +58,7 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
 
+    //UpdateLeaseBuyer
     {
       "DownstreamPathTemplate": "/lease?LeaseId={LeaseId}&BuyerId={BuyerId}&Street={Street}&ZipCode={ZipCode}&City={City}&IsDelivery={IsDelivery}&IsPaid={IsPaid}",
       "DownstreamScheme": "https",
@@ -65,18 +72,7 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
 
-    {
-      "DownstreamPathTemplate": "/lease/AddLeaseOrderLine?LeaseId={LeaseId}&LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44337
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/lease/AddLeaseOrderLine?LeaseId={LeaseId}&LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
+    //UpdateLeaseStreet
     {
       "DownstreamPathTemplate": "/lease/adresse?LeaseId={LeaseId}&Street={Street}&ZipCode={ZipCode}&City={City}",
       "DownstreamScheme": "https",
@@ -89,6 +85,8 @@
       "UpstreamPathTemplate": "/gateway/lease/adresse?LeaseId={LeaseId}&Street={Street}&ZipCode={ZipCode}&City={City}",
       "UpstreamHttpMethod": [ "PUT" ]
     },
+
+    //UpdateLeaseDelivery
     {
       "DownstreamPathTemplate": "/lease/delivery?LeaseId={LeaseId}&IsDelivery={IsDelivery}",
       "DownstreamScheme": "https",
@@ -102,6 +100,7 @@
       "UpstreamHttpMethod": [ "PUT" ]
     },
 
+    //UpdateLeaseIsPaid
     {
       "DownstreamPathTemplate": "/lease/paid?LeaseId={LeaseId}&IsPaid={IsPaid}",
       "DownstreamScheme": "https",
@@ -115,6 +114,7 @@
       "UpstreamHttpMethod": [ "PUT" ]
     },
 
+    //UpdateLeaseTotalPrice
     {
       "DownstreamPathTemplate": "/lease/price?LeaseId={LeaseId}&TotalPrice={TotalPrice}",
       "DownstreamScheme": "https",
@@ -128,19 +128,7 @@
       "UpstreamHttpMethod": [ "PUT" ]
     },
 
-    {
-      "DownstreamPathTemplate": "/lease/leaseorderline?LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44337
-        }
-      ],
-      "UpstreamPathTemplate": "/gateway/lease/leaseorderline?LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
-      "UpstreamHttpMethod": [ "PUT" ]
-    },
-
+    //Delete Lease
     {
       "DownstreamPathTemplate": "/lease/lease?LeaseId={LeaseId}&IsDeleted={IsDeleted}",
       "DownstreamScheme": "https",
@@ -154,6 +142,39 @@
       "UpstreamHttpMethod": [ "DELETE" ]
     },
 
+
+
+    //LeaseOrderLine-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    //Create LeaseOrderLine
+    {
+      "DownstreamPathTemplate": "/lease/AddLeaseOrderLine?LeaseId={LeaseId}&LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/AddLeaseOrderLine?LeaseId={LeaseId}&LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    //Update LeaseOrderline
+    {
+      "DownstreamPathTemplate": "/lease/leaseorderline?LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/leaseorderline?LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    //Delete LeaseOrderLine
     {
       "DownstreamPathTemplate": "/lease/leaseOrderLine?LeaseId={LeaseId}",
       "DownstreamScheme": "https",
@@ -166,6 +187,5 @@
       "UpstreamPathTemplate": "/gateway/lease/leaseOrderLine?LeaseId={LeaseId}",
       "UpstreamHttpMethod": [ "DELETE" ]
     }
-
   ]
 }

@@ -17,31 +17,34 @@
 @code {
     [Parameter] public Guid LeaseId { get; set; }
 
-    LeaseDto.LeaseOrderDetails lease = new LeaseDto.LeaseOrderDetails();
+    LeaseViewModel.LeaseOrderDetails lease = new LeaseViewModel.LeaseOrderDetails();
     bool Isloading = false;
     bool everythingWentGood = true;
 
     protected async override Task OnParametersSetAsync()
     {
-        lease = await http.GetFromJsonAsync<LeaseDto.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
+        lease = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
 
     }
 
     async Task Edit()
     {
         Isloading = true;
+
+        LeaseDto.LeaseOrderDetails leaseDto = LeaseOrderDetailsMapper.Map(lease);
+
         try
         {
             HttpResponseMessage response = null;
 
-            response = await http.PutAsJsonAsync($"gateway/lease/adresse?LeaseId={LeaseId}&Street={lease.Street}&ZipCode={lease.ZipCode}&City={lease.City}", lease);
+            response = await http.PutAsJsonAsync($"gateway/lease/adresse?LeaseId={LeaseId}&Street={leaseDto.Street}&ZipCode={leaseDto.ZipCode}&City={leaseDto.City}", leaseDto);
             CheckIfFailed(response);
 
-            response = await http.PutAsJsonAsync($"gateway/lease/delivery?LeaseId={LeaseId}&IsDelivery={lease.IsDelivery}", lease);
+            response = await http.PutAsJsonAsync($"gateway/lease/delivery?LeaseId={LeaseId}&IsDelivery={leaseDto.IsDelivery}", leaseDto);
             CheckIfFailed(response);
 
 
-            response = await http.PutAsJsonAsync($"gateway/lease/paid?LeaseId={LeaseId}&IsPaid={lease.IsPaid}", lease);
+            response = await http.PutAsJsonAsync($"gateway/lease/paid?LeaseId={LeaseId}&IsPaid={leaseDto.IsPaid}", leaseDto);
             CheckIfFailed(response);
 
 
@@ -53,7 +56,7 @@
                 await js.InvokeVoidAsync("alert", $"Ordren er nu opdateret!");
 
                 ModalDialogParameters returnParameters = new ModalDialogParameters();
-                returnParameters.Add("CustomerId", lease.BuyerId.ToString());
+                returnParameters.Add("CustomerId", leaseDto.BuyerId.ToString());
                 ModalDialogService.Close(true, returnParameters);
             }
             else

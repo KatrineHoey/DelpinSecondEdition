@@ -72,7 +72,8 @@ else
     private string SearchTerm { get; set; } = "";
     private int Page { get; set; } = 0;
     private int PageSize { get; set; } = 1000;
-    private List<CustomerDto.ActiveCustomerSearchListItem> customerlist;
+    private List<CustomerViewModel.ActiveCustomerSearchListItem> customerlist;
+
     bool Isloading = false;
 
     async void CreateNew_Clicked()
@@ -98,7 +99,7 @@ else
 
     async Task SearchCustomers(string searchterm)
     {
-        customerlist = (await client.GetFromJsonAsync<List<CustomerDto.ActiveCustomerSearchListItem>>($"gateway/customer/search?SearchTerm={searchterm}&Page={Page}&PageSize={PageSize}")).ToList();
+        customerlist = (await client.GetFromJsonAsync<List<CustomerViewModel.ActiveCustomerSearchListItem>>($"gateway/customer/search?SearchTerm={searchterm}&Page={Page}&PageSize={PageSize}")).ToList();
 
     }
 
@@ -115,11 +116,13 @@ else
         }
     }
 
-    async Task Delete(CustomerDto.ActiveCustomerSearchListItem customer)
+    async Task Delete(CustomerViewModel.ActiveCustomerSearchListItem customer)
     {
-        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {customer.FullName}?"))
+        CustomerDto.ActiveCustomerSearchListItem customerDto = ActiveCustomerSearchListItemMapper.Map(customer);
+
+        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {customerDto.FullName}?"))
         {
-            await client.DeleteAsync($"gateway/customer?CustomerId={customer.CustomerId}&IsDeleted={true}");
+            await client.DeleteAsync($"gateway/customer?CustomerId={customerDto.CustomerId}&IsDeleted={true}");
             await SearchCustomers(SearchTerm);
         }
     }
