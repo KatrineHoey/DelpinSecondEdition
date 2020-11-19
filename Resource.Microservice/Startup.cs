@@ -57,12 +57,12 @@ namespace Resource.Microservice
             //services.AddSingleton<IHostedService, EventStoreService>();
             services.AddSingleton<IHostedService>(
                 new EventStoreService(esConnection, projectionManager));
-            
-            //if it doesn't work, then try the one beneath
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //if it doesn't work, then try the one beneath (this doens't work yet)
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //this
-            //services.AddMvc();
+            services.AddMvc();
 
             services.AddSwaggerGen(c =>
             {
