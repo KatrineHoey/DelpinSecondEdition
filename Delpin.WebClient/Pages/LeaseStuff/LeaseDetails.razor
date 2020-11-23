@@ -73,9 +73,6 @@ else
                     <td>@lease.LineTotalPrice</td>
 
                     <td>
-                        <a href="lease/details/@lease.LeaseOrderLineId.ToString()" class="btn btn-primary float-right mr-3">Se detaljer</a>
-                    </td>
-                    <td>
                         <button @onclick="@(() => EditLeaseOrderLine_Clicked(lease.LeaseOrderLineId))" class="btn btn-primary float-right mr-3">Rediger</button>
                     </td>
                     <td>
@@ -97,7 +94,7 @@ else
 
     LeaseViewModel.AddLeaseOrderLineToLeaseOrder leaseOrderLine = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
 
-    //private List<LeaseViewModel.LeaseOrderLineDetails> orderlist;
+    
 
 
     bool Isloading = false;

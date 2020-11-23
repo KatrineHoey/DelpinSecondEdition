@@ -5,7 +5,7 @@
 
 <h3>Ændre i ordre linjen</h3>
 
-<LeaseForm ButtonText="Gem" Lease="@LeaseOrder"
+<LeaseOrderLineForm ButtonText="Gem" LeaseOrder="@LeaseOrder"
            OnValidSubmit="@Edit" />
 @if (Isloading == true)
 {
@@ -15,26 +15,25 @@
 
 
 @code {
-    [Parameter] public Guid LeaseOrderLineId { get; set; }
-
+    [Parameter] public Guid LeaseId { get; set; }
+    
     LeaseViewModel.LeaseOrderDetails LeaseOrder = new LeaseViewModel.LeaseOrderDetails();
 
-    LeaseViewModel.LeaseOrderLineDetails leaseOrderLine = new LeaseViewModel.LeaseOrderLineDetails();
+    LeaseViewModel.LeaseOrderLineDetails LeaseOrderLineDetails = new LeaseViewModel.LeaseOrderLineDetails();
 
     bool Isloading = false;
     bool everythingWentGood = true;
 
     protected async override Task OnParametersSetAsync()
     {
-        leaseOrderLine = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderLineDetails>($"gateway/lease/id?LeaseId={LeaseOrder.LeaseId}");
-
+        LeaseOrder = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
     }
 
     async Task Edit()
     {
         Isloading = true;
 
-        LeaseDto.LeaseOrderLineDetails leaseDto = LeaseOrderLineDetailsMapper.Map(leaseOrderLine);
+        LeaseDto.LeaseOrderLineDetails leaseDto = LeaseOrderLineDetailsMapper.Map(LeaseOrderLineDetails);
 
         try
         {
@@ -50,7 +49,7 @@
                 $"RessourcePrice={leaseDto.RessourcePrice}"+
                 $"Quantity={leaseDto.Quantity}", leaseDto
                 );
-            
+
             CheckIfFailed(response);
 
             if (everythingWentGood == true)

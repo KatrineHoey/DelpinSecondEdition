@@ -18,7 +18,17 @@
 
     LeaseViewModel.AddLeaseOrderLineToLeaseOrder LeaseOrderline = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
 
+    ResourceViewModel.ResourceDetails resource = new ResourceViewModel.ResourceDetails();
+
     bool Isloading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Isloading = true;
+        //resource = await http.GetFromJsonAsync<ResourceViewModel.ResourceDetails>($"gateway/lease/id?LeaseId={LeaseId}");
+
+        Isloading = false;
+    }
 
     async Task Create()
     {
