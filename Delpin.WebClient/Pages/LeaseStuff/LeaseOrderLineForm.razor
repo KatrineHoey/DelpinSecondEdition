@@ -1,4 +1,4 @@
-﻿<EditForm Model="@LeaseOrder" OnValidSubmit="@OnValidSubmit">
+﻿<EditForm Model="@LeaseOrderLine" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
     <div class="simple-form ">
 
@@ -42,8 +42,9 @@
 
 
 @code {
+    [Parameter] public LeaseViewModel.AddLeaseOrderLineToLeaseOrder LeaseOrderLine { get;set; }
     [Parameter] public LeaseViewModel.LeaseOrderDetails LeaseOrder { get; set; }
-    [Parameter] public LeaseViewModel.LeaseOrderLineDetails LeaseOrderLine { get; set; }
+    //[Parameter] public LeaseViewModel.LeaseOrderLineDetails LeaseOrderLineDetails { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Gem";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
