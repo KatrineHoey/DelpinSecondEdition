@@ -23,14 +23,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        LeaseDto.LeaseOrderDetails leaseDto = LeaseOrderDetailsMapper.Map(lease);
 
-        var customer = await http.GetFromJsonAsync<CustomerViewModel.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
-        leaseDto.BuyerId = customer.CustomerId;
-        leaseDto.BuyerName = customer.FullName;
-        leaseDto.Street = customer.Street;
-        leaseDto.ZipCode = customer.ZipCode;
-        leaseDto.City = customer.City;
+        var customer = await http.GetFromJsonAsync<CustomerDto.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
+
+        lease.BuyerId = customer.CustomerId;
+        lease.BuyerName = customer.FullName;
+        lease.Street = customer.Street;
+        lease.ZipCode = customer.ZipCode;
+        lease.City = customer.City;
     }
 
     async Task Create()

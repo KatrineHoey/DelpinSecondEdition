@@ -1,4 +1,4 @@
-﻿@page "/leaseOrderLine/create/{LeaseId}"
+﻿
 @inject HttpClient http
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
@@ -6,7 +6,7 @@
 
 <h3>Tilføj OrderLinje</h3>
 
-<LeaseOrderLineForm ButtonText="Tilføj OrderLinje" Lease="@LeaseOrderline"
+<LeaseOrderLineForm ButtonText="Tilføj OrderLinje" LeaseOrderLine="@LeaseOrderline"
               OnValidSubmit="@Create" />
 @if (Isloading == true)
 {
@@ -14,7 +14,7 @@
 }
 
 @code {
-    [Parameter] public string LeaseId { get; set; }
+    [Parameter] public Guid LeaseId { get; set; }
 
     LeaseViewModel.AddLeaseOrderLineToLeaseOrder LeaseOrderline = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
 

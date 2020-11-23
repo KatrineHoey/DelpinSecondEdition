@@ -38,7 +38,7 @@ namespace Delpin.WebClient.ViewModel
 
             public decimal TotalPrice { get; set; }
 
-            public List<LeaseOrderLineDetails> leaseOrderLines { get; set; }
+            public List<LeaseOrderLineDetails> leaseOrderLines { get; set; } = new List<LeaseOrderLineDetails>();
         }
 
         public class LeaseOrderListItem

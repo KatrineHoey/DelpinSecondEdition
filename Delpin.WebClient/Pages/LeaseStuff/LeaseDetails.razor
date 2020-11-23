@@ -55,13 +55,13 @@ else
     </thead>
     <tbody>
 
-       @if (orderlist == null)
+       @if (lease == null)
         {
             <i class="fa fa-circle-o-notch fa-spin myicons" aria-hidden="true"></i>
         }
         else
         {
-           @foreach (var lease in orderlist)
+           @foreach (var lease in lease.leaseOrderLines)
             {
                 <tr>
                     <td>@lease.StartDate</td>
@@ -79,6 +79,7 @@ else
                         <button @onclick="@(() => EditLeaseOrderLine_Clicked(lease.LeaseOrderLineId))" class="btn btn-primary float-right mr-3">Rediger</button>
                     </td>
                     <td>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(leaseOrderLine))">Slet</button>
                     </td>
 
                 </tr>
@@ -93,7 +94,10 @@ else
 
     LeaseViewModel.LeaseOrderDetails lease = new LeaseViewModel.LeaseOrderDetails();
 
-    private List<LeaseViewModel.LeaseOrderLineDetails> orderlist;
+
+    LeaseViewModel.AddLeaseOrderLineToLeaseOrder leaseOrderLine = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
+
+    //private List<LeaseViewModel.LeaseOrderLineDetails> orderlist;
 
 
     bool Isloading = false;
@@ -102,8 +106,6 @@ else
     {
         Isloading = true;
         lease = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
-
-        //orderlist = (await http.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderLineDetails>>($"gateway/lease/id?LeaseId={LeaseId}")).ToList();
 
         Isloading = false;
     }
@@ -129,8 +131,17 @@ else
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("", new ModalDialogOptions(),parameters);
     }
 
-    async void EditLeaseOrderLine_Clicked(Guid id)
+    async void EditLeaseOrderLine_Clicked(Guid Id)
     {
+        ModalDialogParameters parameters = new ModalDialogParameters();
+        parameters.Add("LeaseId", Guid.Parse(LeaseId));
+        
+
+        ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditLeaseOrderLine>("", new ModalDialogOptions(), parameters);
+        if (result.Success)
+        {
+            var searchterm = result.ReturnParameters.Get<string>("LeaseId");
+        }
 
     }
 
@@ -141,14 +152,8 @@ else
         if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {leaseDto.RessourceName}?"))
         {
             await http.DeleteAsync($"gateway/lease/leaseOrderLine?LeaseId={leaseDto.LeaseId}");
-            await GetLeaseOrderLine();
+            
         }
-    }
-
-    async Task GetLeaseOrderLine()
-    {
-        orderlist = (await http.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderLineDetails>>($"gateway/lease/id?LeaseId={LeaseId}"));
-
     }
 
 }

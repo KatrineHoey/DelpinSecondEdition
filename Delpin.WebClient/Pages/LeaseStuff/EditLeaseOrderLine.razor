@@ -1,5 +1,85 @@
-﻿<h3>EditLeaseOrderLine</h3>
+﻿@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+@inject IModalDialogService ModalDialogService
+
+<h3>Ændre i ordre linjen</h3>
+
+<LeaseForm ButtonText="Gem" Lease="@LeaseOrder"
+           OnValidSubmit="@Edit" />
+@if (Isloading == true)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
+}
+
+
 
 @code {
+    [Parameter] public Guid LeaseOrderLineId { get; set; }
 
+    LeaseViewModel.LeaseOrderDetails LeaseOrder = new LeaseViewModel.LeaseOrderDetails();
+
+    LeaseViewModel.LeaseOrderLineDetails leaseOrderLine = new LeaseViewModel.LeaseOrderLineDetails();
+
+    bool Isloading = false;
+    bool everythingWentGood = true;
+
+    protected async override Task OnParametersSetAsync()
+    {
+        leaseOrderLine = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderLineDetails>($"gateway/lease/id?LeaseId={LeaseOrder.LeaseId}");
+
+    }
+
+    async Task Edit()
+    {
+        Isloading = true;
+
+        LeaseDto.LeaseOrderLineDetails leaseDto = LeaseOrderLineDetailsMapper.Map(leaseOrderLine);
+
+        try
+        {
+            HttpResponseMessage response = null;
+
+            response = await http.PutAsJsonAsync
+                (
+                $"gateway/lease/leaseorderline?LeaseOrderLineId={leaseDto.LeaseOrderLineId}"+
+                $"StartDate={leaseDto.StartDate}"+
+                $"EndDate={leaseDto.EndDate}"+
+                $"IsReturned={leaseDto.IsReturned}"+
+                $"RessourceName={leaseDto.RessourceName}"+
+                $"RessourcePrice={leaseDto.RessourcePrice}"+
+                $"Quantity={leaseDto.Quantity}", leaseDto
+                );
+            
+            CheckIfFailed(response);
+
+            if (everythingWentGood == true)
+            {
+
+                await js.InvokeVoidAsync("alert", $"Ordre linjen er nu opdateret!");
+
+            }
+            else
+            {
+                await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+            }
+
+        }
+        catch (Exception)
+        {
+
+            await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
+        }
+
+
+        Isloading = false;
+    }
+
+    private void CheckIfFailed(HttpResponseMessage response)
+    {
+        if (!response.IsSuccessStatusCode)
+        {
+            everythingWentGood = false;
+        }
+    }
 }
