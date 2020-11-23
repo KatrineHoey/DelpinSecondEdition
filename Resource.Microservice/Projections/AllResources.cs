@@ -9,58 +9,62 @@ using System;
 
 namespace Resource.Microservice.Projections
 {
-    public class ResourceDetailsProjection :IProjection
+    public class AllResources :IProjection
     {
-        private readonly List<ResourceDetails> _items;       
-
-        public ResourceDetailsProjection(
-            List<ResourceDetails> items)
+        private readonly List<Resources> _items;
+        public AllResources(
+            List<Resources> items)
         {
-            _items = items;            
+            _items = items;
         }
 
         public Task Project(object @event)
         {
-            switch(@event)
+            switch (@event)
             {
                 case ResourceRegistered e:
                     _items.Add(
-                        new ResourceDetails
+                        new Resources
                         {
-                            ResourceId = e.ResourceId,
                             ResourceNo = e.ResourceNo,
                             ResourceName = e.ResourceName,
                             ResourcePrice = e.ResourcePrice
                         }
                     );
                     break;
-                    
+
                 case ResourceNameUpdated e:
-                    UpdateItem(e.ResourceId, ad => ad.ResourceName = e.ResourceName);
+                    UpdateResource(ad => ad.ResourceName = e.ResourceName);
                     break;
 
                 case ResourceNoUpdated e:
-                    UpdateItem(e.ResourceId, ad => ad.ResourceNo = e.ResourceNo);
+                    UpdateResource(ad => ad.ResourceNo = e.ResourceNo);
                     break;
 
                 case ResourcePriceUpdated e:
-                    UpdateItem(e.ResourceId, ad => ad.ResourcePrice = e.ResourcePrice);
-                    break;
-                case ResourceDeleted e:
-                    UpdateItem(e.ResourceId, ad => ad.IsDeleted = e.IsDeleted);
-                    break;
+                    UpdateResource(ad => ad.ResourcePrice = e.ResourcePrice);
+                    break;      
             }
 
             return Task.CompletedTask;
-           
+
         }
 
-        private void UpdateItem(Guid id, Action<ResourceDetails> update)
+        private void UpdateResource(Action<Resources> update)
         {
-            var item = _items.FirstOrDefault(x => x.ResourceId == id);
+            var item = _items.FirstOrDefault(x => x.IsDeleted == false);
             if (item == null) return;
 
             update(item);
+        }
+
+        private void UpdateMultipleItems(
+           Func<Resources, bool> query,
+           Action<Resources> update
+        )
+        {
+            foreach (var item in _items.Where(query))
+                update(item);
         }
     }
 }

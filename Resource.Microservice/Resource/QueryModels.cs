@@ -9,5 +9,10 @@ namespace Resource.Microservice.Resource
         {
             public Guid ResourceId { get; set; }
         }
+
+        public class GetNotDeleted
+        {
+            public bool Isdeleted { get; set; }
+        }
     }
 }

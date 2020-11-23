@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Resource.Infrastructure;
 using Resource.Microservice.Projections;
+using Resource.Microservice.Resource;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace Resource.Microservice
@@ -50,18 +51,18 @@ namespace Resource.Microservice
             var resourceDetails = new List<ReadModels.ResourceDetails>();
             services.AddSingleton<IEnumerable<ReadModels.ResourceDetails>>(resourceDetails);
 
+
             var projectionManager = new ProjectionManager(esConnection,
-                new ResourceDetailsProjection(resourceDetails),
+                new ResourceDetailsProjection(resourceDetails),                
                 new ResourceUpcasters(esConnection));
 
-            //services.AddSingleton<IHostedService, EventStoreService>();
+
+
+
             services.AddSingleton<IHostedService>(
                 new EventStoreService(esConnection, projectionManager));
 
-            //if it doesn't work, then try the one beneath (this doens't work yet)
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //this
             services.AddMvc();
 
             services.AddSwaggerGen(c =>
@@ -82,8 +83,6 @@ namespace Resource.Microservice
                 app.UseDeveloperExceptionPage();
             }
 
-            //Comment this out and turn the other section on
-            //app.UseMvcWithDefaultRoute();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -92,7 +91,6 @@ namespace Resource.Microservice
                 c.RoutePrefix = string.Empty;
             });
 
-            //Set all those active, if it doesn't work
             app.UseHttpsRedirection();
 
             app.UseRouting();

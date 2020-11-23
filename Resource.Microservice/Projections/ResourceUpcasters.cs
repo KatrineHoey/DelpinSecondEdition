@@ -11,7 +11,6 @@ namespace Resource.Microservice.Projections
     public class ResourceUpcasters : IProjection
     {
         private readonly IEventStoreConnection _eventStoreConnection;
-        //private readonly Func<Guid, string> _get
         private const string StreamName = "UpcastedResourceEvents";
 
         public ResourceUpcasters(IEventStoreConnection eventStoreConnection)
@@ -50,7 +49,7 @@ namespace Resource.Microservice.Projections
                 public int ResourceNo { get; set; }
                 public string ResourceName { get; set; }
                 public decimal ResourcePrice { get; set; }
-            }
+            }            
         }
     }
 }
