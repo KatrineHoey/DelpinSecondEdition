@@ -1,5 +1,37 @@
-﻿<h3>ResourceForm</h3>
+﻿<EditForm Model="@Resource" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="simple-form ">
+
+        <div class="form-group">
+            <label>Ressource nummer:</label>
+            <InputNumber @bind-Value="@Resource.ResourceNo" readonly class="form-control" />
+            <ValidationMessage For="@(() => Resource.ResourceNo)" />
+        </div>
+        <div class="form-group">
+            <label>Ressource navn:</label>
+            <InputText @bind-Value="@Resource.ResourceName" readonly class="form-control" />
+            <ValidationMessage For="@(() => Resource.ResourceName)" />
+        </div>
+        <div class="form-group">
+            <label>Ressource pris:</label>
+            <InputNumber @bind-Value="@Resource.ResourcePrice" class="form-control" />
+            <ValidationMessage For="@(() => Resource.ResourcePrice)" />
+        </div>
+        <div class="form-group">
+            <label>Slettet:</label>
+            <InputCheckbox @bind-Value="@Resource.IsDeleted" class="form-control" />
+            <ValidationMessage For="@(() => Resource.IsDeleted)" />
+        </div>       
+    </div>
+    <button type="submit" class="btn btn-primary">
+        @ButtonText
+    </button>
+
+</EditForm>
+
 
 @code {
-
+    [Parameter] public ResourceViewModel.ResourceDetails Resource { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Gem";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
 }
