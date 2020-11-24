@@ -23,13 +23,13 @@ namespace Customer.Domain.Customer
 
         public int Value { get; internal set; }
 
-        public static PhoneNo FromString(string phoneNo)
+        public static PhoneNo FromInt(int phoneNo)
         {
 
-            if (phoneNo.IsEmpty())
+            if (phoneNo == 0)
                 throw new ArgumentNullException(nameof(phoneNo));
 
-            return new PhoneNo(Convert.ToInt32(phoneNo));
+            return new PhoneNo(phoneNo);
         }
 
         public static implicit operator int(PhoneNo phoneNo)

@@ -17,9 +17,9 @@ namespace Customer.Domain.Customer
         // Satisfy the serialization requirements 
         protected IsDeleted() { }
 
-        public static IsDeleted FromString(string isDeleted)
+        public static IsDeleted FromBool(bool isDeleted)
         {
-            return new IsDeleted(Convert.ToBoolean(isDeleted));
+            return new IsDeleted(isDeleted);
         }
 
         public static implicit operator bool(IsDeleted isDeleted)

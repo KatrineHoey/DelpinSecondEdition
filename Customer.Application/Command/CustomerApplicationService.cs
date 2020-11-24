@@ -40,7 +40,7 @@ namespace Customer.Application.Command
                     HandleUpdate(
                         cmd.CustomerId,
                         profile => profile.UpdateAdresse(
-                          new Adresse(Street.FromString(cmd.Street), ZipCode.FromString(cmd.ZipCode.ToString()), City.FromString(cmd.City))
+                          new Adresse(Street.FromString(cmd.Street), ZipCode.FromInt(cmd.ZipCode), City.FromString(cmd.City))
                         )
                     ),
                   V1.ChangeCustomerType cmd =>
@@ -54,7 +54,7 @@ namespace Customer.Application.Command
                     HandleUpdate(
                         cmd.CustomerId,
                         profile => profile.UpdatePhoneNo(
-                            PhoneNo.FromString(cmd.PhoneNo.ToString())
+                            PhoneNo.FromInt(cmd.PhoneNo)
                         )
                     ),
 
@@ -62,7 +62,7 @@ namespace Customer.Application.Command
                     HandleUpdate(
                         cmd.CustomerId,
                         profile => profile.DeleteCustomer(
-                            IsDeleted.FromString(cmd.IsDeleted.ToString())
+                            IsDeleted.FromBool(cmd.IsDeleted)
                         )
                     ),
                 _ => Task.CompletedTask
@@ -80,7 +80,7 @@ namespace Customer.Application.Command
                 new CustomerId(cmd.CustomerId),
                 FullName.FromString(cmd.FullName),
                 Adresse.FromString(cmd.Street, cmd.ZipCode, cmd.City),
-                PhoneNo.FromString(cmd.PhoneNo.ToString()),
+                PhoneNo.FromInt(cmd.PhoneNo),
                 Email.FromString(cmd.Email),
                 CustomerType.FromString(cmd.CustomerType.ToString())
                 
