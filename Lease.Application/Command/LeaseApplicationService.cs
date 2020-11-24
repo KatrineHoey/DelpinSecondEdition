@@ -64,14 +64,14 @@ namespace Lease.Application
                 throw new InvalidOperationException($"Entity with id {cmd.LeaseId} already exists");
 
             var lease = new LeaseOrder(
-                    cmd.LeaseId,
+                    new LeaseOrderId( cmd.LeaseId),
                     new BuyerId(cmd.BuyerId),
-                    DateTime.UtcNow,
-                    cmd.IsDelivery,
-                    cmd.IsPaid,
-                    cmd.Street,
-                    cmd.ZipCode,
-                    cmd.City
+                    new DateCreated( DateTime.UtcNow),
+                    new IsDelivery( cmd.IsDelivery),
+                    new IsPaid(cmd.IsPaid),
+                    new Street( cmd.Street),
+                    new ZipCode( cmd.ZipCode),
+                    new City(cmd.City)
 
                 );
 
@@ -85,15 +85,15 @@ namespace Lease.Application
                 throw new InvalidOperationException($"Entity with id {cmd.LeaseOrderLineId} already exists");
 
             var leaseOrderLine = new LeaseOrderLine(
-                    cmd.LeaseOrderLineId,
-                    cmd.LeaseId,
-                    cmd.RessourceId,
-                    cmd.StartDate,
-                    cmd.EndDate,
-                    cmd.IsReturned,
-                    cmd.RessourceName,
-                    cmd.RessourcePrice,
-                    cmd.Quantity
+                   new LeaseOrderLineId( cmd.LeaseOrderLineId),
+                   new LeaseOrderId( cmd.LeaseId),
+                   new RessourceId( cmd.RessourceId),
+                   new StartDate( cmd.StartDate),
+                   new EndDate( cmd.EndDate),
+                   new IsReturned( cmd.IsReturned),
+                   new RessourceName( cmd.RessourceName),
+                   new RessourcePrice( cmd.RessourcePrice),
+                   new Quantity( cmd.Quantity)
 
                 );
 

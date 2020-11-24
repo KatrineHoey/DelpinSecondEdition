@@ -23,94 +23,113 @@ namespace Lease.Infrastructure.Shared
 
         public DbSet<Buyer> Buyers { get; set; }
 
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    //LeaseOrder
+        //    modelBuilder.Entity<LeaseOrder>()
+        //        .HasOne(p => p.Buyer)
+        //        .WithMany(p => p.LeaseOrders)
+        //        .HasForeignKey(p => p.BuyerId);
+
+        //    modelBuilder.Entity<LeaseOrder>()
+        //        .HasKey(x => x.LeaseOrderId);
+
+        //    modelBuilder.Entity<LeaseOrder>()
+        //        .OwnsOne(x => x.Id);
+
+
+        //    //LeaseOrderLine
+        //    modelBuilder.Entity<LeaseOrderLine>()
+        //        .HasOne(p => p.LeaseOrder)
+        //        .WithMany(b => b.LeaseOrderLines)
+        //        .HasForeignKey(p => p.LeaseId);
+
+        //    modelBuilder.Entity<LeaseOrderLine>()
+        //        .HasKey(x => x.LeaseOrderLineId);
+
+        //    modelBuilder.Entity<LeaseOrderLine>()
+        //        .OwnsOne(x => x.Id);
+
+        //    //Buyer
+
+        //    modelBuilder.Entity<Buyer>()
+        //        .HasKey(x => x.BuyerId);
+
+        //    modelBuilder.Entity<Buyer>()
+        //        .OwnsOne(x => x.Id);
+
+        //    modelBuilder.Entity<Buyer>()
+        //        .OwnsOne(x => x.BuyerName);
+
+
+
+        //}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLoggerFactory(_loggerFactory);
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //LeaseOrder
-            modelBuilder.Entity<LeaseOrder>()
-                .HasOne(p => p.Buyer)
+            modelBuilder.ApplyConfiguration(new LeaseEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LeaseOrderLineEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BuyerEntityTypeConfiguration());
+        }
+    }
+
+    public class BuyerEntityTypeConfiguration : IEntityTypeConfiguration<Domain.Buyer>
+    {
+        public void Configure(EntityTypeBuilder<Domain.Buyer> builder)
+        {
+            builder.HasKey(x => x.BuyerId);
+            builder.OwnsOne(x => x.Id);
+            builder.OwnsOne(x => x.BuyerName);
+        }
+    }
+
+    public class LeaseEntityTypeConfiguration : IEntityTypeConfiguration<Domain.LeaseOrder>
+    {
+        public void Configure(EntityTypeBuilder<Domain.LeaseOrder> builder)
+        {
+            builder.HasOne(p => p.Buyer)
                 .WithMany(p => p.LeaseOrders)
                 .HasForeignKey(p => p.BuyerId);
 
-            modelBuilder.Entity<LeaseOrder>()
-                .HasKey(x => x.LeaseOrderId);
-
-            modelBuilder.Entity<LeaseOrder>()
-                .OwnsOne(x => x.Id);
-
-
-            //LeaseOrderLine
-            modelBuilder.Entity<LeaseOrderLine>()
-                .HasOne(p => p.LeaseOrder)
-                .WithMany(b => b.LeaseOrderLines)
-                .HasForeignKey(p => p.LeaseId);
-
-            modelBuilder.Entity<LeaseOrderLine>()
-                .HasKey(x => x.LeaseOrderLineId);
-
-            modelBuilder.Entity<LeaseOrderLine>()
-                .OwnsOne(x => x.Id);
-
-            //Buyer
-
-            modelBuilder.Entity<Buyer>()
-                .HasKey(x => x.BuyerId);
-
-            modelBuilder.Entity<Buyer>()
-                .OwnsOne(x => x.Id);
-
-            modelBuilder.Entity<Buyer>()
-                .OwnsOne(x => x.BuyerName);
-
-
-
+            builder.HasKey(x => x.LeaseOrderId);
+            builder.OwnsOne(x => x.Id);
+            builder.OwnsOne(x => x.Street);
+            builder.OwnsOne(x => x.ZipCode);
+            builder.OwnsOne(x => x.City);
+            builder.OwnsOne(x => x.DateCreated);
+            builder.OwnsOne(x => x.IsDeleted);
+            builder.OwnsOne(x => x.IsDelivery);
+            builder.OwnsOne(x => x.IsPaid);
+            builder.OwnsOne(x => x.TotalPrice);
+            //builder.OwnsOne(x => x.BuyerId);
         }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseLoggerFactory(_loggerFactory);
-        //    optionsBuilder.EnableSensitiveDataLogging();
-        //}
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.ApplyConfiguration(new LeaseEntityTypeConfiguration());
-        //    modelBuilder.ApplyConfiguration(new LeaseOrderLineEntityTypeConfiguration());
-        //}
     }
 
-    //public class LeaseEntityTypeConfiguration : IEntityTypeConfiguration<Domain.LeaseOrder>
-    //{
-    //    public void Configure(EntityTypeBuilder<Domain.LeaseOrder> builder)
-    //    {
-    //        builder.HasKey(x => x.LeaseOrderId);
-    //        builder.OwnsOne(x => x.Id);
-    //        //builder.OwnsOne(x => x.CustomerId);
-    //        //builder.OwnsOne(x => x.Street);
-    //        //builder.OwnsOne(x => x.ZipCode);
-    //        //builder.OwnsOne(x => x.City);
-    //        //builder.OwnsOne(x => x.DateCreated);
-    //        //builder.OwnsOne(x => x.IsDeleted);
-    //        //builder.OwnsOne(x => x.IsDelivery);
-    //        //builder.OwnsOne(x => x.IsPaid);
-    //        //builder.OwnsOne(x => x.TotalPrice);
-    //    }
-    //}
+    public class LeaseOrderLineEntityTypeConfiguration : IEntityTypeConfiguration<Domain.LeaseOrderLine>
+    {
+        public void Configure(EntityTypeBuilder<Domain.LeaseOrderLine> builder)
+        {
+            builder.HasOne(p => p.LeaseOrder)
+           .WithMany(b => b.LeaseOrderLines)
+           .HasForeignKey(p => p.LeaseId);
 
-    //public class LeaseOrderLineEntityTypeConfiguration : IEntityTypeConfiguration<Domain.LeaseOrderLine>
-    //{
-    //    public void Configure(EntityTypeBuilder<Domain.LeaseOrderLine> builder)
-    //    {
-    //        builder.HasKey(x => x.LeaseOrderLineId);
-    //        builder.OwnsOne(x => x.Id);
-    //        //builder.OwnsOne(x => x.LeaseId);
-    //        //builder.OwnsOne(x => x.StartDate);
-    //        //builder.OwnsOne(x => x.EndDate);
-    //        //builder.OwnsOne(x => x.IsReturned);
-    //        //builder.OwnsOne(x => x.RessourceName);
-    //        //builder.OwnsOne(x => x.RessourcePrice);
-    //        //builder.OwnsOne(x => x.Quantity);
-    //        //builder.OwnsOne(x => x.LineTotalPrice);
-            
-    //    }
-    //}
+            builder.HasKey(x => x.LeaseOrderLineId);
+            builder.OwnsOne(x => x.Id);
+            builder.OwnsOne(x => x.StartDate);
+            builder.OwnsOne(x => x.EndDate);
+            builder.OwnsOne(x => x.IsReturned);
+            builder.OwnsOne(x => x.RessourceId);
+            builder.OwnsOne(x => x.RessourceName);
+            builder.OwnsOne(x => x.RessourcePrice);
+            builder.OwnsOne(x => x.Quantity);
+            builder.OwnsOne(x => x.LineTotalPrice);
+            //builder.OwnsOne(x => x.LeaseId);
+        }
+    }
 }

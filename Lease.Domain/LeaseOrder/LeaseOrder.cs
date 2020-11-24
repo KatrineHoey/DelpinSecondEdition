@@ -17,21 +17,21 @@ namespace Lease.Domain
 
         // Aggregate state properties
 
-        public DateTime DateCreated { get; private set; }
+        public DateCreated DateCreated { get; private set; }
 
-        public bool IsDeleted { get; private set; }
+        public IsDeleted IsDeleted { get; private set; }
 
-        public bool IsDelivery { get; private set; }
+        public IsDelivery IsDelivery { get; private set; }
 
-        public bool IsPaid { get; private set; }
+        public IsPaid IsPaid { get; private set; }
 
-        public int TotalPrice { get; private set; }
+        public TotalPrice TotalPrice { get; private set; }
 
-        public string Street { get; private set; }
+        public Street Street { get; private set; }
 
-        public int ZipCode { get; private set; }
+        public ZipCode ZipCode { get; private set; }
 
-        public string City { get; private set; }
+        public City City { get; private set; }
 
         public Guid BuyerId { get; set; }
 
@@ -40,7 +40,7 @@ namespace Lease.Domain
         public List<LeaseOrderLine> LeaseOrderLines { get; }
 
 
-        public LeaseOrder(Guid leaseId, Guid buyer, DateTime dateCreated, bool isDelivery, bool isPaid, string street, int zipCode, string city)
+        public LeaseOrder(LeaseOrderId leaseId, BuyerId buyerId, DateCreated dateCreated, IsDelivery isDelivery, IsPaid isPaid, Street street, ZipCode zipCode, City city)
         {
             LeaseOrderLines = new List<LeaseOrderLine>();
             Apply(new LeaseOrderEvents.CreateLeaseOrder
@@ -52,7 +52,7 @@ namespace Lease.Domain
                 Street = street,
                 ZipCode = zipCode,
                 City = city,
-                CustomerId = buyer,
+                CustomerId = buyerId,
                 
             });
         }
@@ -117,47 +117,41 @@ namespace Lease.Domain
                 case LeaseOrderEvents.CreateLeaseOrder e:
                     Id = new LeaseOrderId(e.LeaseId);
 
-                    DateCreated = e.DateCreated;
-                    IsDeleted = e.IsDeleted;
-                    IsDelivery = e.IsDelivery;
-                    IsPaid = e.IsPaid;
+                    DateCreated =new DateCreated(e.DateCreated);
+                    IsDeleted = new IsDeleted(e.IsDeleted);
+                    IsDelivery = new IsDelivery(e.IsDelivery);
+                    IsPaid = new IsPaid(e.IsPaid);
                     BuyerId = new BuyerId(e.CustomerId);
-                    TotalPrice = e.TotalPrice;
-                    Street = e.Street;
-                    ZipCode = e.ZipCode;
-                    City = e.City;
+                    TotalPrice = new TotalPrice(e.TotalPrice);
+                    Street = new Street(e.Street);
+                    ZipCode = new ZipCode(e.ZipCode);
+                    City = new City(e.City);
                     break;
 
                 case LeaseOrderEvents.LeaseAddressUpdated e:
-                    Id = new LeaseOrderId(e.LeaseId);
-                    Street = e.Street;
-                    ZipCode = e.ZipCode;
-                    City = e.City;
+                    Street = new Street(e.Street);
+                    ZipCode = new ZipCode(e.ZipCode);
+                    City = new City(e.City);
                     break;
 
                 case LeaseOrderEvents.DateCreatedUpdated e:
-                    Id = new LeaseOrderId(e.LeaseId);
-                    DateCreated = e.DateCreated;
+                    DateCreated = new DateCreated(e.DateCreated);
                     break;
 
                 case LeaseOrderEvents.LeaseDeleted e:
-                    Id = new LeaseOrderId(e.LeaseId);
-                    IsDeleted = e.IsDeleted;
+                    IsDeleted = new IsDeleted(e.IsDeleted);
                     break;
 
                 case LeaseOrderEvents.IsDeliveryUpdated e:
-                    Id = new LeaseOrderId(e.LeaseId);
-                    IsDelivery = e.IsDelivery;
+                    IsDelivery = new IsDelivery(e.IsDelivery);
                     break;
 
                 case LeaseOrderEvents.IsPaidUpdated e:
-                    Id = new LeaseOrderId(e.LeaseId);
-                    IsPaid = e.IsPaid;
+                    IsPaid = new IsPaid(e.IsPaid);
                     break;
 
                 case LeaseOrderEvents.TotalPriceUpdated e:
-                    Id = new LeaseOrderId(e.LeaseId);
-                    TotalPrice = e.TotalPrice;
+                    TotalPrice = new TotalPrice(e.TotalPrice);
                     break;
             }
         }

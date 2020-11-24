@@ -15,27 +15,27 @@ namespace Lease.Domain
         protected LeaseOrderLine() { }
         // Entity state properties
 
-        public DateTime StartDate { get; private set; }
+        public StartDate StartDate { get; private set; }
 
-        public DateTime EndDate { get; private set; }
+        public EndDate EndDate { get; private set; }
 
-        public bool IsReturned { get; private set; }
+        public IsReturned IsReturned { get; private set; }
 
-        public string RessourceName { get; private set; }
+        public RessourceName RessourceName { get; private set; }
 
-        public int RessourcePrice { get; private set; }
+        public RessourcePrice RessourcePrice { get; private set; }
 
-        public int Quantity { get; private set; }
+        public Quantity Quantity { get; private set; }
 
-        public int LineTotalPrice { get; private set; }
+        public LineTotalPrice LineTotalPrice { get; private set; }
 
         public Guid LeaseId { get; private set; }
 
-        public Guid RessourceId { get; private set; }
+        public RessourceId RessourceId { get; private set; }
 
         public LeaseOrder LeaseOrder { get; private set; }
 
-        public LeaseOrderLine(Guid leaseOrderLineId, Guid leaseOrderId,Guid ressourceId, DateTime startDate, DateTime endDate, bool isReturned, string ressourceName, int ressourcePrice, int quantity)
+        public LeaseOrderLine(LeaseOrderLineId leaseOrderLineId, LeaseOrderId leaseOrderId,RessourceId ressourceId, StartDate startDate, EndDate endDate, IsReturned isReturned, RessourceName ressourceName, RessourcePrice ressourcePrice, Quantity quantity)
         {
             Apply(new LeaseOrderLineEvents.LeaseOrderLineAddedToLeaseOrder
             {
@@ -79,8 +79,8 @@ namespace Lease.Domain
             {
 
                 case LeaseOrderLineEvents.LeaseOrderLineAddedToLeaseOrder e:
-                    LeaseId = e.LeaseOrderId;
-                    RessourceId = e.RessourceId;
+                    LeaseId = new LeaseOrderId(e.LeaseOrderId);
+                    RessourceId = new RessourceId(e.RessourceId);
                     Id = new LeaseOrderLineId(e.LeaseOrderLineId);                    
                     StartDate = new StartDate( e.StartDate);
                     EndDate = new EndDate( e.EndDate);
@@ -91,7 +91,6 @@ namespace Lease.Domain
                     break;
 
                 case LeaseOrderLineEvents.LeaseOrderLineUpdated e:
-                    Id = new LeaseOrderLineId(e.LeaseOrderLineId);
                     StartDate = new StartDate(e.StartDate);
                     EndDate = new EndDate(e.EndDate);
                     IsReturned = new IsReturned(e.IsReturned);

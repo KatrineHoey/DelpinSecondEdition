@@ -26,25 +26,26 @@ namespace Lease.Infrastructure.Migrations
                 {
                     LeaseOrderId = table.Column<Guid>(nullable: false),
                     Id_LeaseOrderIdValue = table.Column<Guid>(nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    IsDelivery = table.Column<bool>(nullable: false),
-                    IsPaid = table.Column<bool>(nullable: false),
-                    TotalPrice = table.Column<int>(nullable: false),
-                    Street = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<int>(nullable: false),
-                    City = table.Column<string>(nullable: true),
-                    BuyerId = table.Column<Guid>(nullable: false)
+                    DateCreated_Value = table.Column<DateTime>(nullable: true),
+                    IsDeleted_Value = table.Column<bool>(nullable: true),
+                    IsDelivery_Value = table.Column<bool>(nullable: true),
+                    IsPaid_Value = table.Column<bool>(nullable: true),
+                    TotalPrice_Value = table.Column<int>(nullable: true),
+                    Street_Value = table.Column<string>(nullable: true),
+                    ZipCode_Value = table.Column<int>(nullable: true),
+                    City_Value = table.Column<string>(nullable: true),
+                    BuyerId_Value = table.Column<Guid>(nullable: true),
+                    BuyerId1 = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Leases", x => x.LeaseOrderId);
                     table.ForeignKey(
-                        name: "FK_Leases_Buyers_BuyerId",
-                        column: x => x.BuyerId,
+                        name: "FK_Leases_Buyers_BuyerId1",
+                        column: x => x.BuyerId1,
                         principalTable: "Buyers",
                         principalColumn: "BuyerId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,36 +54,37 @@ namespace Lease.Infrastructure.Migrations
                 {
                     LeaseOrderLineId = table.Column<Guid>(nullable: false),
                     Id_Value = table.Column<Guid>(nullable: true),
-                    StartDate = table.Column<DateTime>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: false),
-                    IsReturned = table.Column<bool>(nullable: false),
-                    RessourceName = table.Column<string>(nullable: true),
-                    RessourcePrice = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    LineTotalPrice = table.Column<int>(nullable: false),
-                    LeaseId = table.Column<Guid>(nullable: false),
-                    RessourceId = table.Column<Guid>(nullable: false)
+                    StartDate_Value = table.Column<DateTime>(nullable: true),
+                    EndDate_Value = table.Column<DateTime>(nullable: true),
+                    IsReturned_Value = table.Column<bool>(nullable: true),
+                    RessourceName_Value = table.Column<string>(nullable: true),
+                    RessourcePrice_Value = table.Column<int>(nullable: true),
+                    Quantity_Value = table.Column<int>(nullable: true),
+                    LineTotalPrice_Value = table.Column<int>(nullable: true),
+                    LeaseId_LeaseOrderIdValue = table.Column<Guid>(nullable: true),
+                    RessourceId_Value = table.Column<Guid>(nullable: true),
+                    LeaseOrderId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LeaseOrderLines", x => x.LeaseOrderLineId);
                     table.ForeignKey(
-                        name: "FK_LeaseOrderLines_Leases_LeaseId",
-                        column: x => x.LeaseId,
+                        name: "FK_LeaseOrderLines_Leases_LeaseOrderId",
+                        column: x => x.LeaseOrderId,
                         principalTable: "Leases",
                         principalColumn: "LeaseOrderId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LeaseOrderLines_LeaseId",
+                name: "IX_LeaseOrderLines_LeaseOrderId",
                 table: "LeaseOrderLines",
-                column: "LeaseId");
+                column: "LeaseOrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Leases_BuyerId",
+                name: "IX_Leases_BuyerId1",
                 table: "Leases",
-                column: "BuyerId");
+                column: "BuyerId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

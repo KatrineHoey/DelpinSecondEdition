@@ -13,11 +13,11 @@ namespace Lease.Domain
         protected Buyer() { }
         // Entity state properties
 
-        public BuyerName BuyerName { get; set; }
+        public BuyerName BuyerName { get; private set; }
 
-        public List<LeaseOrder> LeaseOrders { get; set; }
+        public List<LeaseOrder> LeaseOrders { get; private set; }
 
-        public Buyer(Guid BuyerId, BuyerName buyerName)
+        public Buyer(BuyerId BuyerId, BuyerName buyerName)
         {
             Apply(new BuyerEvents.BuyerCreated
             {
@@ -35,32 +35,18 @@ namespace Lease.Domain
             });
         }
 
-        public void BuyerDeleted()
-        {
-            Apply(new BuyerEvents.BuyerDeleted
-            {
-                BuyerId = BuyerId
-            });
-        }
-
         protected override void When(object @event)
         {
             switch (@event)
             {
 
                 case BuyerEvents.BuyerCreated e:
-                    BuyerId = e.BuyerId;
+                    BuyerId = new BuyerId(e.BuyerId);
                     BuyerName = new BuyerName(e.BuyerName);
                     break;
 
                 case BuyerEvents.BuyerUpdated e:
-                    Id = new BuyerId(e.BuyerId);
                     BuyerName = new BuyerName(e.BuyerName);
-                    break;
-
-
-                case BuyerEvents.BuyerDeleted e:
-                    Id = new BuyerId(e.BuyerId);
                     break;
             }
         }

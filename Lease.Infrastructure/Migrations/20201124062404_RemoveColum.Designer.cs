@@ -4,14 +4,16 @@ using Lease.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lease.Infrastructure.Migrations
 {
     [DbContext(typeof(LeaseDbContext))]
-    partial class LeaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201124062404_RemoveColum")]
+    partial class RemoveColum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
