@@ -1,0 +1,65 @@
+﻿@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+@inject IModalDialogService ModalDialogService
+
+<h3>AddResourceToLeaseOrderLine</h3>
+
+
+@if (Isloading == true)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ressource Navn</th>
+            <th>Ressource Nr</th>
+            <th>Afleveret?</th>
+
+
+            <th> </th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (resourcelist == null)
+        {
+            <i class="fa fa-circle-o-notch fa-spin myicons" aria-hidden="true"></i>
+        }
+        else
+        {
+            @foreach (var resource in resourcelist)
+            {
+                <tr>
+
+                    <td>@resource.ResourceName</td>
+                    <td>@resource.ResourceNo</td>
+                    <td>@resource.ResourcePrice</td>
+
+
+                    <td>
+                    </td>
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+
+@code {
+
+    bool Isloading = false;
+    private List<ResourceViewModel.ResourceDetails> resourcelist;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        resourcelist = await http.GetFromJsonAsync<List<ResourceViewModel.ResourceDetails>>($"/gateway/GetAll");
+    }
+
+}
