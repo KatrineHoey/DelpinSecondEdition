@@ -29,7 +29,7 @@ namespace Resource.Microservice.Resource
             public class UpdateResourceNo
             {
                 public Guid Id { get; set; }
-                public int RessourceNo { get; set; }
+                public int ResourceNo { get; set; }
             }
 
             public class UpdateResourcePrice
