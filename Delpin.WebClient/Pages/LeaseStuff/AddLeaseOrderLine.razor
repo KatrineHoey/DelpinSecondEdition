@@ -25,7 +25,7 @@
     protected override async Task OnInitializedAsync()
     {
         Isloading = true;
-        //resource = await http.GetFromJsonAsync<ResourceViewModel.ResourceDetails>($"gateway/lease/id?LeaseId={LeaseId}");
+        resource = await http.GetFromJsonAsync<ResourceViewModel.ResourceDetails>($"/gateway/GetAll");
 
         Isloading = false;
     }

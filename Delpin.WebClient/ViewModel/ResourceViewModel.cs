@@ -10,13 +10,16 @@ namespace Delpin.WebClient.ViewModel
     {
         public class ResourceDetails 
         {
-            [Required(ErrorMessage = "Resource navn mangler.")]
+            [Required(ErrorMessage = "Ressource Id mangler.")]
+            public Guid ResourceId { get; set; }
+
+            [Required(ErrorMessage = "Ressource navn mangler.")]
             public string ResourceName { get; set; }
 
-            [Required(ErrorMessage = "Resource nummer mangler.")]
+            [Required(ErrorMessage = "Ressource nummer mangler.")]
             public int ResourceNo { get; set; }
 
-            [Required(ErrorMessage = "Resource pris mangler.")]
+            [Required(ErrorMessage = "Ressource pris mangler.")]
             public decimal ResourcePrice { get; set; }
 
             [Required(ErrorMessage = "Er slettet mangler.")]
