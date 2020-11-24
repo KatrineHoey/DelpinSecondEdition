@@ -23,13 +23,13 @@ namespace Customer.Domain.Customer
 
         public int Value { get; internal set; }
 
-        public static ZipCode FromString(string zipcode)
+        public static ZipCode FromInt(int zipcode)
         {
 
-            if (zipcode.IsEmpty())
+            if (zipcode == 0)
                 throw new ArgumentNullException(nameof(zipcode));
 
-            return new ZipCode(Convert.ToInt32(zipcode));
+            return new ZipCode(zipcode);
         }
 
         public static implicit operator int(ZipCode zipcode)
