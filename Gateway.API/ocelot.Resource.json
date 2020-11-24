@@ -72,7 +72,7 @@
 
     //Update ResourcePrice
     {
-      "DownstreamPathTemplate": "resource/Price?Id={ResourceId}&ResourcePrice={ResourcePrice}",
+      "DownstreamPathTemplate": "/resource/Price?Id={ResourceId}&ResourcePrice={ResourcePrice}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -84,9 +84,9 @@
       "UpstreamHttpMethod": [ "PUT" ]
     },
 
-    //Delete LeaseOrderLine
+    //Delete Resource
     {
-      "DownstreamPathTemplate": "/lease/leaseOrderLine?LeaseId={LeaseId}",
+      "DownstreamPathTemplate": "/resource?Id={ResourceId}&IsDeleted={IsDeleted}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -94,7 +94,7 @@
           "Port": 44364
         }
       ],
-      "UpstreamPathTemplate": "/gateway/lease/leaseOrderLine?LeaseId={LeaseId}",
+      "UpstreamPathTemplate": "/gateway/resource?Id={ResourceId}&IsDeleted={IsDeleted}",
       "UpstreamHttpMethod": [ "DELETE" ]
     }
   ]
