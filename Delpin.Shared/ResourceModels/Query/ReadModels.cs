@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Resource.Microservice.Projections
+namespace Delpin.Shared.ResourceModels
 {
     public static class ReadModels
     {

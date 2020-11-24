@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using Resource.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using Resource.Microservice.Projections;
 using System.Threading.Tasks;
 using System.Linq;
+using Resource.Intrastructure.Query;
+using Delpin.Shared.ResourceModels;
 
 namespace Resource.Microservice.Resource
 {

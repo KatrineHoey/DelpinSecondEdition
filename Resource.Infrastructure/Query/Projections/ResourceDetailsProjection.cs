@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Delpin.Framework;
 using static Resource.Domain.Shared.Events;
 using static Resource.Microservice.Projections.ResourceUpcastedEvents;
-using static Resource.Microservice.Projections.ReadModels;
+using static Delpin.Shared.ResourceModels.ReadModels;
 using System;
 
 namespace Resource.Microservice.Projections

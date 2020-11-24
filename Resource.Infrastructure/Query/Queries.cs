@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Resource.Microservice.Projections;
+using Delpin.Shared.ResourceModels;
+using Resource.Infrastructure;
 
-namespace Resource.Microservice.Resource
+
+namespace Resource.Intrastructure.Query
 {
     public static class Queries
     {
@@ -17,4 +19,3 @@ namespace Resource.Microservice.Resource
             => items.Where(x => x.IsDeleted == false).ToList();
     }
 }
-//lav en ny get metode, der henter alle resourcer, som ikke er slettet

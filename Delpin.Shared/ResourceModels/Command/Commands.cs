@@ -7,11 +7,6 @@ namespace Resource.Microservice.Resource
     {
         public static class V1
         {
-            //public class Create
-            //{
-            //    public Guid Id { get; set; }
-            //}
-
             public class CreateResource
             {
                 public Guid Id { get; set; }

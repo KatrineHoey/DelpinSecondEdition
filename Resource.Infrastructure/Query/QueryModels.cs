@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Resource.Microservice.Resource
+namespace Resource.Intrastructure.Query
 {
     public static class QueryModels
     {
@@ -10,9 +10,9 @@ namespace Resource.Microservice.Resource
             public Guid ResourceId { get; set; }
         }
 
-        public class GetNotDeleted
-        {
-            public bool Isdeleted { get; set; }
-        }
+        //public class GetNotDeleted
+        //{
+        //    public bool Isdeleted { get; set; }
+        //}
     }
 }

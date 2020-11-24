@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Resource.Infrastructure;
 using Resource.Microservice.Projections;
-using Resource.Microservice.Resource;
+using Delpin.Shared.ResourceModels;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace Resource.Microservice
