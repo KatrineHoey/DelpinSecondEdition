@@ -30,7 +30,7 @@ namespace Resource.Microservice.Resource
                     ),
                 V1.UpdateResourceNo cmd =>
                 HandleUpdate(cmd.Id,
-                    c => c.UpdateResourceNo(ResourceNo.FromInt(cmd.RessourceNo)
+                    c => c.UpdateResourceNo(ResourceNo.FromInt(cmd.ResourceNo)
                         )
                     ),
                 V1.UpdateResourcePrice cmd =>

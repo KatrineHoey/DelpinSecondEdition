@@ -3,6 +3,8 @@
 @inject IJSRuntime js
 @inject IModalDialogService ModalDialog
 
+@using Delpin.WebClient.Pages.ResourceStuff;
+
 @page "/lease/details/{LeaseId}"
 
 
@@ -94,7 +96,7 @@ else
 
     LeaseViewModel.AddLeaseOrderLineToLeaseOrder leaseOrderLine = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
 
-    
+
 
 
     bool Isloading = false;
@@ -122,17 +124,24 @@ else
 
     async void AddLeaseOrderlines_Clicked()
     {
+        //ModalDialogParameters parameters = new ModalDialogParameters();
+        //parameters.Add("LeaseId", Guid.Parse(LeaseId));
+
+        //ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("", new ModalDialogOptions(),parameters);
+
+
         ModalDialogParameters parameters = new ModalDialogParameters();
         parameters.Add("LeaseId", Guid.Parse(LeaseId));
 
-        ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("", new ModalDialogOptions(),parameters);
+        ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddResourceToLeaseOrderLine>("", new ModalDialogOptions(), parameters);
+
     }
 
     async void EditLeaseOrderLine_Clicked(Guid Id)
     {
         ModalDialogParameters parameters = new ModalDialogParameters();
         parameters.Add("LeaseId", Guid.Parse(LeaseId));
-        
+
 
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditLeaseOrderLine>("", new ModalDialogOptions(), parameters);
         if (result.Success)
@@ -149,7 +158,7 @@ else
         if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {leaseDto.RessourceName}?"))
         {
             await http.DeleteAsync($"gateway/lease/leaseOrderLine?LeaseId={leaseDto.LeaseId}");
-            
+
         }
     }
 
