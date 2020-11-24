@@ -59,7 +59,7 @@ namespace Delpin.WebClient.ViewModel
 
             public Guid LeaseOrderLineId { get; set; }
 
-            public Guid RessourceId { get; set; }
+            public Guid ResourceId { get; set; }
 
             public DateTime StartDate { get; set; }
 
@@ -67,9 +67,9 @@ namespace Delpin.WebClient.ViewModel
 
             public bool IsReturned { get; set; }
 
-            public string RessourceName { get; set; }
+            public string ResourceName { get; set; }
 
-            public int RessourcePrice { get; set; }
+            public int ResourcePrice { get; set; }
 
             public int Quantity { get; set; }
 
@@ -81,7 +81,7 @@ namespace Delpin.WebClient.ViewModel
 
             public Guid LeaseOrderLineId { get; set; }
 
-            public Guid RessourceId { get; set; }
+            public Guid ResourceId { get; set; }
 
             [Required(ErrorMessage = "Start dato mangler.")]
             public DateTime StartDate { get; set; }
@@ -92,10 +92,10 @@ namespace Delpin.WebClient.ViewModel
             public bool IsReturned { get; set; }
 
             [Required(ErrorMessage = "Vare navn mangler.")]
-            public string RessourceName { get; set; }
+            public string ResourceName { get; set; }
 
             [Required(ErrorMessage = "Vare pris mangler.")]
-            public decimal RessourcePrice { get; set; }
+            public decimal ResourcePrice { get; set; }
 
             [Required(ErrorMessage = "Antal mangler.")]
             public int Quantity { get; set; }

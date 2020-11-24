@@ -17,12 +17,12 @@ namespace Delpin.WebClient.Mapper
             {
                 LeaseId = dto.LeaseId,
                 LeaseOrderLineId = dto.LeaseOrderLineId,
-                RessourceId = dto.RessourceId,
+                ResourceId = dto.ResourceId,
                 StartDate = dto.StartDate,
                 EndDate = dto.EndDate,
                 IsReturned = dto.IsReturned,
-                RessourceName = dto.RessourceName,
-                RessourcePrice = dto.RessourcePrice,
+                ResourceName = dto.ResourceName,
+                ResourcePrice = dto.ResourcePrice,
                 Quantity = dto.Quantity,
             };
         }
@@ -45,12 +45,12 @@ namespace Delpin.WebClient.Mapper
             {
                 LeaseId = model.LeaseId,
                 LeaseOrderLineId = model.LeaseOrderLineId,
-                RessourceId = model.RessourceId,
+                ResourceId = model.ResourceId,
                 StartDate = model.StartDate,
                 EndDate = model.EndDate,
                 IsReturned = model.IsReturned,
-                RessourceName = model.RessourceName,
-                RessourcePrice = model.RessourcePrice,
+                ResourceName = model.ResourceName,
+                ResourcePrice = model.ResourcePrice,
                 Quantity = model.Quantity,
 
             };

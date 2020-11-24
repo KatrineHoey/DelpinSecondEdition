@@ -44,9 +44,9 @@ namespace Lease.Intrastructure.Query
                         IsReturned = x.IsReturned.Value,
                         LineTotalPrice = x.LineTotalPrice.Value,
                         Quantity = x.Quantity.Value,
-                        RessourceName = x.RessourceName.Value,
-                        RessourcePrice = x.RessourcePrice.Value,
-                        RessourceId = x.RessourceId.Value
+                        ResourceName = x.ResourceName.Value,
+                        ResourcePrice = x.ResourcePrice.Value,
+                        ResourceId = x.ResourceId.Value
                     })
                     .ToList()
                 })
@@ -81,9 +81,9 @@ namespace Lease.Intrastructure.Query
                         IsReturned = x.IsReturned.Value,
                         LineTotalPrice = x.LineTotalPrice.Value,
                         Quantity = x.Quantity.Value,
-                        RessourceName = x.RessourceName.Value,
-                        RessourcePrice = x.RessourcePrice.Value,
-                        RessourceId = x.RessourceId.Value
+                        ResourceName = x.ResourceName.Value,
+                        ResourcePrice = x.ResourcePrice.Value,
+                        ResourceId = x.ResourceId.Value
                     })
                     .ToList()
                 })
@@ -116,9 +116,9 @@ namespace Lease.Intrastructure.Query
                         IsReturned = x.IsReturned.Value,
                         LineTotalPrice = x.LineTotalPrice.Value,
                         Quantity = x.Quantity.Value,
-                        RessourceName = x.RessourceName.Value,
-                        RessourcePrice = x.RessourcePrice.Value,
-                        RessourceId = x.RessourceId.Value
+                        ResourceName = x.ResourceName.Value,
+                        ResourcePrice = x.ResourcePrice.Value,
+                        ResourceId = x.ResourceId.Value
                     })
                     .ToList()
                 })

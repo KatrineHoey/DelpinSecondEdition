@@ -69,8 +69,8 @@ else
                     <td>@lease.StartDate</td>
                     <td>@lease.EndDate</td>
                     <td>@lease.IsReturned</td>
-                    <td>@lease.RessourceName</td>
-                    <td>@lease.RessourcePrice</td>
+                    <td>@lease.ResourceName</td>
+                    <td>@lease.ResourcePrice</td>
                     <td>@lease.Quantity</td>
                     <td>@lease.LineTotalPrice</td>
 
@@ -155,7 +155,7 @@ else
     {
         LeaseDto.AddLeaseOrderLineToLeaseOrder leaseDto = AddLeaseOrderLineToLeaseOrderMapper.Map(lease);
 
-        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {leaseDto.RessourceName}?"))
+        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {leaseDto.ResourceName}?"))
         {
             await http.DeleteAsync($"gateway/lease/leaseOrderLine?LeaseId={leaseDto.LeaseId}");
 

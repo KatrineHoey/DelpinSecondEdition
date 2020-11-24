@@ -14,7 +14,7 @@ namespace Delpin.Shared.LeaseModels
 
                 public Guid LeaseOrderLineId { get; set; }
 
-                public Guid RessourceId { get; set; }
+                public Guid ResourceId { get; set; }
 
                 public DateTime StartDate { get; set; }
 
@@ -22,9 +22,9 @@ namespace Delpin.Shared.LeaseModels
 
                 public bool IsReturned { get; set; }
 
-                public string RessourceName { get; set; }
+                public string ResourceName { get; set; }
 
-                public int RessourcePrice { get; set; }
+                public int ResourcePrice { get; set; }
 
                 public int Quantity { get; set; }
 
@@ -40,9 +40,9 @@ namespace Delpin.Shared.LeaseModels
 
                 public bool IsReturned { get; set; }
 
-                public string RessourceName { get; set; }
+                public string ResourceName { get; set; }
 
-                public int RessourcePrice { get; set; }
+                public int ResourcePrice { get; set; }
 
                 public int Quantity { get; set; }
 

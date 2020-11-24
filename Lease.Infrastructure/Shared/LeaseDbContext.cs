@@ -124,9 +124,9 @@ namespace Lease.Infrastructure.Shared
             builder.OwnsOne(x => x.StartDate);
             builder.OwnsOne(x => x.EndDate);
             builder.OwnsOne(x => x.IsReturned);
-            builder.OwnsOne(x => x.RessourceId);
-            builder.OwnsOne(x => x.RessourceName);
-            builder.OwnsOne(x => x.RessourcePrice);
+            builder.OwnsOne(x => x.ResourceId);
+            builder.OwnsOne(x => x.ResourceName);
+            builder.OwnsOne(x => x.ResourcePrice);
             builder.OwnsOne(x => x.Quantity);
             builder.OwnsOne(x => x.LineTotalPrice);
             //builder.OwnsOne(x => x.LeaseId);

@@ -45,7 +45,7 @@ namespace Lease.Application
                 LeaseOrderLineCommands.V1.DeleteLeaseOrderLine cmd => HandleDeleteLeaseOrderLine(cmd.LeaseId),
 
                 LeaseOrderLineCommands.V1.UpdateLeaseOrderLine cmd => HandleUpdateLeaseOrderLine(cmd.LeaseOrderLineId,
-                      c => c.UpdateLeaseOrderLine(StartDate.FromDateTime(cmd.StartDate), EndDate.FromDateTime(cmd.EndDate), IsReturned.FromBool(cmd.IsReturned), RessourceName.FromString( cmd.RessourceName), RessourcePrice.FromInt(cmd.RessourcePrice), Quantity.FromInt(cmd.Quantity))),
+                      c => c.UpdateLeaseOrderLine(StartDate.FromDateTime(cmd.StartDate), EndDate.FromDateTime(cmd.EndDate), IsReturned.FromBool(cmd.IsReturned), ResourceName.FromString( cmd.ResourceName), ResourcePrice.FromInt(cmd.ResourcePrice), Quantity.FromInt(cmd.Quantity))),
 
                 //Buyer
                 BuyerCommands.V1.CreateBuyer cmd => HandleCreateBuyer(cmd),
@@ -87,12 +87,12 @@ namespace Lease.Application
             var leaseOrderLine = new LeaseOrderLine(
                    new LeaseOrderLineId( cmd.LeaseOrderLineId),
                    new LeaseOrderId( cmd.LeaseId),
-                   new RessourceId( cmd.RessourceId),
+                   new ResourceId( cmd.ResourceId),
                    new StartDate( cmd.StartDate),
                    new EndDate( cmd.EndDate),
                    new IsReturned( cmd.IsReturned),
-                   new RessourceName( cmd.RessourceName),
-                   new RessourcePrice( cmd.RessourcePrice),
+                   new ResourceName( cmd.ResourceName),
+                   new ResourcePrice( cmd.ResourcePrice),
                    new Quantity( cmd.Quantity)
 
                 );
