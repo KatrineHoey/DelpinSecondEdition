@@ -1,0 +1,76 @@
+﻿@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+@inject IModalDialogService ModalDialogService
+
+<EditForm Model="@LeaseOrderLine" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="simple-form ">
+
+        <div class="form-group">
+            <label>Start Dato:</label>
+            <InputDate @bind-Value="@LeaseOrderLine.StartDate" readonly class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.StartDate)" />
+        </div>
+
+        <div class="form-group">
+            <label>Slut Dato:</label>
+            <InputDate @bind-Value="@LeaseOrderLine.EndDate" readonly class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.EndDate)" />
+        </div>
+
+        <div class="container">
+            <label>Ressource Name</label>
+            <form>
+                <div class="form-group">
+                    <label for="sel1">Select list (select one):</label>
+                    <select class="form-control" id="sel1">
+                        @foreach (var item in resource)
+                        {
+                            <option><InputDate @bind-Value="@LeaseOrderLine.ResourceName" readonly class="form-control" /></option>
+                        }
+
+                    </select>
+
+                </div>
+            </form>
+        </div>
+
+        <div class="form-group">
+            <label>Vare Pris:</label>
+            <InputNumber @bind-Value="@LeaseOrderLine.ResourcePrice" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.ResourcePrice)" />
+        </div>
+
+        <div class="form-group">
+            <label>Antal:</label>
+            <InputNumber @bind-Value="@LeaseOrderLine.Quantity" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.Quantity)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">
+        @ButtonText
+    </button>
+
+</EditForm>
+
+
+@code {
+    [Parameter] public LeaseViewModel.LeaseOrderDetails Lease { get; set; }
+    [Parameter] public LeaseViewModel.AddLeaseOrderLineToLeaseOrder LeaseOrderLine { get; set; }
+    [Parameter] public List<ResourceViewModel.ResourceDetails> resource { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Tilføj OrdreLinje";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        resource = await http.GetFromJsonAsync<List<ResourceViewModel.ResourceDetails>>($"/gateway/GetAll");
+    }
+
+
+
+
+}
+

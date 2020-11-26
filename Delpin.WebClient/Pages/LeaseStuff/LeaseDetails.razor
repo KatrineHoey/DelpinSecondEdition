@@ -3,7 +3,6 @@
 @inject IJSRuntime js
 @inject IModalDialogService ModalDialog
 
-@using Delpin.WebClient.Pages.ResourceStuff;
 
 @page "/lease/details/{LeaseId}"
 
@@ -35,7 +34,9 @@ else
 
 <section>
 
-    <button @onclick="@(() => AddLeaseOrderlines_Clicked())" class="btn btn-primary float-right mr-3">Tilføj OrderLinje</button>
+    <button @onclick="@(() => AddResourceToLeaseOrderlines_Clicked())" class="btn btn-primary float-right mr-3">Tilføj OrderLinje</button>
+
+
 
 </section>
 
@@ -57,13 +58,13 @@ else
     </thead>
     <tbody>
 
-       @if (lease == null)
+        @if (lease == null)
         {
             <i class="fa fa-circle-o-notch fa-spin myicons" aria-hidden="true"></i>
         }
         else
         {
-           @foreach (var lease in lease.leaseOrderLines)
+            @foreach (var lease in lease.leaseOrderLines)
             {
                 <tr>
                     <td>@lease.StartDate</td>
@@ -96,9 +97,6 @@ else
 
     LeaseViewModel.AddLeaseOrderLineToLeaseOrder leaseOrderLine = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
 
-
-
-
     bool Isloading = false;
 
     protected override async Task OnInitializedAsync()
@@ -122,19 +120,14 @@ else
         }
     }
 
-    async void AddLeaseOrderlines_Clicked()
+    async void AddResourceToLeaseOrderlines_Clicked()
     {
         //ModalDialogParameters parameters = new ModalDialogParameters();
-        //parameters.Add("LeaseId", Guid.Parse(LeaseId));
 
-        //ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("", new ModalDialogOptions(),parameters);
+        //ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddResourceToLeaseOrderLine>("", new ModalDialogOptions());
 
 
-        ModalDialogParameters parameters = new ModalDialogParameters();
-        parameters.Add("LeaseId", Guid.Parse(LeaseId));
-
-        ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddResourceToLeaseOrderLine>("", new ModalDialogOptions(), parameters);
-
+        uriHelper.NavigateTo("/Resource/AddResourceToLeaseOrderLine");
     }
 
     async void EditLeaseOrderLine_Clicked(Guid Id)

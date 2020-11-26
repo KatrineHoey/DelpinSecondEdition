@@ -1,66 +1,79 @@
-﻿@inject HttpClient http
+﻿@page "/Resource/AddResourceToLeaseOrderLine"
+@inject HttpClient http
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
-@inject IModalDialogService ModalDialogService
+@inject IModalDialogService ModalDialog
 
-<h3>AddResourceToLeaseOrderLine</h3>
+@using Delpin.WebClient.Pages.LeaseStuff;
 
 
+<h3>Vælg Resource Til OrderLinjen</h3>
+<br>
+<br />
 
-@if (Isloading == true)
-{
-    <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
-}
 
 <table class="table">
     <thead>
         <tr>
-            <th>Ressource Navn</th>
             <th>Ressource Nr</th>
-            <th>Afleveret?</th>
-
+            <th>Ressource Navn</th>
+            <th>Ressource Pris</th>
 
             <th> </th>
             <th> </th>
         </tr>
     </thead>
-    <tbody>
 
-        @if (resourcelist == null)
-        {
-            <i class="fa fa-circle-o-notch fa-spin myicons" aria-hidden="true"></i>
-        }
-        else
-        {
-            @foreach (var resource in resourcelist)
+    @if (rescourcelist == null)
+    {
+        <p><em></em></p>
+    }
+    else
+    {
+        <tbody>
+            @foreach (var resource in rescourcelist)
             {
                 <tr>
-
-                    <td>@resource.ResourceName</td>
                     <td>@resource.ResourceNo</td>
+                    <td>@resource.ResourceName</td>
                     <td>@resource.ResourcePrice</td>
 
+                    @*<td>
+                        <button @onclick="@(() => Edit_Clicked(customer.CustomerId))" class="btn btn-primary float-right mr-3">Rediger</button>
+                    </td>*@
 
-                    <td>
-                    </td>
 
                 </tr>
             }
-        }
-    </tbody>
+        </tbody>
+    }
 </table>
+
+
 
 
 
 @code {
 
+    private List<ResourceViewModel.ResourceDetails> rescourcelist;
+
     bool Isloading = false;
-    private List<ResourceViewModel.ResourceDetails> resourcelist;
 
     protected override async Task OnInitializedAsync()
     {
-
-        resourcelist = await http.GetFromJsonAsync<List<ResourceViewModel.ResourceDetails>>($"/gateway/GetAll");
+        Isloading = true;
+        rescourcelist = await http.GetFromJsonAsync<List<ResourceViewModel.ResourceDetails>>($"/gateway/GetAll");
+        Isloading = false;
     }
+
+    async void AddResourceToLeaseOrderLine_Clicked(Guid id)
+    {
+        ModalDialogParameters parameters = new ModalDialogParameters();
+        //parameters.Add("LeaseId", Guid.Parse(LeaseId));
+
+        ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("", new ModalDialogOptions(), parameters);
+    }
+
+
 
 }
