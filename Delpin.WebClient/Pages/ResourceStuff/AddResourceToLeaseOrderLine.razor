@@ -1,4 +1,4 @@
-﻿@page "/Resource/AddResourceToLeaseOrderLine"
+﻿@page "/Resource/AddResourceToLeaseOrderLine/{LeaseId:guid}"
 @inject HttpClient http
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
@@ -38,22 +38,18 @@
                     <td>@resource.ResourceName</td>
                     <td>@resource.ResourcePrice</td>
 
-                    @*<td>
-                        <button @onclick="@(() => Edit_Clicked(customer.CustomerId))" class="btn btn-primary float-right mr-3">Rediger</button>
-                    </td>*@
-
-
+                    <td>
+                        <button @onclick="@(() => AddResourceToLeaseOrderLine_Clicked(resource.ResourceId))" class="btn btn-primary float-right mr-3">Tilføj Resource</button>
+                    </td>
                 </tr>
             }
         </tbody>
     }
 </table>
 
-
-
-
-
 @code {
+
+    [Parameter] public Guid LeaseId { get; set; }
 
     private List<ResourceViewModel.ResourceDetails> rescourcelist;
 
@@ -66,14 +62,11 @@
         Isloading = false;
     }
 
-    async void AddResourceToLeaseOrderLine_Clicked(Guid id)
+    async void AddResourceToLeaseOrderLine_Clicked(Guid Id)
     {
         ModalDialogParameters parameters = new ModalDialogParameters();
-        //parameters.Add("LeaseId", Guid.Parse(LeaseId));
-
+        parameters.Add("ResourceId", Id);
+        parameters.Add("LeaseId", LeaseId);
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("", new ModalDialogOptions(), parameters);
     }
-
-
-
 }

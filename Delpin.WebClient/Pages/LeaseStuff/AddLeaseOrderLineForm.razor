@@ -18,22 +18,10 @@
             <InputDate @bind-Value="@LeaseOrderLine.EndDate" readonly class="form-control" />
             <ValidationMessage For="@(() => LeaseOrderLine.EndDate)" />
         </div>
-
-        <div class="container">
-            <label>Ressource Name</label>
-            <form>
-                <div class="form-group">
-                    <label for="sel1">Select list (select one):</label>
-                    <select class="form-control" id="sel1">
-                        @foreach (var item in resource)
-                        {
-                            <option><InputDate @bind-Value="@LeaseOrderLine.ResourceName" readonly class="form-control" /></option>
-                        }
-
-                    </select>
-
-                </div>
-            </form>
+        <div class="form-group">
+            <label>Vare Navn:</label>
+            <InputNumber @bind-Value="@LeaseOrderLine.ResourceName" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.ResourceName)" />
         </div>
 
         <div class="form-group">
@@ -58,19 +46,9 @@
 @code {
     [Parameter] public LeaseViewModel.LeaseOrderDetails Lease { get; set; }
     [Parameter] public LeaseViewModel.AddLeaseOrderLineToLeaseOrder LeaseOrderLine { get; set; }
-    [Parameter] public List<ResourceViewModel.ResourceDetails> resource { get; set; }
+    //[Parameter] public ResourceViewModel.ResourceDetails resource { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Tilføj OrdreLinje";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
-
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        resource = await http.GetFromJsonAsync<List<ResourceViewModel.ResourceDetails>>($"/gateway/GetAll");
-    }
-
-
-
 
 }
 

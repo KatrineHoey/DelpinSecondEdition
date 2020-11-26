@@ -21,15 +21,12 @@
 
     [Parameter] public Guid LeaseId { get; set; }
 
+    [Parameter] public Guid ResourceId { get; set; }
+
     LeaseViewModel.AddLeaseOrderLineToLeaseOrder LeaseOrderline = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
     ResourceViewModel.ResourceDetails resource = new ResourceViewModel.ResourceDetails();
 
     bool Isloading = false;
-
-    protected override async Task OnInitializedAsync()
-    {
-        resource = await http.GetFromJsonAsync<ResourceViewModel.ResourceDetails>($"/gateway/GetAll");
-    }
 
     async Task Create()
     {
@@ -43,9 +40,7 @@
             var RessourceId = Guid.NewGuid();
             var IsReturned = false;
             var response = await http.PostAsJsonAsync
-
             (
-
                 $"gateway/lease/AddLeaseOrderLine?LeaseId ={ leaseDto.LeaseId}" +
                 $"LeaseOrderLineId ={ LeaseOrderLineId}" +
                 $"StartDate ={ leaseDto.StartDate}" +
@@ -78,9 +73,5 @@
 
         Isloading = false;
     }
-
-
-
-
 
 }
