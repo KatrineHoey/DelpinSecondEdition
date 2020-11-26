@@ -1,12 +1,12 @@
-﻿@*@page "/resource/create"
+﻿@page "/resource/create"
 @inject HttpClient http
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
 @inject IModalDialogService ModalDialogService
 
-<h3>Opret ny resource</h3>
+<h3>Opret ny ressource</h3>
 
-<CreateResource ButtonText="Opret ny kunde" Customer="@resource"
+<ResourceForm ButtonText="Opret ny ressource" Resource="@resource"
               OnValidSubmit="@Create" />
 @if (Isloading == true)
 {
@@ -14,7 +14,7 @@
 }
 
 @code {
-    CustomerDto.CustomerDetails resource = new CustomerDto.CustomerDetails();
+    ResourceViewModel.ResourceDetails resource = new ResourceViewModel.ResourceDetails();
     bool Isloading = false;
 
     async Task Create()
@@ -23,16 +23,15 @@
         try
         {
             var id = Guid.NewGuid();
-            var response = await http.PostAsJsonAsync($"gateway/customer?CustomerId={id}&FullName={resource.FullName}" +
-                $"&PhoneNo={resource.PhoneNo}&Email={resource.Email}&CustomerType={resource.CustomerType}" +
-                $"&Street={resource.Street}&ZipCode={resource.ZipCode}&City={resource.City}", resource);
+            var response = await http.PostAsJsonAsync($"gateway/resource?Id={id}&ResourceName={resource.ResourceName}" +
+                $"&ResourceNo={resource.ResourceNo}&ResourcePrice={resource.ResourcePrice}", resource);
             if (response.IsSuccessStatusCode)
             {
 
                 await js.InvokeVoidAsync("alert", $"Resourcen er nu oprettet!");
 
                 ModalDialogParameters returnParameters = new ModalDialogParameters();
-                returnParameters.Add("PhoneNo", resource.PhoneNo.ToString());
+                returnParameters.Add("ResourceNo", resource.ResourceNo.ToString());
                 ModalDialogService.Close(true, returnParameters);
             }
             else
@@ -50,4 +49,4 @@
 
         Isloading = false;
     }
-}*@
+}

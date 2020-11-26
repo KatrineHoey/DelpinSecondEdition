@@ -4,12 +4,12 @@
 
         <div class="form-group">
             <label>Ressource nummer:</label>
-            <InputNumber @bind-Value="@Resource.ResourceNo" readonly class="form-control" />
+            <InputNumber @bind-Value="@Resource.ResourceNo" class="form-control" />
             <ValidationMessage For="@(() => Resource.ResourceNo)" />
         </div>
         <div class="form-group">
             <label>Ressource navn:</label>
-            <InputText @bind-Value="@Resource.ResourceName" readonly class="form-control" />
+            <InputText @bind-Value="@Resource.ResourceName" class="form-control" />
             <ValidationMessage For="@(() => Resource.ResourceName)" />
         </div>
         <div class="form-group">

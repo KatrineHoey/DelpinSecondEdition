@@ -1,5 +1,21 @@
-﻿<h3>EditResource</h3>
+﻿@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+@inject IModalDialogService ModalDialogService
+
+<h3>Ændre i ressource</h3>
+
+@*<ResourceForm ButtonText="Gem" Resource="@resource"
+              OnValidSubmit="Edit" />
+
+@if (Isloading == true)
+{
+    <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
+}
 
 @code {
+    [Parameter] public Guid ResourceId { get; set; }
 
-}
+    
+
+}*@
