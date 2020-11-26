@@ -21,9 +21,9 @@ namespace Lease.Domain
 
         public IsReturned IsReturned { get; private set; }
 
-        public RessourceName RessourceName { get; private set; }
+        public ResourceName ResourceName { get; private set; }
 
-        public RessourcePrice RessourcePrice { get; private set; }
+        public ResourcePrice ResourcePrice { get; private set; }
 
         public Quantity Quantity { get; private set; }
 
@@ -31,27 +31,27 @@ namespace Lease.Domain
 
         public Guid LeaseId { get; private set; }
 
-        public RessourceId RessourceId { get; private set; }
+        public ResourceId ResourceId { get; private set; }
 
         public LeaseOrder LeaseOrder { get; private set; }
 
-        public LeaseOrderLine(LeaseOrderLineId leaseOrderLineId, LeaseOrderId leaseOrderId,RessourceId ressourceId, StartDate startDate, EndDate endDate, IsReturned isReturned, RessourceName ressourceName, RessourcePrice ressourcePrice, Quantity quantity)
+        public LeaseOrderLine(LeaseOrderLineId leaseOrderLineId, LeaseOrderId leaseOrderId,ResourceId ResourceId, StartDate startDate, EndDate endDate, IsReturned isReturned, ResourceName ResourceName, ResourcePrice ResourcePrice, Quantity quantity)
         {
             Apply(new LeaseOrderLineEvents.LeaseOrderLineAddedToLeaseOrder
             {
                 LeaseOrderLineId = leaseOrderLineId,
                 LeaseOrderId = leaseOrderId,
-                RessourceId = ressourceId,
+                ResourceId = ResourceId,
                 StartDate = startDate,
                 EndDate = endDate,
                 IsReturned = isReturned,
-                RessourceName = ressourceName,
-                RessourcePrice = ressourcePrice,
+                ResourceName = ResourceName,
+                ResourcePrice = ResourcePrice,
                 Quantity = quantity
             });
         }
 
-        public void UpdateLeaseOrderLine(StartDate startDate, EndDate endDate, IsReturned isReturned, RessourceName ressourceName, RessourcePrice ressourcePrice, Quantity quantity)
+        public void UpdateLeaseOrderLine(StartDate startDate, EndDate endDate, IsReturned isReturned, ResourceName ResourceName, ResourcePrice ResourcePrice, Quantity quantity)
         {
             Apply(new LeaseOrderLineEvents.LeaseOrderLineUpdated
             {
@@ -59,8 +59,8 @@ namespace Lease.Domain
                 StartDate = startDate,
                 EndDate = endDate,
                 IsReturned = isReturned,
-                RessourceName = ressourceName,
-                RessourcePrice = ressourcePrice,
+                ResourceName = ResourceName,
+                ResourcePrice = ResourcePrice,
                 Quantity = quantity,
             });
         }
@@ -80,13 +80,13 @@ namespace Lease.Domain
 
                 case LeaseOrderLineEvents.LeaseOrderLineAddedToLeaseOrder e:
                     LeaseId = new LeaseOrderId(e.LeaseOrderId);
-                    RessourceId = new RessourceId(e.RessourceId);
+                    ResourceId = new ResourceId(e.ResourceId);
                     Id = new LeaseOrderLineId(e.LeaseOrderLineId);                    
                     StartDate = new StartDate( e.StartDate);
                     EndDate = new EndDate( e.EndDate);
                     IsReturned = new IsReturned( e.IsReturned);
-                    RessourceName = new RessourceName( e.RessourceName);
-                    RessourcePrice = new RessourcePrice( e.RessourcePrice);
+                    ResourceName = new ResourceName( e.ResourceName);
+                    ResourcePrice = new ResourcePrice( e.ResourcePrice);
                     Quantity = new Quantity( e.Quantity);
                     break;
 
@@ -94,8 +94,8 @@ namespace Lease.Domain
                     StartDate = new StartDate(e.StartDate);
                     EndDate = new EndDate(e.EndDate);
                     IsReturned = new IsReturned(e.IsReturned);
-                    RessourceName = new RessourceName(e.RessourceName);
-                    RessourcePrice = new RessourcePrice(e.RessourcePrice);
+                    ResourceName = new ResourceName(e.ResourceName);
+                    ResourcePrice = new ResourcePrice(e.ResourcePrice);
                     Quantity = new Quantity(e.Quantity);
                     break;
 

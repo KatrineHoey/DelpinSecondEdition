@@ -50,15 +50,15 @@ namespace Delpin.Shared.LeaseModels
 
             public bool IsReturned { get; set; }
 
-            public string RessourceName { get; set; }
+            public string ResourceName { get; set; }
 
-            public decimal RessourcePrice { get; set; }
+            public decimal ResourcePrice { get; set; }
 
             public int Quantity { get; set; }
 
             public decimal LineTotalPrice { get; set; }
 
-            public Guid RessourceId { get; set; }
+            public Guid ResourceId { get; set; }
         }
 
     }

@@ -19,24 +19,30 @@
         </div>
         <div class="form-group">
             <label>Vare navn:</label>
-            <InputText @bind-Value="@LeaseOrderLine.RessourceName" class="form-control" />
-            <ValidationMessage For="@(() => LeaseOrderLine.RessourceName)" />
+            <InputText @bind-Value="@LeaseOrderLine.ResourceName" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.ResourceName)" />
         </div>
         <div class="form-group">
             <label>Vare Pris:</label>
-            <InputNumber @bind-Value="@LeaseOrderLine.RessourcePrice" class="form-control" />
-            <ValidationMessage For="@(() => LeaseOrderLine.RessourcePrice)" />
+            <InputNumber @bind-Value="@LeaseOrderLine.ResourcePrice" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLine.ResourcePrice)" />
         </div>
         <div class="form-group">
             <label>Antal:</label>
             <InputNumber @bind-Value="@LeaseOrderLine.Quantity" class="form-control" />
             <ValidationMessage For="@(() => LeaseOrderLine.Quantity)" />
         </div>
-        
+
     </div>
     <button type="submit" class="btn btn-primary">
         @ButtonText
     </button>
+
+    <button type="submit" class="btn btn-primary">
+        @AddResource
+    </button>
+
+
 
 </EditForm>
 
@@ -46,6 +52,7 @@
     [Parameter] public LeaseViewModel.LeaseOrderDetails LeaseOrder { get; set; }
     //[Parameter] public LeaseViewModel.LeaseOrderLineDetails LeaseOrderLineDetails { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Gem";
+    [Parameter] public string AddResource { get; set; } = "Vælg";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
 }

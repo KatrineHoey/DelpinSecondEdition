@@ -23,13 +23,13 @@ namespace Lease.Domain
 
             public bool IsReturned { get; set; }
 
-            public string RessourceName { get; set; }
+            public string ResourceName { get; set; }
 
-            public int RessourcePrice { get; set; }
+            public int ResourcePrice { get; set; }
 
             public int Quantity { get; set; }
 
-            public Guid RessourceId { get; set; }
+            public Guid ResourceId { get; set; }
 
         }
 
@@ -43,9 +43,9 @@ namespace Lease.Domain
 
             public bool IsReturned { get; set; }
 
-            public string RessourceName { get; set; }
+            public string ResourceName { get; set; }
 
-            public int RessourcePrice { get; set; }
+            public int ResourcePrice { get; set; }
 
             public int Quantity { get; set; }
 

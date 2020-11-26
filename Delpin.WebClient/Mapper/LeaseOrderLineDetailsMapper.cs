@@ -19,8 +19,8 @@ namespace Delpin.WebClient.Mapper
                 StartDate = dto.StartDate,
                 EndDate = dto.EndDate,
                 IsReturned = dto.IsReturned,
-                RessourceName = dto.RessourceName,
-                RessourcePrice = dto.RessourcePrice,
+                ResourceName = dto.ResourceName,
+                ResourcePrice = dto.ResourcePrice,
                 Quantity = dto.Quantity,
                 LineTotalPrice = dto.LineTotalPrice,
                 
@@ -47,10 +47,11 @@ namespace Delpin.WebClient.Mapper
                 StartDate = model.StartDate,
                 EndDate = model.EndDate,
                 IsReturned = model.IsReturned,
-                RessourceName = model.RessourceName,
-                RessourcePrice = model.RessourcePrice,
+                ResourceName = model.ResourceName,
+                ResourcePrice = model.ResourcePrice,
                 Quantity = model.Quantity,
                 LineTotalPrice = model.LineTotalPrice,
+                
 
             };
         }

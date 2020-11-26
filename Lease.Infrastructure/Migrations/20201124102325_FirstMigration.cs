@@ -34,18 +34,17 @@ namespace Lease.Infrastructure.Migrations
                     Street_Value = table.Column<string>(nullable: true),
                     ZipCode_Value = table.Column<int>(nullable: true),
                     City_Value = table.Column<string>(nullable: true),
-                    BuyerId_Value = table.Column<Guid>(nullable: true),
-                    BuyerId1 = table.Column<Guid>(nullable: true)
+                    BuyerId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Leases", x => x.LeaseOrderId);
                     table.ForeignKey(
-                        name: "FK_Leases_Buyers_BuyerId1",
-                        column: x => x.BuyerId1,
+                        name: "FK_Leases_Buyers_BuyerId",
+                        column: x => x.BuyerId,
                         principalTable: "Buyers",
                         principalColumn: "BuyerId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,34 +56,33 @@ namespace Lease.Infrastructure.Migrations
                     StartDate_Value = table.Column<DateTime>(nullable: true),
                     EndDate_Value = table.Column<DateTime>(nullable: true),
                     IsReturned_Value = table.Column<bool>(nullable: true),
-                    RessourceName_Value = table.Column<string>(nullable: true),
-                    RessourcePrice_Value = table.Column<int>(nullable: true),
+                    ResourceName_Value = table.Column<string>(nullable: true),
+                    ResourcePrice_Value = table.Column<int>(nullable: true),
                     Quantity_Value = table.Column<int>(nullable: true),
                     LineTotalPrice_Value = table.Column<int>(nullable: true),
-                    LeaseId_LeaseOrderIdValue = table.Column<Guid>(nullable: true),
-                    RessourceId_Value = table.Column<Guid>(nullable: true),
-                    LeaseOrderId = table.Column<Guid>(nullable: true)
+                    LeaseId = table.Column<Guid>(nullable: false),
+                    ResourceId_Value = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LeaseOrderLines", x => x.LeaseOrderLineId);
                     table.ForeignKey(
-                        name: "FK_LeaseOrderLines_Leases_LeaseOrderId",
-                        column: x => x.LeaseOrderId,
+                        name: "FK_LeaseOrderLines_Leases_LeaseId",
+                        column: x => x.LeaseId,
                         principalTable: "Leases",
                         principalColumn: "LeaseOrderId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_LeaseOrderLines_LeaseOrderId",
+                name: "IX_LeaseOrderLines_LeaseId",
                 table: "LeaseOrderLines",
-                column: "LeaseOrderId");
+                column: "LeaseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Leases_BuyerId1",
+                name: "IX_Leases_BuyerId",
                 table: "Leases",
-                column: "BuyerId1");
+                column: "BuyerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -338,7 +338,7 @@ namespace Lease.Infrastructure.Migrations
                                 .HasForeignKey("LeaseOrderLineId");
                         });
 
-                    b.OwnsOne("Lease.Domain.RessourceId", "RessourceId", b1 =>
+                    b.OwnsOne("Lease.Domain.ResourceId", "ResourceId", b1 =>
                         {
                             b1.Property<Guid>("LeaseOrderLineId")
                                 .HasColumnType("uniqueidentifier");
@@ -354,7 +354,7 @@ namespace Lease.Infrastructure.Migrations
                                 .HasForeignKey("LeaseOrderLineId");
                         });
 
-                    b.OwnsOne("Lease.Domain.RessourceName", "RessourceName", b1 =>
+                    b.OwnsOne("Lease.Domain.ResourceName", "ResourceName", b1 =>
                         {
                             b1.Property<Guid>("LeaseOrderLineId")
                                 .HasColumnType("uniqueidentifier");
@@ -370,7 +370,7 @@ namespace Lease.Infrastructure.Migrations
                                 .HasForeignKey("LeaseOrderLineId");
                         });
 
-                    b.OwnsOne("Lease.Domain.RessourcePrice", "RessourcePrice", b1 =>
+                    b.OwnsOne("Lease.Domain.ResourcePrice", "ResourcePrice", b1 =>
                         {
                             b1.Property<Guid>("LeaseOrderLineId")
                                 .HasColumnType("uniqueidentifier");
