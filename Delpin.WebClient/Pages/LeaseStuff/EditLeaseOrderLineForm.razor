@@ -1,0 +1,59 @@
+﻿@inject HttpClient http
+@inject NavigationManager uriHelper
+@inject IJSRuntime js
+@inject IModalDialogService ModalDialogService
+
+<EditForm Model="@LeaseOrderLineDetails" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="simple-form ">
+
+        <div class="form-group">
+            <label>Start Dato:</label>
+            <InputDate @bind-Value="@LeaseOrderLineDetails.StartDate" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLineDetails.StartDate)" />
+        </div>
+
+        <div class="form-group">
+            <label>Slut Dato:</label>
+            <InputDate @bind-Value="@LeaseOrderLineDetails.EndDate" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLineDetails.EndDate)" />
+        </div>
+        <div class="form-group">
+            <label>Vare Navn:</label>
+            <InputText @bind-Value="@LeaseOrderLineDetails.ResourceName" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLineDetails.ResourceName)" />
+        </div>
+
+        <div class="form-group">
+            <label>Vare Pris:</label>
+            <InputNumber @bind-Value="@LeaseOrderLineDetails.ResourcePrice" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLineDetails.ResourcePrice)" />
+        </div>
+
+        <div class="form-group">
+            <label>Antal:</label>
+            <InputNumber @bind-Value="@LeaseOrderLineDetails.Quantity" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLineDetails.Quantity)" />
+        </div>
+
+        <div class="form-group">
+            <label>Afleveret:</label>
+            <InputCheckbox @bind-Value="@LeaseOrderLineDetails.IsReturned" class="form-control" />
+            <ValidationMessage For="@(() => LeaseOrderLineDetails.IsReturned)" />
+        </div>
+
+    </div>
+    <button type="submit" class="btn btn-primary">
+        @ButtonText
+    </button>
+
+</EditForm>
+
+@code {
+    [Parameter] public LeaseViewModel.LeaseOrderDetails LeaseOrder { get; set; }
+    [Parameter] public LeaseViewModel.LeaseOrderLineDetails LeaseOrderLineDetails { get; set; }
+    //[Parameter] public ResourceViewModel.ResourceDetails Resource { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Tilføj OrdreLinje";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+}
