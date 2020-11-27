@@ -46,7 +46,7 @@ else
                     <td>@lease.DateCreated</td>
                     <td>@lease.IsPaid</td>
                     <td>
-                        <a href="lease/details/@lease.LeaseId.ToString()" class="btn btn-primary float-right mr-3">Se detaljer</a>
+                        <a href="lease/details/@lease.LeaseId" class="btn btn-primary float-right mr-3">Se detaljer</a>
                     </td>
                     <td>
                         <button @onclick="@(() => Edit_Clicked(lease.LeaseId))" class="btn btn-primary float-right mr-3">Rediger</button>

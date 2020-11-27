@@ -4,7 +4,7 @@
 @inject IModalDialogService ModalDialog
 
 
-@page "/lease/details/{LeaseId}"
+@page "/lease/details/{LeaseId:guid}"
 
 
 <section>
@@ -78,9 +78,9 @@ else
                     <td>
                         <button @onclick="@(() => EditLeaseOrderLine_Clicked(lease.LeaseOrderLineId))" class="btn btn-primary float-right mr-3">Rediger</button>
                     </td>
-                    <td>
+                    @*<td>
                         <button class="btn btn-danger" @onclick="@(() => Delete(leaseOrderLine))">Slet</button>
-                    </td>
+                    </td>*@
 
                 </tr>
             }
@@ -90,12 +90,13 @@ else
 
 
 @code {
-    [Parameter] public string LeaseId { get; set; }
+    [Parameter] public Guid LeaseId { get; set; }
+    [Parameter] public Guid LeaseOrderLineId { get; set; }
 
     LeaseViewModel.LeaseOrderDetails lease = new LeaseViewModel.LeaseOrderDetails();
 
 
-    LeaseViewModel.AddLeaseOrderLineToLeaseOrder leaseOrderLine = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
+    //LeaseViewModel.AddLeaseOrderLineToLeaseOrder leaseOrderLine = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
 
     bool Isloading = false;
 
@@ -111,7 +112,7 @@ else
     async void Edit_Clicked()
     {
         ModalDialogParameters parameters = new ModalDialogParameters();
-        parameters.Add("LeaseId", Guid.Parse(LeaseId));
+        parameters.Add("LeaseId", LeaseId);
 
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditLease>("", new ModalDialogOptions(), parameters);
         if (result.Success)
@@ -127,20 +128,18 @@ else
         //ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddResourceToLeaseOrderLine>("", new ModalDialogOptions());
 
 
-        uriHelper.NavigateTo("/Resource/AddResourceToLeaseOrderLine");
+        uriHelper.NavigateTo($"/Resource/AddResourceToLeaseOrderLine/{LeaseId}");
+
     }
 
     async void EditLeaseOrderLine_Clicked(Guid Id)
     {
         ModalDialogParameters parameters = new ModalDialogParameters();
-        parameters.Add("LeaseId", Guid.Parse(LeaseId));
+        parameters.Add("LeaseOrderLineId", Id);
+        parameters.Add("LeaseId", LeaseId);
 
 
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditLeaseOrderLine>("", new ModalDialogOptions(), parameters);
-        if (result.Success)
-        {
-            var searchterm = result.ReturnParameters.Get<string>("LeaseId");
-        }
 
     }
 
@@ -153,6 +152,15 @@ else
             await http.DeleteAsync($"gateway/lease/leaseOrderLine?LeaseId={leaseDto.LeaseId}");
 
         }
+    }
+
+
+    protected async override Task OnParametersSetAsync()
+    {
+        int tal = 7;
+
+        Console.WriteLine(tal);
+
     }
 
 }

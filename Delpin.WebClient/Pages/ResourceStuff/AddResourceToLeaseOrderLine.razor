@@ -1,4 +1,4 @@
-﻿@page "/Resource/AddResourceToLeaseOrderLine"
+﻿@page "/Resource/AddResourceToLeaseOrderLine/{LeaseId:guid}"
 @inject HttpClient http
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
@@ -38,22 +38,20 @@
                     <td>@resource.ResourceName</td>
                     <td>@resource.ResourcePrice</td>
 
-                    @*<td>
-                        <button @onclick="@(() => Edit_Clicked(customer.CustomerId))" class="btn btn-primary float-right mr-3">Rediger</button>
-                    </td>*@
-
-
+                    <td>
+                        <button @onclick="@(() => AddResourceToLeaseOrderLine_Clicked(resource))" class="btn btn-primary float-right mr-3">Tilføj Resource</button>
+                    </td>
                 </tr>
             }
         </tbody>
     }
 </table>
 
-
-
-
-
 @code {
+
+    [Parameter] public Guid LeaseId { get; set; }
+
+    //public ResourceViewModel.ResourceDetails resource = new ResourceViewModel.ResourceDetails();
 
     private List<ResourceViewModel.ResourceDetails> rescourcelist;
 
@@ -66,14 +64,22 @@
         Isloading = false;
     }
 
-    async void AddResourceToLeaseOrderLine_Clicked(Guid id)
+    async void AddResourceToLeaseOrderLine_Clicked(ResourceViewModel.ResourceDetails resource)
     {
-        ModalDialogParameters parameters = new ModalDialogParameters();
-        //parameters.Add("LeaseId", Guid.Parse(LeaseId));
+        try
+        {
+            ModalDialogParameters parameters = new ModalDialogParameters();
+            //parameters.Add("ResourceId", Id);
+            parameters.Add("Resource",resource);
+            parameters.Add("LeaseId", LeaseId);
+            ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("", new ModalDialogOptions(), parameters);
 
-        ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("", new ModalDialogOptions(), parameters);
+        }
+        catch (Exception e)
+        {
+
+            Console.WriteLine(e);
+        }
+
     }
-
-
-
 }

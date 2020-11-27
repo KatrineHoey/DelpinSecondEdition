@@ -19,7 +19,7 @@
 
     CustomerViewModel.CustomerDetails customer = new CustomerViewModel.CustomerDetails();
 
-    
+
 
     bool Isloading = false;
     bool everythingWentGood = true;
@@ -27,7 +27,6 @@
     protected async override Task OnParametersSetAsync()
     {
         customer = await http.GetFromJsonAsync<CustomerViewModel.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
-
     }
 
     async Task Edit()
@@ -86,5 +85,11 @@
         {
             everythingWentGood = false;
         }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        int tal = 7;
+        Console.WriteLine(tal);
     }
 }
