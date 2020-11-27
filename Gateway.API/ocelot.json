@@ -1283,9 +1283,11 @@
       },
       "DownstreamHttpVersion": null
     },
+
+    //AddLeaseOrderLine
     {
-      "DownstreamPathTemplate": "/lease/leaseorderline?LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&ResourceName={ResourceName}&ResourcePrice={ResourcePrice}&Quantity={Quantity}",
-      "UpstreamPathTemplate": "/gateway/lease/leaseorderline?LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&ResourceName={ResourceName}&ResourcePrice={ResourcePrice}&Quantity={Quantity}",
+      "DownstreamPathTemplate": "/lease/AddLeaseOrderLine?LeaseId={LeaseId}&LeaseOrderLineId={LeaseOrderLineId}&ResourceId={ResourceId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&ResourceName={ResourceName}&ResourcePrice={ResourcePrice}&Quantity={Quantity}",
+      "UpstreamPathTemplate": "/gateway/lease/AddLeaseOrderLine?LeaseId={LeaseId}&LeaseOrderLineId={LeaseOrderLineId}&ResourceId={ResourceId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&ResourceName={ResourceName}&ResourcePrice={ResourcePrice}&Quantity={Quantity}",
       "UpstreamHttpMethod": [ "PUT" ],
       "DownstreamHttpMethod": null,
       "AddHeadersToRequest": {},

@@ -39,7 +39,7 @@
                     <td>@resource.ResourcePrice</td>
 
                     <td>
-                        <button @onclick="@(() => AddResourceToLeaseOrderLine_Clicked(resource.ResourceId))" class="btn btn-primary float-right mr-3">Tilføj Resource</button>
+                        <button @onclick="@(() => AddResourceToLeaseOrderLine_Clicked(resource))" class="btn btn-primary float-right mr-3">Tilføj Resource</button>
                     </td>
                 </tr>
             }
@@ -50,6 +50,8 @@
 @code {
 
     [Parameter] public Guid LeaseId { get; set; }
+
+    //public ResourceViewModel.ResourceDetails resource = new ResourceViewModel.ResourceDetails();
 
     private List<ResourceViewModel.ResourceDetails> rescourcelist;
 
@@ -62,11 +64,22 @@
         Isloading = false;
     }
 
-    async void AddResourceToLeaseOrderLine_Clicked(Guid Id)
+    async void AddResourceToLeaseOrderLine_Clicked(ResourceViewModel.ResourceDetails resource)
     {
-        ModalDialogParameters parameters = new ModalDialogParameters();
-        parameters.Add("ResourceId", Id);
-        parameters.Add("LeaseId", LeaseId);
-        ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("", new ModalDialogOptions(), parameters);
+        try
+        {
+            ModalDialogParameters parameters = new ModalDialogParameters();
+            //parameters.Add("ResourceId", Id);
+            parameters.Add("Resource",resource);
+            parameters.Add("LeaseId", LeaseId);
+            ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddLeaseOrderLine>("", new ModalDialogOptions(), parameters);
+
+        }
+        catch (Exception e)
+        {
+
+            Console.WriteLine(e);
+        }
+
     }
 }

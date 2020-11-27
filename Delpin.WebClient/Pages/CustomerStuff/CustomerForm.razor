@@ -61,4 +61,14 @@
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
     private Delpin.WebClient.Enum.CustomerTypeEnum CurrentChoice {get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        int tal = 7;
+        Console.WriteLine(tal);
+    }
+
+
+
 }
