@@ -1695,7 +1695,7 @@
     //Update ResourceName
     {
       "DownstreamPathTemplate": "/resource/Name?Id={ResourceId}&Name={ResourceName}",
-      "UpstreamPathTemplate": "/gateway/resource/Name?Id={ResourceId}&Name={ResourceName}}",
+      "UpstreamPathTemplate": "/gateway/resource/Name?Id={ResourceId}&Name={ResourceName}",
       "UpstreamHttpMethod": [ "PUT" ],
       "DownstreamHttpMethod": null,
       "AddHeadersToRequest": {},

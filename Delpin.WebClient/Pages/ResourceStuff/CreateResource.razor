@@ -31,7 +31,7 @@
                 await js.InvokeVoidAsync("alert", $"Resourcen er nu oprettet!");
 
                 ModalDialogParameters returnParameters = new ModalDialogParameters();
-                returnParameters.Add("ResourceNo", resource.ResourceNo.ToString());
+                returnParameters.Add("ResourceName", resource.ResourceName.ToString());
                 ModalDialogService.Close(true, returnParameters);
             }
             else

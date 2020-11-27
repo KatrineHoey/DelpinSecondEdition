@@ -52,7 +52,7 @@
           "Port": 44364
         }
       ],
-      "UpstreamPathTemplate": "/gateway/resource/Name?Id={ResourceId}&Name={ResourceName}}",
+      "UpstreamPathTemplate": "/gateway/resource/Name?Id={ResourceId}&Name={ResourceName}",
       "UpstreamHttpMethod": [ "PUT" ]
     },
 

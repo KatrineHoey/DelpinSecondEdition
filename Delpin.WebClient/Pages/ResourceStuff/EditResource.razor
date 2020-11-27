@@ -5,7 +5,7 @@
 
 <h3>Ændre i ressource</h3>
 
-@*<ResourceForm ButtonText="Gem" Resource="@resource"
+<ResourceForm ButtonText="Gem" Resource="@resource"
               OnValidSubmit="Edit" />
 
 @if (Isloading == true)
@@ -16,6 +16,59 @@
 @code {
     [Parameter] public Guid ResourceId { get; set; }
 
-    
 
-}*@
+
+    ResourceViewModel.ResourceDetails resource = new ResourceViewModel.ResourceDetails();
+
+    bool Isloading = false;
+    bool everythingWentGood = true;
+
+    protected async override Task OnParametersSetAsync()
+    {
+        resource = await http.GetFromJsonAsync<ResourceViewModel.ResourceDetails>($"gateway/resource/Id?ResourceId={ResourceId}");
+    }
+
+    async Task Edit()
+    {
+        ResourceDto.ResourceDetails resourceDto = ResourceDetailsMapper.Map(resource);
+
+        Isloading = true;
+        try
+        {
+            HttpResponseMessage response = null;
+            response = await http.PutAsJsonAsync($"gateway/resource/Name?Id={ResourceId}&Name={resourceDto.ResourceName}", resourceDto);
+            CheckIfFailed(response);
+
+            response = await http.PutAsJsonAsync($"gateway/resource/ResourceNo?Id={ResourceId}&ResourceNo={resourceDto.ResourceNo}", resourceDto);
+            CheckIfFailed(response);
+
+            //mangler update til pris her 
+
+            if (everythingWentGood == true)
+            {
+                await js.InvokeVoidAsync("alert", "Ressourcen er nu opdateret!");
+
+                ModalDialogParameters returnParameters = new ModalDialogParameters();
+                returnParameters.Add("ResourceName", resourceDto.ResourceName.ToString());
+                ModalDialogService.Close(true, returnParameters);
+            }
+            else
+            {
+                await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen");
+            }
+
+        }
+        catch (Exception)
+        {
+            await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen");
+        }
+        Isloading = false;
+    }
+    private void CheckIfFailed(HttpResponseMessage response)
+    {
+        if (!response.IsSuccessStatusCode)
+        {
+            everythingWentGood = false;
+        }
+    }
+}
