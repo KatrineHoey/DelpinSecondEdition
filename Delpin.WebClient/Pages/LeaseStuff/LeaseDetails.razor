@@ -78,9 +78,9 @@ else
                     <td>
                         <button @onclick="@(() => EditLeaseOrderLine_Clicked(lease.LeaseOrderLineId))" class="btn btn-primary float-right mr-3">Rediger</button>
                     </td>
-                    @*<td>
-                        <button class="btn btn-danger" @onclick="@(() => Delete(leaseOrderLine))">Slet</button>
-                    </td>*@
+                    <td>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(lease.LeaseOrderLineId))">Slet</button>
+                    </td>
 
                 </tr>
             }
@@ -95,16 +95,14 @@ else
 
     LeaseViewModel.LeaseOrderDetails lease = new LeaseViewModel.LeaseOrderDetails();
 
-
-    //LeaseViewModel.AddLeaseOrderLineToLeaseOrder leaseOrderLine = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
+    LeaseViewModel.AddLeaseOrderLineToLeaseOrder leaseOrderLine = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
 
     bool Isloading = false;
 
     protected override async Task OnInitializedAsync()
     {
         Isloading = true;
-        lease = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
-
+        await GetLeaseOrderLine();
         Isloading = false;
     }
 
@@ -121,15 +119,9 @@ else
         }
     }
 
-    async void AddResourceToLeaseOrderlines_Clicked()
+    void AddResourceToLeaseOrderlines_Clicked()
     {
-        //ModalDialogParameters parameters = new ModalDialogParameters();
-
-        //ModalDialogResult result = await ModalDialog.ShowDialogAsync<AddResourceToLeaseOrderLine>("", new ModalDialogOptions());
-
-
         uriHelper.NavigateTo($"/Resource/AddResourceToLeaseOrderLine/{LeaseId}");
-
     }
 
     async void EditLeaseOrderLine_Clicked(Guid Id)
@@ -138,20 +130,22 @@ else
         parameters.Add("LeaseOrderLineId", Id);
         parameters.Add("LeaseId", LeaseId);
 
-
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditLeaseOrderLine>("", new ModalDialogOptions(), parameters);
 
     }
 
-    async Task Delete(LeaseViewModel.AddLeaseOrderLineToLeaseOrder lease)
+    async Task Delete(Guid id)
     {
-        LeaseDto.AddLeaseOrderLineToLeaseOrder leaseDto = AddLeaseOrderLineToLeaseOrderMapper.Map(lease);
-
-        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {leaseDto.ResourceName}?"))
+        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette denne resource?"))
         {
-            await http.DeleteAsync($"gateway/lease/leaseOrderLine?LeaseId={leaseDto.LeaseId}");
-
+            await http.DeleteAsync($"gateway/lease/leaseOrderLine?LeaseId={id}");
+            await GetLeaseOrderLine();
         }
+    }
+
+    async Task GetLeaseOrderLine()
+    {
+        lease = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
     }
 
 
