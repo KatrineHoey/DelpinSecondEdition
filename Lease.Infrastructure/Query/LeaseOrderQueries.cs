@@ -118,7 +118,8 @@ namespace Lease.Intrastructure.Query
                         Quantity = x.Quantity.Value,
                         ResourceName = x.ResourceName.Value,
                         ResourcePrice = x.ResourcePrice.Value,
-                        ResourceId = x.ResourceId.Value
+                        ResourceId = x.ResourceId.Value,
+                        
                     })
                     .ToList()
                 })
