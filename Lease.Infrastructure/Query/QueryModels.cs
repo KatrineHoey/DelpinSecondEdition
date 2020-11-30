@@ -10,6 +10,11 @@ namespace Lease.Intrastructure.Query
             public Guid LeaseId { get; set; }
         }
 
+        public class GetLeaseOrderLineById 
+        {
+            public Guid LeaseOrderLineId { get; set; }
+        }
+
         public class GetSearchedLeases
         {
             public string SearchTerm { get; set; }

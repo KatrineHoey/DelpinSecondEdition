@@ -77,31 +77,21 @@ namespace Delpin.WebClient.ViewModel
 
         public class LeaseOrderLineDetails
         {
-            public Guid LeaseId { get; set; }
-
             public Guid LeaseOrderLineId { get; set; }
 
-            public Guid ResourceId { get; set; }
-
-            [Required(ErrorMessage = "Start dato mangler.")]
             public DateTime StartDate { get; set; }
 
-            [Required(ErrorMessage = "Slut dato mangler.")]
             public DateTime EndDate { get; set; }
 
             public bool IsReturned { get; set; }
 
-            [Required(ErrorMessage = "Vare navn mangler.")]
             public string ResourceName { get; set; }
 
-            [Required(ErrorMessage = "Vare pris mangler.")]
             public int ResourcePrice { get; set; }
 
-            [Required(ErrorMessage = "Antal mangler.")]
             public int Quantity { get; set; }
 
             public int LineTotalPrice { get; set; }
         }
-
     }
 }
