@@ -21,7 +21,7 @@
     async Task Create()
     {
 
-        ReadModelsDto.CustomerDetails customerDto = CustomerDetailsMapper.Map(customer);
+        Delpin.Shared.CustomerModels.ReadModelsDto.CustomerDetails customerDto = CustomerDetailsMapper.Map(customer);
 
         Isloading = true;
         try

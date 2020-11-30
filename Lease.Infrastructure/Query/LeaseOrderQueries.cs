@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lease.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
-using static Delpin.Shared.LeaseModels.ReadModels;
+using static Delpin.Shared.LeaseModels.LeaseReadModelsDto;
 
 namespace Lease.Intrastructure.Query
 {
@@ -142,11 +142,11 @@ namespace Lease.Intrastructure.Query
                 .ToListAsync();
         }
 
-        public async Task<List<GetLeaseOrderLineDetails>> GetLeaseOrderLineIdById(QueryModels.GetLeaseOrderLineById query)
+        public async Task<List<EditLeaseOrderLineDetails>> GetLeaseOrderLineIdById(QueryModels.GetLeaseOrderLineById query)
         {
             return await _context.LeaseOrderLines.AsNoTracking()
                 .Where(x => x.LeaseOrderLineId == query.LeaseOrderLineId)
-                .Select(x => new GetLeaseOrderLineDetails
+                .Select(x => new EditLeaseOrderLineDetails
                 {
                     LeaseOrderLineId = x.LeaseOrderLineId,
                     StartDate = x.StartDate.Value,

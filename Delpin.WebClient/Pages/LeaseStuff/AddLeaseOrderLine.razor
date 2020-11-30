@@ -38,7 +38,7 @@
 
     async Task Create()
     {
-        LeaseDto.AddLeaseOrderLineToLeaseOrder leaseDto = AddLeaseOrderLineToLeaseOrderMapper.Map(LeaseOrderline);
+        LeaseReadModelsDto.LeaseOrderLineDetails leaseDto = AddLeaseOrderLineToLeaseOrderMapper.Map(LeaseOrderline);
 
         Isloading = true;
         try

@@ -9,7 +9,7 @@ namespace Delpin.WebClient.Mapper
 {
     public class LeaseOrderDetailsMapper
     {
-        public static LeaseViewModel.LeaseOrderDetails Map(LeaseDto.LeaseOrderDetails dto)
+        public static LeaseViewModel.LeaseOrderDetails Map(LeaseReadModelsDto.LeaseOrderDetails dto)
         {
             if (dto == null)
             { return null; }
@@ -31,21 +31,21 @@ namespace Delpin.WebClient.Mapper
             };
         }
 
-        public static IEnumerable<LeaseViewModel.LeaseOrderDetails> Map(IEnumerable<LeaseDto.LeaseOrderDetails> model)
+        public static IEnumerable<LeaseViewModel.LeaseOrderDetails> Map(IEnumerable<LeaseReadModelsDto.LeaseOrderDetails> model)
         {
             return model.Select(x => Map(x)).AsEnumerable();
         }
 
-        public static IEnumerable<LeaseDto.LeaseOrderDetails> Map(IEnumerable<LeaseViewModel.LeaseOrderDetails> model)
+        public static IEnumerable<LeaseReadModelsDto.LeaseOrderDetails> Map(IEnumerable<LeaseViewModel.LeaseOrderDetails> model)
         {
             return model.Select(x => Map(x)).AsEnumerable();
         }
 
-        public static LeaseDto.LeaseOrderDetails Map(LeaseViewModel.LeaseOrderDetails model)
+        public static LeaseReadModelsDto.LeaseOrderDetails Map(LeaseViewModel.LeaseOrderDetails model)
         {
             if (model == null)
             { return null; }
-            return new LeaseDto.LeaseOrderDetails
+            return new LeaseReadModelsDto.LeaseOrderDetails
             {
                 LeaseId = model.LeaseId,
                 BuyerId = model.BuyerId,
