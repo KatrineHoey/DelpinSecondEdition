@@ -42,6 +42,20 @@
       "UpstreamHttpMethod": [ "GET" ]
     },
 
+    //SearchResource
+    {
+      "DownstreamPathTemplate": "/Search?Searchterm={Searchterm}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44364
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/Search?Searchterm={Searchterm}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
     //Update ResourceName
     {
       "DownstreamPathTemplate": "/resource/Name?Id={ResourceId}&Name={ResourceName}",
@@ -69,20 +83,6 @@
       "UpstreamPathTemplate": "/gateway/resource/ResourceNo?Id={ResourceId}&ResourceNo={ResourceNo}",
       "UpstreamHttpMethod": [ "PUT" ]
     },
-
-    ////Update ResourcePrice
-    //{
-    //  "DownstreamPathTemplate": "/resource/Price?Id={ResourceId}&ResourcePrice={ResourcePrice}",
-    //  "DownstreamScheme": "https",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 44364
-    //    }
-    //  ],
-    //  "UpstreamPathTemplate": "/gateway/lease/leaseorderline?LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
-    //  "UpstreamHttpMethod": [ "PUT" ]
-    //},
 
     //Update ResourcePrice
     {

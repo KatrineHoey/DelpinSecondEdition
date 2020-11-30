@@ -16,12 +16,7 @@
             <label>Ressource pris:</label>
             <InputNumber @bind-Value="@Resource.ResourcePrice" class="form-control" />
             <ValidationMessage For="@(() => Resource.ResourcePrice)" />
-        </div>
-        <div class="form-group">
-            <label>Slettet:</label>
-            <InputCheckbox @bind-Value="@Resource.IsDeleted" class="form-control" />
-            <ValidationMessage For="@(() => Resource.IsDeleted)" />
-        </div>       
+        </div> 
     </div>
     <button type="submit" class="btn btn-primary">
         @ButtonText

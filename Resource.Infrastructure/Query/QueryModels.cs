@@ -14,10 +14,5 @@ namespace Resource.Intrastructure.Query
         {
             public string Searchterm { get; set; }
         }
-
-        //public class GetNotDeleted
-        //{
-        //    public bool Isdeleted { get; set; }
-        //}
     }
 }

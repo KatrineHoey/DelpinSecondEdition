@@ -25,5 +25,16 @@ namespace Delpin.WebClient.ViewModel
             [Required(ErrorMessage = "Er slettet mangler.")]
             public bool IsDeleted { get; set; }
         }
+
+        public class ActiveResourceSearchListItem
+        {
+            public Guid ResourceId { get; set; }
+
+            public string ResourceName { get; set; }
+
+            public int ResourceNo { get; set; }
+
+            public int ResourcePrice { get; set; }
+        }
     }
 }

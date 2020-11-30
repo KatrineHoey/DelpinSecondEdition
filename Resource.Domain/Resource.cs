@@ -10,7 +10,6 @@ namespace Resource.Domain
     public class Resource : AggregateRoot<ResourceId>
     {
         // Properties to handle the persistence
-        //public Guid resourceId { get; private set; }
 
 
         // Aggregate state properties
@@ -30,14 +29,8 @@ namespace Resource.Domain
                 ResourceName = resourceName,
                 ResourceNo = resourceNo,
                 ResourcePrice = resourcePrice,
-                //IsDeleted = isDeleted
             });
         }
-
-        //public Resource(ResourceId resourceId)
-        //{
-        //    Id = resourceId;
-        //}
        
         public void UpdateName(ResourceName resourceName)
         {
