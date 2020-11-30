@@ -50,9 +50,8 @@
 </EditForm>
 
 @code {
-    //[Parameter] public LeaseViewModel.LeaseOrderDetails LeaseOrder { get; set; }
+    
     [Parameter] public LeaseViewModel.LeaseOrderLineDetails LeaseOrderLineDetails { get; set; }
-    //[Parameter] public ResourceViewModel.ResourceDetails Resource { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Tilføj OrdreLinje";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 

@@ -18,7 +18,7 @@
             <ValidationMessage For="@(() => Customer.Email)" />
         </div>       
         <div class="form-group">
-            <label>Vej og number:</label>
+            <label>Vej og Vejnummer:</label>
             <InputText @bind-Value="@Customer.Street" class="form-control"/>
             <ValidationMessage For="@(() => Customer.Street)" />
         </div>       
@@ -61,14 +61,5 @@
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
     private Delpin.WebClient.Enum.CustomerTypeEnum CurrentChoice {get; set; }
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        int tal = 7;
-        Console.WriteLine(tal);
-    }
-
-
 
 }

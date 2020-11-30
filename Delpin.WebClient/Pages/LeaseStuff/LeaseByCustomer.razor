@@ -67,10 +67,10 @@ else
         parameters.Add("LeaseId", id);
 
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditLease>("", new ModalDialogOptions(), parameters);
-        if (result.Success)
-        {
-            var searchterm = result.ReturnParameters.Get<string>("LeaseId");
-        }
+        //if (result.Success)
+        //{
+        //    var searchterm = result.ReturnParameters.Get<string>("LeaseId");
+        //}
     }
 
     async Task Delete(LeaseViewModel.LeaseOrderListItem lease)

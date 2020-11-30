@@ -16,7 +16,6 @@
 
 @code {
 
-    //LeaseViewModel.LeaseOrderDetails leaseOrder = new LeaseViewModel.LeaseOrderDetails();
 
     [Parameter] public LeaseViewModel.LeaseOrderLineDetails LeaseOrderLineDetails { get; set; }
     [Parameter] public Guid LeaseId { get; set; }
@@ -24,12 +23,6 @@
     bool Isloading = false;
     bool everythingWentGood = true;
 
-    //protected async override Task OnParametersSetAsync()
-    //{
-    //    Isloading = true;
-    //    await GetLeaseOrderLine();
-    //    Isloading = false;
-    //}
 
     async Task Edit()
     {
@@ -58,7 +51,7 @@
 
                 await js.InvokeVoidAsync("alert", $"Ordre linjen er nu opdateret!");
                 ModalDialogService.Close(true);
-                await GetLeaseOrderLine();
+                uriHelper.NavigateTo($"lease/details/{LeaseId.ToString()}");
             }
             else
             {
@@ -84,8 +77,8 @@
         }
     }
 
-    async Task GetLeaseOrderLine()
-    {
-        await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
-    }
+    //async Task GetLeaseOrderLine()
+    //{
+    //    leaseOrder = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
+    //}
 }
