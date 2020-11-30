@@ -1,27 +1,25 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Delpin.Shared.LeaseModels
-{
-    public static class LeaseDto
+{ 
+    public static class LeaseReadModelsDto
     {
         public class LeaseOrderDetails
         {
             public Guid LeaseId { get; set; }
 
             public Guid BuyerId { get; set; }
-            
+
             public string BuyerName { get; set; }
-            
+
             public string Street { get; set; }
-            
+
             public int ZipCode { get; set; }
-            
+
             public string City { get; set; }
-            
-            public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+
+            public DateTime DateCreated { get; set; }
 
             public bool IsDeleted { get; set; }
 
@@ -31,24 +29,21 @@ namespace Delpin.Shared.LeaseModels
 
             public int TotalPrice { get; set; }
 
-            public List<LeaseOrderLineDetails> leaseOrderLines { get; set; } = new List<LeaseOrderLineDetails>();
+            public List<LeaseOrderLineDetails> leaseOrderLines { get; set; }
         }
 
         public class LeaseOrderListItem
         {
             public Guid LeaseId { get; set; }
             public DateTime DateCreated { get; set; }
-            public string CustomerName { get; set; }
+            public string BuyerName { get; set; }
             public bool IsPaid { get; set; }
         }
 
-        public class AddLeaseOrderLineToLeaseOrder
-        {
-            public Guid LeaseId { get; set; }
-
+        public class LeaseOrderLineDetails
+        {           
             public Guid LeaseOrderLineId { get; set; }
-
-            public Guid ResourceId { get; set; }
+            public Guid LeaseId { get; set; }
 
             public DateTime StartDate { get; set; }
 
@@ -62,9 +57,12 @@ namespace Delpin.Shared.LeaseModels
 
             public int Quantity { get; set; }
 
+            public int LineTotalPrice { get; set; }
+
+            public Guid ResourceId { get; set; }
         }
 
-        public class LeaseOrderLineDetails
+        public class EditLeaseOrderLineDetails
         {
             public Guid LeaseOrderLineId { get; set; }
 

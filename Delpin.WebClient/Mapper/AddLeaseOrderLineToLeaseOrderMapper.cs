@@ -9,7 +9,7 @@ namespace Delpin.WebClient.Mapper
 {
     public class AddLeaseOrderLineToLeaseOrderMapper
     {
-        public static LeaseViewModel.AddLeaseOrderLineToLeaseOrder Map(LeaseDto.AddLeaseOrderLineToLeaseOrder dto)
+        public static LeaseViewModel.AddLeaseOrderLineToLeaseOrder Map(LeaseReadModelsDto.LeaseOrderLineDetails dto)
         {
             if (dto == null)
             { return null; }
@@ -27,21 +27,21 @@ namespace Delpin.WebClient.Mapper
             };
         }
 
-        public static IEnumerable<LeaseViewModel.AddLeaseOrderLineToLeaseOrder> Map(IEnumerable<LeaseDto.AddLeaseOrderLineToLeaseOrder> model)
+        public static IEnumerable<LeaseViewModel.AddLeaseOrderLineToLeaseOrder> Map(IEnumerable<LeaseReadModelsDto.LeaseOrderLineDetails> model)
         {
             return model.Select(x => Map(x)).AsEnumerable();
         }
 
-        public static IEnumerable<LeaseDto.AddLeaseOrderLineToLeaseOrder> Map(IEnumerable<LeaseViewModel.AddLeaseOrderLineToLeaseOrder> model)
+        public static IEnumerable<LeaseReadModelsDto.LeaseOrderLineDetails> Map(IEnumerable<LeaseViewModel.AddLeaseOrderLineToLeaseOrder> model)
         {
             return model.Select(x => Map(x)).AsEnumerable();
         }
 
-        public static LeaseDto.AddLeaseOrderLineToLeaseOrder Map(LeaseViewModel.AddLeaseOrderLineToLeaseOrder model)
+        public static LeaseReadModelsDto.LeaseOrderLineDetails Map(LeaseViewModel.AddLeaseOrderLineToLeaseOrder model)
         {
             if (model == null)
             { return null; }
-            return new LeaseDto.AddLeaseOrderLineToLeaseOrder
+            return new LeaseReadModelsDto.LeaseOrderLineDetails
             {
                 LeaseId = model.LeaseId,
                 LeaseOrderLineId = model.LeaseOrderLineId,
@@ -52,6 +52,7 @@ namespace Delpin.WebClient.Mapper
                 ResourceName = model.ResourceName,
                 ResourcePrice = model.ResourcePrice,
                 Quantity = model.Quantity,
+                
 
             };
         }

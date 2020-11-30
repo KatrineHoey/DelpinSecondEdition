@@ -24,7 +24,7 @@
     protected override async Task OnInitializedAsync()
     {
 
-        var customer = await http.GetFromJsonAsync<CustomerDto.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
+        var customer = await http.GetFromJsonAsync<Delpin.Shared.CustomerModels.ReadModelsDto.CustomerDetails>($"gateway/customer?CustomerId={CustomerId}");
 
         lease.BuyerId = customer.CustomerId;
         lease.BuyerName = customer.FullName;
@@ -38,7 +38,7 @@
 
         Isloading = true;
 
-        LeaseDto.LeaseOrderDetails leaseDto = LeaseOrderDetailsMapper.Map(lease);
+        LeaseReadModelsDto.LeaseOrderDetails leaseDto = LeaseOrderDetailsMapper.Map(lease);
 
         try
         {
@@ -52,7 +52,7 @@
                 ModalDialogParameters returnParameters = new ModalDialogParameters();
                 returnParameters.Add("CustomerId", leaseDto.BuyerId.ToString());
                 ModalDialogService.Close(true, returnParameters);
-                uriHelper.NavigateTo($"lease/details/{id.ToString()}");
+                //uriHelper.NavigateTo($"lease/details/{id}");
             }
             else
             {

@@ -75,7 +75,7 @@ else
 
     async Task Delete(LeaseViewModel.LeaseOrderListItem lease)
     {
-        LeaseDto.LeaseOrderListItem leaseDto = LeaseOrderListItemMapper.Map(lease);
+        LeaseReadModelsDto.LeaseOrderListItem leaseDto = LeaseOrderListItemMapper.Map(lease);
 
         if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {leaseDto.LeaseId}?"))
         {

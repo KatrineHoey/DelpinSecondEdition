@@ -9,7 +9,7 @@ namespace Delpin.WebClient.Mapper
 {
     public class LeaseOrderListItemMapper
     {
-        public static LeaseViewModel.LeaseOrderListItem Map(LeaseDto.LeaseOrderListItem dto)
+        public static LeaseViewModel.LeaseOrderListItem Map(LeaseReadModelsDto.LeaseOrderListItem dto)
         {
             if (dto == null)
             { return null; }
@@ -17,30 +17,30 @@ namespace Delpin.WebClient.Mapper
             {
                 LeaseId = dto.LeaseId,
                 DateCreated = dto.DateCreated,
-                CustomerName = dto.CustomerName,
+                CustomerName = dto.BuyerName,
                 IsPaid = dto.IsPaid
             };
         }
 
-        public static IEnumerable<LeaseViewModel.LeaseOrderListItem> Map(IEnumerable<LeaseDto.LeaseOrderListItem> model)
+        public static IEnumerable<LeaseViewModel.LeaseOrderListItem> Map(IEnumerable<LeaseReadModelsDto.LeaseOrderListItem> model)
         {
             return model.Select(x => Map(x)).AsEnumerable();
         }
 
-        public static IEnumerable<LeaseDto.LeaseOrderListItem> Map(IEnumerable<LeaseViewModel.LeaseOrderListItem> model)
+        public static IEnumerable<LeaseReadModelsDto.LeaseOrderListItem> Map(IEnumerable<LeaseViewModel.LeaseOrderListItem> model)
         {
             return model.Select(x => Map(x)).AsEnumerable();
         }
 
-        public static LeaseDto.LeaseOrderListItem Map(LeaseViewModel.LeaseOrderListItem model)
+        public static LeaseReadModelsDto.LeaseOrderListItem Map(LeaseViewModel.LeaseOrderListItem model)
         {
             if (model == null)
             { return null; }
-            return new LeaseDto.LeaseOrderListItem
+            return new LeaseReadModelsDto.LeaseOrderListItem
             {
                 LeaseId = model.LeaseId,
                 DateCreated = model.DateCreated,
-                CustomerName = model.CustomerName,
+                BuyerName = model.CustomerName,
                 IsPaid = model.IsPaid
             };
         }
