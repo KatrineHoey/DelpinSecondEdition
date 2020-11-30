@@ -15,23 +15,21 @@
 
 
 @code {
-    //[Parameter] public Guid LeaseId { get; set; }
-    //[Parameter] public Guid LeaseOrderLineId { get; set; }
 
-    //LeaseViewModel.LeaseOrderDetails LeaseOrder = new LeaseViewModel.LeaseOrderDetails();
+    //LeaseViewModel.LeaseOrderDetails leaseOrder = new LeaseViewModel.LeaseOrderDetails();
 
-    [Parameter]
-    public LeaseViewModel.LeaseOrderLineDetails LeaseOrderLineDetails { get; set; }
+    [Parameter] public LeaseViewModel.LeaseOrderLineDetails LeaseOrderLineDetails { get; set; }
+    [Parameter] public Guid LeaseId { get; set; }
 
     bool Isloading = false;
     bool everythingWentGood = true;
 
-    protected async override Task OnParametersSetAsync()
-    {
-        Isloading = true;
-        //await GetLeaseOrderLine();
-        Isloading = false;
-    }
+    //protected async override Task OnParametersSetAsync()
+    //{
+    //    Isloading = true;
+    //    await GetLeaseOrderLine();
+    //    Isloading = false;
+    //}
 
     async Task Edit()
     {
@@ -60,7 +58,7 @@
 
                 await js.InvokeVoidAsync("alert", $"Ordre linjen er nu opdateret!");
                 ModalDialogService.Close(true);
-                //await GetLeaseOrderLine();
+                await GetLeaseOrderLine();
             }
             else
             {
@@ -86,12 +84,8 @@
         }
     }
 
-    //async Task GetLeaseOrderLine()
-    //{
-    //    LeaseOrderLineDetails = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderLineDetails>($"gateway/lease/LeaseOrderLineId?LeaseOrderLineId={LeaseOrderLineId}");
-
-    //    //LeaseDto.LeaseOrderLineDetails leaseOrderLineDetailsDto = await http.GetFromJsonAsync<LeaseDto.LeaseOrderLineDetails>($"gateway/lease/LeaseOrderLineId?LeaseOrderLineId={LeaseOrderLineId}");
-
-    //    //LeaseOrderLineDetails = LeaseOrderLineDetailsMapper.Map(leaseOrderLineDetailsDto);
-    //}
+    async Task GetLeaseOrderLine()
+    {
+        await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
+    }
 }

@@ -128,6 +128,7 @@ else
     {
         ModalDialogParameters parameters = new ModalDialogParameters();
         parameters.Add("LeaseOrderLineDetails", lease);
+        parameters.Add("LeaseId", LeaseId);
 
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditLeaseOrderLine>("", new ModalDialogOptions(), parameters);
 
