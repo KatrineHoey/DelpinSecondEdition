@@ -16,11 +16,12 @@
 
 @code {
     //[Parameter] public Guid LeaseId { get; set; }
-    [Parameter] public Guid LeaseOrderLineId { get; set; }
+    //[Parameter] public Guid LeaseOrderLineId { get; set; }
 
     //LeaseViewModel.LeaseOrderDetails LeaseOrder = new LeaseViewModel.LeaseOrderDetails();
 
-    LeaseViewModel.LeaseOrderLineDetails LeaseOrderLineDetails = new LeaseViewModel.LeaseOrderLineDetails();
+    [Parameter]
+    public LeaseViewModel.LeaseOrderLineDetails LeaseOrderLineDetails { get; set; }
 
     bool Isloading = false;
     bool everythingWentGood = true;
@@ -28,7 +29,7 @@
     protected async override Task OnParametersSetAsync()
     {
         Isloading = true;
-        await GetLeaseOrderLine();
+        //await GetLeaseOrderLine();
         Isloading = false;
     }
 
@@ -43,7 +44,7 @@
             HttpResponseMessage response = null;
 
             response = await http.PutAsJsonAsync
-                ($"lease / leaseorderline ? LeaseOrderLineId ={ LeaseOrderLineId}" +
+                ($"lease / leaseorderline ? LeaseOrderLineId ={ leaseDto.LeaseOrderLineId}" +
                 $"&StartDate ={ leaseDto.StartDate}" +
                 $"&EndDate ={ leaseDto.EndDate}" +
                 $"&IsReturned ={ leaseDto.IsReturned}" +
@@ -59,7 +60,7 @@
 
                 await js.InvokeVoidAsync("alert", $"Ordre linjen er nu opdateret!");
                 ModalDialogService.Close(true);
-                await GetLeaseOrderLine();
+                //await GetLeaseOrderLine();
             }
             else
             {
@@ -85,12 +86,12 @@
         }
     }
 
-    async Task GetLeaseOrderLine()
-    {
-        LeaseOrderLineDetails = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderLineDetails>($"gateway/lease/LeaseOrderLineId?LeaseOrderLineId={LeaseOrderLineId}");
+    //async Task GetLeaseOrderLine()
+    //{
+    //    LeaseOrderLineDetails = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderLineDetails>($"gateway/lease/LeaseOrderLineId?LeaseOrderLineId={LeaseOrderLineId}");
 
-        //LeaseDto.LeaseOrderLineDetails leaseOrderLineDetailsDto = await http.GetFromJsonAsync<LeaseDto.LeaseOrderLineDetails>($"gateway/lease/LeaseOrderLineId?LeaseOrderLineId={LeaseOrderLineId}");
+    //    //LeaseDto.LeaseOrderLineDetails leaseOrderLineDetailsDto = await http.GetFromJsonAsync<LeaseDto.LeaseOrderLineDetails>($"gateway/lease/LeaseOrderLineId?LeaseOrderLineId={LeaseOrderLineId}");
 
-        //LeaseOrderLineDetails = LeaseOrderLineDetailsMapper.Map(leaseOrderLineDetailsDto);
-    }
+    //    //LeaseOrderLineDetails = LeaseOrderLineDetailsMapper.Map(leaseOrderLineDetailsDto);
+    //}
 }

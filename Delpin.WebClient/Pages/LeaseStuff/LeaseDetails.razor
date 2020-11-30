@@ -76,7 +76,7 @@ else
                     <td>@lease.LineTotalPrice</td>
 
                     <td>
-                        <button @onclick="@(() => EditLeaseOrderLine_Clicked(lease.LeaseOrderLineId))" class="btn btn-primary float-right mr-3">Rediger</button>
+                        <button @onclick="@(() => EditLeaseOrderLine_Clicked(lease))" class="btn btn-primary float-right mr-3">Rediger</button>
                     </td>
                     <td>
                         <button class="btn btn-danger" @onclick="@(() => Delete(lease.LeaseOrderLineId))">Slet</button>
@@ -124,11 +124,10 @@ else
         uriHelper.NavigateTo($"/Resource/AddResourceToLeaseOrderLine/{LeaseId}");
     }
 
-    async void EditLeaseOrderLine_Clicked(Guid Id)
+    async void EditLeaseOrderLine_Clicked(LeaseViewModel.LeaseOrderLineDetails lease)
     {
         ModalDialogParameters parameters = new ModalDialogParameters();
-        parameters.Add("LeaseOrderLineId", Id);
-        //parameters.Add("LeaseId", LeaseId);
+        parameters.Add("LeaseOrderLineDetails", lease);
 
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditLeaseOrderLine>("", new ModalDialogOptions(), parameters);
 
