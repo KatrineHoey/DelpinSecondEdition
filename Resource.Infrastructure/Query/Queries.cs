@@ -20,7 +20,7 @@ namespace Resource.Intrastructure.Query
 
         public static List<ReadModels.ResourceDetails> Search(this IEnumerable<ReadModels.ResourceDetails> items, QueryModels.Search query)
         {
-            return items.Where(x => x.ResourceName == query.Searchterm).ToList();
+            return items.Where(x => x.ResourceName == query.Searchterm && x.IsDeleted == false).ToList();
         }
 
     }

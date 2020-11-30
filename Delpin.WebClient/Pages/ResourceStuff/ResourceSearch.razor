@@ -45,9 +45,6 @@ else
                     <td>@resource.ResourceNo</td>
                     <td>@resource.ResourcePrice</td>
                     <td>
-                        <button class="btn btn-primary float-right mr-3">Se kalender</button>
-                    </td>
-                    <td>
                         <button @onclick="@(() => Edit_Clicked(resource.ResourceId))" class="btn btn-primary float-right mr-3">Rediger</button>
                     </td>
                     <td>
@@ -67,10 +64,9 @@ else
     private string SearchTerm { get; set; } = "";
     private int Page { get; set; } = 0;
     private int PageSize { get; set; } = 1000;
-    private List<ResourceViewModel.ResourceDetails> resourceList;
+    private List<ResourceViewModel.ActiveResourceSearchListItem> resourceList;
     bool Isloading = false;
 
-    //hvis ikke virker, så fjern
     protected override async Task OnInitializedAsync()
     {
         await GetListOfResource();
@@ -78,7 +74,7 @@ else
 
     private async Task GetListOfResource()
     {
-        resourceList = (await client.GetFromJsonAsync<List<ResourceViewModel.ResourceDetails>>("gateway/GetAll")).ToList();
+        resourceList = (await client.GetFromJsonAsync<List<ResourceViewModel.ActiveResourceSearchListItem>>("gateway/GetAll")).ToList();
     }
 
     async void CreateNew_Clicked()
@@ -97,51 +93,47 @@ else
         if (eventArgs.Key == "Enter") // fire on enter
         {
             Isloading = true;
-            await SearchResources(SearchTerm);
+            if (string.IsNullOrEmpty(SearchTerm))
+            {
+                GetListOfResource();
+            }
+            else
+            {
+
+                await SearchResources(SearchTerm);
+            }
             Isloading = false;
         }
     }
 
-    //Hvad er page og pageSize
     async Task SearchResources(string searchterm)
     {
-        resourceList = (await client.GetFromJsonAsync<List<ResourceViewModel.ResourceDetails>>($"gateway/customer/search?SearchTerm={searchterm}")).ToList();
-        //resourceList = (await client.GetFromJsonAsync<List<ResourceViewModel.ResourceDetails>>($"gateway/GetAll")).ToList();
+        resourceList = (await client.GetFromJsonAsync<List<ResourceViewModel.ActiveResourceSearchListItem>>($"gateway/Search?Searchterm={searchterm}")).ToList();        
 
     }
 
     async void Edit_Clicked(Guid id)
     {
-        //hvis det ikke virker, så udskift "Id" med "ResourceId"
         ModalDialogParameters parameters = new ModalDialogParameters();
         parameters.Add("ResourceId", id);
 
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditResource>("", new ModalDialogOptions(), parameters);
         if (result.Success)
         {
-            var searchterm = result.ReturnParameters.Get<string>("ResourceName");
-            //await SearchResources(searchterm);
-        }
-    }
-
-    async Task Delete(ResourceViewModel.ResourceDetails resource)
-    {
-        ResourceDto.ResourceDetails resourceDto = ResourceDetailsMapper.Map(resource);
-
-        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {resourceDto.ResourceName}?"))
-        {
-            await client.DeleteAsync($"gateway/resource?Id={resourceDto.ResourceId}&IsDeleted={true}");
+            var searchterm = result.ReturnParameters.Get<string>("ResourceName");            
             await GetListOfResource();
         }
     }
-    //Delete
-    //async Task Delete(ResourceViewModel.ResourceDetails resource)
-    //{
-    //    if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {resource.ResourceName}?"))
-    //    {
-    //        await client.DeleteAsync($"gateway/resource?Id={resource.ResourceId}&IsDeleted={true}");
-    //        await SearchResources(SearchTerm);
-    //    }
-    //}
+
+    async Task Delete(ResourceViewModel.ActiveResourceSearchListItem resource)
+    {
+        ResourceDto.ActiveResourceSearchListItem resourceDto = ActiveResourceSearchListItemMapper.Map(resource);
+
+        if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {resourceDto.ResourceName}?"))
+        {
+            await client.DeleteAsync($"gateway/resource?Id={resourceDto.ResourceId}&IsDeleted={true}");            
+            await GetListOfResource();
+        }
+    }    
 
 }

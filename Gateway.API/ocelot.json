@@ -1625,6 +1625,75 @@
       "DownstreamHttpVersion": null
     },
 
+    //SearchRessource
+    {
+      "DownstreamPathTemplate": "/Search?Searchterm={Searchterm}",
+      "UpstreamPathTemplate": "/gateway/Search?Searchterm={Searchterm}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamHttpMethod": null,
+      "AddHeadersToRequest": {},
+      "UpstreamHeaderTransform": {},
+      "DownstreamHeaderTransform": {},
+      "AddClaimsToRequest": {},
+      "RouteClaimsRequirement": {},
+      "AddQueriesToRequest": {},
+      "ChangeDownstreamPathTemplate": {},
+      "RequestIdKey": null,
+      "FileCacheOptions": {
+        "TtlSeconds": 0,
+        "Region": null
+      },
+      "RouteIsCaseSensitive": false,
+      "ServiceName": null,
+      "ServiceNamespace": null,
+      "DownstreamScheme": "https",
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 0,
+        "DurationOfBreak": 0,
+        "TimeoutValue": 0
+      },
+      "LoadBalancerOptions": {
+        "Type": null,
+        "Key": null,
+        "Expiry": 0
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": false,
+        "Period": null,
+        "PeriodTimespan": 0.0,
+        "Limit": 0
+      },
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": null,
+        "AllowedScopes": []
+      },
+      "HttpHandlerOptions": {
+        "AllowAutoRedirect": false,
+        "UseCookieContainer": false,
+        "UseTracing": false,
+        "UseProxy": true,
+        "MaxConnectionsPerServer": 2147483647
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44364
+        }
+      ],
+      "UpstreamHost": null,
+      "Key": null,
+      "DelegatingHandlers": [],
+      "Priority": 1,
+      "Timeout": 0,
+      "DangerousAcceptAnyServerCertificateValidator": false,
+      "SecurityOptions": {
+        "IPAllowedList": [],
+        "IPBlockedList": []
+      },
+      "DownstreamHttpVersion": null
+    },
+
     //CreateResource
     {
       "DownstreamPathTemplate": "/resource?Id={ResourceId}&ResourceName={ResourceName}&ResourceNo={ResourceNo}&ResourcePrice={ResourcePrice}",
