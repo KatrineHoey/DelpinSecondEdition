@@ -61,5 +61,23 @@ namespace Delpin.Shared.LeaseModels
             public Guid ResourceId { get; set; }
         }
 
+        public class GetLeaseOrderLineDetails
+        {
+            public Guid LeaseOrderLineId { get; set; }
+
+            public DateTime StartDate { get; set; }
+
+            public DateTime EndDate { get; set; }
+
+            public bool IsReturned { get; set; }
+
+            public string ResourceName { get; set; }
+
+            public int ResourcePrice { get; set; }
+
+            public int Quantity { get; set; }
+
+            public int LineTotalPrice { get; set; }
+        }
     }
 }

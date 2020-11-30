@@ -18,7 +18,7 @@ namespace Lease.Intrastructure.Query
             _context = leaseDbContext;
         }
 
-        public async  Task<List<LeaseOrderDetails>> GetAllLease()
+        public async Task<List<LeaseOrderDetails>> GetAllLease()
         {
             return await _context.Leases.AsNoTracking()
                 .Where(x => x.IsDeleted.Value == false)
@@ -142,5 +142,23 @@ namespace Lease.Intrastructure.Query
                 .ToListAsync();
         }
 
+        public async Task<List<GetLeaseOrderLineDetails>> GetLeaseOrderLineIdById(QueryModels.GetLeaseOrderLineById query)
+        {
+            return await _context.LeaseOrderLines.AsNoTracking()
+                .Where(x => x.LeaseOrderLineId == query.LeaseOrderLineId)
+                .Select(x => new GetLeaseOrderLineDetails
+                {
+                    LeaseOrderLineId = x.LeaseOrderLineId,
+                    StartDate = x.StartDate.Value,
+                    EndDate = x.EndDate.Value,
+                    IsReturned = x.IsReturned.Value,
+                    LineTotalPrice = x.LineTotalPrice.Value,
+                    Quantity = x.Quantity.Value,
+                    ResourceName = x.ResourceName.Value,
+                    ResourcePrice = x.ResourcePrice.Value,
+                })
+                 .OrderByDescending(x => x.StartDate)
+                .ToListAsync();
+        }
     }
 }

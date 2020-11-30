@@ -15,10 +15,10 @@
 
 
 @code {
-    [Parameter] public Guid LeaseId { get; set; }
+    //[Parameter] public Guid LeaseId { get; set; }
     [Parameter] public Guid LeaseOrderLineId { get; set; }
 
-    LeaseViewModel.LeaseOrderDetails LeaseOrder = new LeaseViewModel.LeaseOrderDetails();
+    //LeaseViewModel.LeaseOrderDetails LeaseOrder = new LeaseViewModel.LeaseOrderDetails();
 
     LeaseViewModel.LeaseOrderLineDetails LeaseOrderLineDetails = new LeaseViewModel.LeaseOrderLineDetails();
 
@@ -87,6 +87,10 @@
 
     async Task GetLeaseOrderLine()
     {
-        LeaseOrder = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
+        LeaseOrderLineDetails = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderLineDetails>($"gateway/lease/LeaseOrderLineId?LeaseOrderLineId={LeaseOrderLineId}");
+
+        //LeaseDto.LeaseOrderLineDetails leaseOrderLineDetailsDto = await http.GetFromJsonAsync<LeaseDto.LeaseOrderLineDetails>($"gateway/lease/LeaseOrderLineId?LeaseOrderLineId={LeaseOrderLineId}");
+
+        //LeaseOrderLineDetails = LeaseOrderLineDetailsMapper.Map(leaseOrderLineDetailsDto);
     }
 }

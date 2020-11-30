@@ -80,6 +80,21 @@ namespace Lease.Microservice.Lease.Query
             }
         }
 
+        [HttpGet]
+        [Route("LeaseOrderLineId")]
+        public async Task<IActionResult> Get(QueryModels.GetLeaseOrderLineById request)
+        {
+            try
+            {
+                var model = await _leaseOrderQueries.GetLeaseOrderLineIdById(request);
+                return new OkObjectResult(model);
+            }
+            catch (Exception e)
+            {
+                return Errorhandling(e);
+            }
+        }
+
         private IActionResult Errorhandling(Exception e)
         {
             _log.Error(e, "Error handling the query");

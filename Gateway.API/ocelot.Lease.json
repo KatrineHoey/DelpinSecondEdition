@@ -160,6 +160,20 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
 
+    //GetLeaseOrderLineById
+    {
+      "DownstreamPathTemplate": "/lease/LeaseOrderLineId?LeaseOrderLineId={LeaseOrderLineId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44337
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/lease/LeaseOrderLineId?LeaseOrderLineId={LeaseOrderLineId}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+
     //Update LeaseOrderline
     {
       "DownstreamPathTemplate": "/lease/leaseorderline?LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&ResourceName={ResourceName}&ResourcePrice={ResourcePrice}&Quantity={Quantity}",
