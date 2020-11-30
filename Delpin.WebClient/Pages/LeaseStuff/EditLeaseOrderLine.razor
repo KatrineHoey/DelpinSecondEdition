@@ -42,13 +42,13 @@
             HttpResponseMessage response = null;
 
             response = await http.PutAsJsonAsync
-                ($"lease / leaseorderline ? LeaseOrderLineId ={ leaseDto.LeaseOrderLineId}" +
-                $"&StartDate ={ leaseDto.StartDate}" +
-                $"&EndDate ={ leaseDto.EndDate}" +
-                $"&IsReturned ={ leaseDto.IsReturned}" +
-                $"&ResourceName ={ leaseDto.ResourceName}" +
-                $"&ResourcePrice ={ leaseDto.ResourcePrice}" +
-                $"&Quantity ={ leaseDto.Quantity}", leaseDto);
+                ($"gateway/lease/leaseorderline?LeaseOrderLineId={ leaseDto.LeaseOrderLineId}" +
+                $"&StartDate={ leaseDto.StartDate}" +
+                $"&EndDate={ leaseDto.EndDate}" +
+                $"&IsReturned={ leaseDto.IsReturned}" +
+                $"&ResourceName={ leaseDto.ResourceName}" +
+                $"&ResourcePrice={ leaseDto.ResourcePrice}" +
+                $"&Quantity={ leaseDto.Quantity}", leaseDto);
 
 
             CheckIfFailed(response);
