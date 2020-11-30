@@ -11,7 +11,7 @@ namespace Resource.Domain.Shared
             public Guid ResourceId { get; set; }
             public int ResourceNo { get; set; }
             public string ResourceName { get; set; }
-            public decimal ResourcePrice { get; set; }            
+            public int ResourcePrice { get; set; }            
         }
         
 
@@ -38,7 +38,7 @@ namespace Resource.Domain.Shared
         public class ResourcePriceUpdated
         {
             public Guid ResourceId { get; set; }
-            public decimal ResourcePrice { get; set; }
+            public int ResourcePrice { get; set; }
         }
 
     }

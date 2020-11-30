@@ -14,7 +14,7 @@ namespace Delpin.Shared.ResourceModels
             
             public int ResourceNo { get; set; }
             
-            public decimal ResourcePrice { get; set; }
+            public int ResourcePrice { get; set; }
 
             public bool IsDeleted { get; set; }
         }

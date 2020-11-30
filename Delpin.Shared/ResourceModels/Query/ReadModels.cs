@@ -10,7 +10,7 @@ namespace Delpin.Shared.ResourceModels
             public Guid ResourceId { get; set; }
             public string ResourceName { get; set; }
             public int ResourceNo { get; set; }
-            public decimal ResourcePrice { get; set; }
+            public int ResourcePrice { get; set; }
             public bool IsDeleted { get; set; }
         }
 
@@ -18,7 +18,7 @@ namespace Delpin.Shared.ResourceModels
         {
             public string ResourceName { get; set; }
             public int ResourceNo { get; set; }
-            public decimal ResourcePrice { get; set; }
+            public int ResourcePrice { get; set; }
             public bool IsDeleted { get; set; }
         }
 

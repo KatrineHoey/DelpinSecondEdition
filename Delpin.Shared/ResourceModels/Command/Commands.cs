@@ -12,7 +12,7 @@ namespace Resource.Microservice.Resource
                 public Guid Id { get; set; }
                 public string ResourceName { get; set; }
                 public int ResourceNo { get; set; }
-                public decimal ResourcePrice { get; set; }
+                public int ResourcePrice { get; set; }
             }
 
             public class UpdateName
@@ -30,7 +30,7 @@ namespace Resource.Microservice.Resource
             public class UpdateResourcePrice
             {
                 public Guid Id { get; set; }
-                public decimal ResourcePrice { get; set; }
+                public int ResourcePrice { get; set; }
             }
 
             public class ResourceDeleted

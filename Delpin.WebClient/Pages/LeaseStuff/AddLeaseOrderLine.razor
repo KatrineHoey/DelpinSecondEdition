@@ -22,9 +22,19 @@
     [Parameter] public ResourceViewModel.ResourceDetails Resource { get; set; }
 
     LeaseViewModel.AddLeaseOrderLineToLeaseOrder LeaseOrderline = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
-    ResourceViewModel.ResourceDetails resource = new ResourceViewModel.ResourceDetails();
+    //ResourceViewModel.ResourceDetails resource = new ResourceViewModel.ResourceDetails();
 
     bool Isloading = false;
+
+    protected async override Task OnParametersSetAsync()
+    {
+        Isloading = true;
+        LeaseOrderline.ResourceName = Resource.ResourceName;
+        LeaseOrderline.ResourcePrice = Resource.ResourcePrice;
+        Isloading = false;
+    }
+
+
 
     async Task Create()
     {
@@ -38,14 +48,23 @@
             var RessourceId = Guid.NewGuid();
             var IsReturned = false;
 
-            var response = await http.PostAsJsonAsync($"gateway/lease/AddLeaseOrderLine?LeaseId={LeaseId}&LeaseOrderLineId={LeaseOrderLineId}&ResourceId={Resource.ResourceId}&StartDate={leaseDto.StartDate}&EndDate={leaseDto.EndDate}&IsReturned={IsReturned}&ResourceName={Resource.ResourceName}&ResourcePrice={Resource.ResourcePrice}&Quantity={leaseDto.Quantity}", leaseDto);
-            
+            var response = await http.PostAsJsonAsync
+                ($"gateway/lease/AddLeaseOrderLine?LeaseId={LeaseId}" +
+                $"&LeaseOrderLineId={LeaseOrderLineId}" +
+                $"&ResourceId={Resource.ResourceId}" +
+                $"&StartDate={leaseDto.StartDate}" +
+                $"&EndDate={leaseDto.EndDate}" +
+                $"&IsReturned={IsReturned}" +
+                $"&ResourceName={leaseDto.ResourceName}" +
+                $"&ResourcePrice={leaseDto.ResourcePrice}" +
+                $"&Quantity={leaseDto.Quantity}", leaseDto);
+
 
             if (response.IsSuccessStatusCode)
             {
-
                 await js.InvokeVoidAsync("alert", $"OrderLinjen er nu tilføjet!");
-
+                ModalDialogService.Close(true);
+                uriHelper.NavigateTo($"lease/details/{LeaseId.ToString()}");
             }
             else
             {
@@ -60,16 +79,9 @@
         }
 
         Isloading = false;
-    }
 
 
 
-    protected async override Task OnParametersSetAsync()
-    {
-        int tal = 7;
-
-        Console.WriteLine(tal);
 
     }
-
 }

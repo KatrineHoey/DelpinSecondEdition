@@ -20,7 +20,7 @@ namespace Delpin.WebClient.ViewModel
             public int ResourceNo { get; set; }
 
             [Required(ErrorMessage = "Ressource pris mangler.")]
-            public decimal ResourcePrice { get; set; }
+            public int ResourcePrice { get; set; }
 
             [Required(ErrorMessage = "Er slettet mangler.")]
             public bool IsDeleted { get; set; }

@@ -21,7 +21,7 @@ namespace Lease.Domain
             Value = lineTotalPrice;
         }
 
-        public static LineTotalPrice FromDecimal(int lineTotalPrice)
+        public static LineTotalPrice Fromint(int lineTotalPrice)
         {
             return new LineTotalPrice(lineTotalPrice);
 

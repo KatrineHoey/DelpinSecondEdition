@@ -27,10 +27,9 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        LeaseOrder = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
-
-        int tal = 7;
-        Console.WriteLine(tal);
+        Isloading = true;
+        await GetLeaseOrderLine();
+        Isloading = false;
     }
 
     async Task Edit()
@@ -43,8 +42,15 @@
         {
             HttpResponseMessage response = null;
 
-            response = await http.PutAsJsonAsync($"lease / leaseorderline ? LeaseOrderLineId ={ LeaseOrderLineId}&StartDate ={ leaseDto.StartDate}&EndDate ={ leaseDto.EndDate}&IsReturned ={ leaseDto.IsReturned}&ResourceName ={ leaseDto.ResourceName}&ResourcePrice ={ leaseDto.ResourcePrice}&Quantity ={ leaseDto.Quantity}", leaseDto);
-            
+            response = await http.PutAsJsonAsync
+                ($"lease / leaseorderline ? LeaseOrderLineId ={ LeaseOrderLineId}" +
+                $"&StartDate ={ leaseDto.StartDate}" +
+                $"&EndDate ={ leaseDto.EndDate}" +
+                $"&IsReturned ={ leaseDto.IsReturned}" +
+                $"&ResourceName ={ leaseDto.ResourceName}" +
+                $"&ResourcePrice ={ leaseDto.ResourcePrice}" +
+                $"&Quantity ={ leaseDto.Quantity}", leaseDto);
+
 
             CheckIfFailed(response);
 
@@ -52,7 +58,8 @@
             {
 
                 await js.InvokeVoidAsync("alert", $"Ordre linjen er nu opdateret!");
-
+                ModalDialogService.Close(true);
+                await GetLeaseOrderLine();
             }
             else
             {
@@ -76,5 +83,10 @@
         {
             everythingWentGood = false;
         }
+    }
+
+    async Task GetLeaseOrderLine()
+    {
+        LeaseOrder = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
     }
 }
