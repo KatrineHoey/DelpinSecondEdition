@@ -38,16 +38,18 @@
 
         LeaseDto.LeaseOrderLineDetails leaseDto = LeaseOrderLineDetailsMapper.Map(LeaseOrderLineDetails);
 
-        //HttpResponseMessage response = null;
-
-        //response = await http.PutAsJsonAsync($"lease / leaseorderline ? LeaseOrderLineId ={ LeaseOrderLineId}&StartDate ={ leaseDto.StartDate}&EndDate ={ leaseDto.EndDate}&IsReturned ={ leaseDto.IsReturned}&ResourceName ={ leaseDto.ResourceName}&ResourcePrice ={ leaseDto.ResourcePrice}&Quantity ={ leaseDto.Quantity}", leaseDto);
-
-
         try
         {
             HttpResponseMessage response = null;
 
-            response = await http.PutAsJsonAsync($"lease / leaseorderline ? LeaseOrderLineId ={ LeaseOrderLineId}&StartDate ={ leaseDto.StartDate}&EndDate ={ leaseDto.EndDate}&IsReturned ={ leaseDto.IsReturned}&ResourceName ={ leaseDto.ResourceName}&ResourcePrice ={ leaseDto.ResourcePrice}&Quantity ={ leaseDto.Quantity}", leaseDto);
+            response = await http.PutAsJsonAsync
+                ($"lease / leaseorderline ? LeaseOrderLineId ={ LeaseOrderLineId}" +
+                $"&StartDate ={ leaseDto.StartDate}" +
+                $"&EndDate ={ leaseDto.EndDate}" +
+                $"&IsReturned ={ leaseDto.IsReturned}" +
+                $"&ResourceName ={ leaseDto.ResourceName}" +
+                $"&ResourcePrice ={ leaseDto.ResourcePrice}" +
+                $"&Quantity ={ leaseDto.Quantity}", leaseDto);
 
 
             CheckIfFailed(response);

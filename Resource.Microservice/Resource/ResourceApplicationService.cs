@@ -35,7 +35,7 @@ namespace Resource.Microservice.Resource
                     ),
                 V1.UpdateResourcePrice cmd =>
                 HandleUpdate(cmd.Id,
-                    c => c.UpdateResourcePrice(ResourcePrice.FromDecimal(cmd.ResourcePrice)
+                    c => c.UpdateResourcePrice(ResourcePrice.FromInt(cmd.ResourcePrice)
                         )
                     ),
                 V1.ResourceDeleted cmd =>
@@ -56,7 +56,7 @@ namespace Resource.Microservice.Resource
                 throw new InvalidOperationException(
                     $"Entity with id {cmd.Id} already exists");
 
-            var resource = new Domain.Resource(new ResourceId(cmd.Id), ResourceName.FromString(cmd.ResourceName), ResourceNo.FromInt(cmd.ResourceNo), ResourcePrice.FromDecimal(cmd.ResourcePrice)
+            var resource = new Domain.Resource(new ResourceId(cmd.Id), ResourceName.FromString(cmd.ResourceName), ResourceNo.FromInt(cmd.ResourceNo), ResourcePrice.FromInt(cmd.ResourcePrice)
 
             );
 

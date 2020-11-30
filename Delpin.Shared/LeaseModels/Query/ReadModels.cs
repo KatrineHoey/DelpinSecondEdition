@@ -27,7 +27,7 @@ namespace Delpin.Shared.LeaseModels
 
             public bool IsPaid { get; set; }
 
-            public decimal TotalPrice { get; set; }
+            public int TotalPrice { get; set; }
 
             public List<LeaseOrderLineDetails> leaseOrderLines { get; set; }
         }
@@ -52,11 +52,11 @@ namespace Delpin.Shared.LeaseModels
 
             public string ResourceName { get; set; }
 
-            public decimal ResourcePrice { get; set; }
+            public int ResourcePrice { get; set; }
 
             public int Quantity { get; set; }
 
-            public decimal LineTotalPrice { get; set; }
+            public int LineTotalPrice { get; set; }
 
             public Guid ResourceId { get; set; }
         }

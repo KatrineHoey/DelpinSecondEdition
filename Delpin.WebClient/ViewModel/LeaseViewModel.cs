@@ -36,7 +36,7 @@ namespace Delpin.WebClient.ViewModel
 
             public bool IsPaid { get; set; }
 
-            public decimal TotalPrice { get; set; }
+            public int TotalPrice { get; set; }
 
             public List<LeaseOrderLineDetails> leaseOrderLines { get; set; } = new List<LeaseOrderLineDetails>();
         }
@@ -95,12 +95,12 @@ namespace Delpin.WebClient.ViewModel
             public string ResourceName { get; set; }
 
             [Required(ErrorMessage = "Vare pris mangler.")]
-            public decimal ResourcePrice { get; set; }
+            public int ResourcePrice { get; set; }
 
             [Required(ErrorMessage = "Antal mangler.")]
             public int Quantity { get; set; }
 
-            public decimal LineTotalPrice { get; set; }
+            public int LineTotalPrice { get; set; }
         }
 
     }

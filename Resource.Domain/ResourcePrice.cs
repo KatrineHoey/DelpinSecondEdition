@@ -7,11 +7,11 @@ namespace Resource.Domain
 {
     public class ResourcePrice :Value<ResourcePrice>
     {
-        public decimal Value { get; internal set; }
+        public int Value { get; internal set; }
 
         protected ResourcePrice() { }
 
-        internal ResourcePrice(decimal resourcePrice)
+        internal ResourcePrice(int resourcePrice)
         {
             if (resourcePrice <0)
             {
@@ -21,12 +21,12 @@ namespace Resource.Domain
             Value = resourcePrice;
         }
 
-        public static ResourcePrice FromDecimal(decimal resourcePrice)
+        public static ResourcePrice FromInt(int resourcePrice)
         {
             return new ResourcePrice(resourcePrice);
         }
 
-        public static implicit operator decimal(ResourcePrice resourcePrice)
+        public static implicit operator int(ResourcePrice resourcePrice)
         {
             return resourcePrice.Value;
         }
