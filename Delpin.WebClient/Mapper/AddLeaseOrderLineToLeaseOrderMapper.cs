@@ -52,6 +52,7 @@ namespace Delpin.WebClient.Mapper
                 ResourceName = model.ResourceName,
                 ResourcePrice = model.ResourcePrice,
                 Quantity = model.Quantity,
+                
 
             };
         }
