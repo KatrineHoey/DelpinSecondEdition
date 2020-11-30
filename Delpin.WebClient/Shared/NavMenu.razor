@@ -21,7 +21,7 @@
             <NavLink class="nav-link" href="resource/search" @onclick="()=>expandSubNav = !expandSubNav">
                 <span class="oi oi-cart" aria-hidden="true"></span> Resourcer
             </NavLink>
-            @if (expandSubNav)
+            @*@if (expandSubNav)
             {
                 <NavLink class="expand-menu" href="resource/search">
                     <span>Sub1</span>
@@ -29,7 +29,7 @@
                 <NavLink class="" href="resource/search">
                     <span>Sub2</span>
                 </NavLink>
-            }
+            }*@
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="lease/search"  @onclick="()=>expandSubNav = false">
