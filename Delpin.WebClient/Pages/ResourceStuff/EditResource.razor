@@ -42,7 +42,8 @@
             response = await http.PutAsJsonAsync($"gateway/resource/ResourceNo?Id={ResourceId}&ResourceNo={resourceDto.ResourceNo}", resourceDto);
             CheckIfFailed(response);
 
-            //mangler update til pris her 
+            response = await http.PutAsJsonAsync($"gateway/resource/Price?Id={ResourceId}&ResourcePrice={resourceDto.ResourcePrice}", resourceDto);
+            
 
             if (everythingWentGood == true)
             {

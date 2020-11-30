@@ -105,8 +105,8 @@ else
     //Hvad er page og pageSize
     async Task SearchResources(string searchterm)
     {
-        //resourceList = (await client.GetFromJsonAsync<List<ResourceViewModel.ResourceDetails>>($"gateway/customer/search?SearchTerm={searchterm}&Page={Page}&PageSize={PageSize}")).ToList();
-        resourceList = (await client.GetFromJsonAsync<List<ResourceViewModel.ResourceDetails>>($"gateway/GetAll")).ToList();
+        resourceList = (await client.GetFromJsonAsync<List<ResourceViewModel.ResourceDetails>>($"gateway/customer/search?SearchTerm={searchterm}")).ToList();
+        //resourceList = (await client.GetFromJsonAsync<List<ResourceViewModel.ResourceDetails>>($"gateway/GetAll")).ToList();
 
     }
 

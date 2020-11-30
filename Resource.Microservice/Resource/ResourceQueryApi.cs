@@ -30,7 +30,7 @@ namespace Resource.Microservice.Resource
         {
             try
             {
-                var model = _items.Query(request);
+                var model = _items.GetById(request);
                 return new OkObjectResult(model);
             }
             catch (Exception e)
@@ -49,6 +49,23 @@ namespace Resource.Microservice.Resource
             try
             {
                 var model = _items.All();
+                return new OkObjectResult(model);
+            }
+            catch (Exception e)
+            {
+
+                return Errorhandling(e);
+            }
+
+        }
+
+        [HttpGet]
+        [Route("/Search")]
+        public async Task<IActionResult> Search(QueryModels.Search request)
+        {
+            try
+            {
+                var model = _items.Search(request);
                 return new OkObjectResult(model);
             }
             catch (Exception e)

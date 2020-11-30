@@ -70,6 +70,20 @@
       "UpstreamHttpMethod": [ "PUT" ]
     },
 
+    ////Update ResourcePrice
+    //{
+    //  "DownstreamPathTemplate": "/resource/Price?Id={ResourceId}&ResourcePrice={ResourcePrice}",
+    //  "DownstreamScheme": "https",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "localhost",
+    //      "Port": 44364
+    //    }
+    //  ],
+    //  "UpstreamPathTemplate": "/gateway/lease/leaseorderline?LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
+    //  "UpstreamHttpMethod": [ "PUT" ]
+    //},
+
     //Update ResourcePrice
     {
       "DownstreamPathTemplate": "/resource/Price?Id={ResourceId}&ResourcePrice={ResourcePrice}",
@@ -80,7 +94,7 @@
           "Port": 44364
         }
       ],
-      "UpstreamPathTemplate": "/gateway/lease/leaseorderline?LeaseOrderLineId={LeaseOrderLineId}&StartDate={StartDate}&EndDate={EndDate}&IsReturned={IsReturned}&RessourceName={RessourceName}&RessourcePrice={RessourcePrice}&Quantity={Quantity}",
+      "UpstreamPathTemplate": "/gateway/resource/Price?Id={ResourceId}&ResourcePrice={ResourcePrice}",
       "UpstreamHttpMethod": [ "PUT" ]
     },
 
