@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static Customer.Infrastructure.Query.QueryModels;
-using static Delpin.Shared.CustomerModels.ReadModels;
+using static Delpin.Shared.CustomerModels.ReadModelsDto;
 
 namespace Customer.Infrastructure.Query
 {

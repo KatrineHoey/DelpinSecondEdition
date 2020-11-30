@@ -118,7 +118,7 @@ else
 
     async Task Delete(CustomerViewModel.ActiveCustomerSearchListItem customer)
     {
-        CustomerDto.ActiveCustomerSearchListItem customerDto = ActiveCustomerSearchListItemMapper.Map(customer);
+        ReadModelsDto.ActiveCustomerSearchListItem customerDto = ActiveCustomerSearchListItemMapper.Map(customer);
 
         if (await js.InvokeAsync<bool>("confirm", $"Vil du slette {customerDto.FullName}?"))
         {

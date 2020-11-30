@@ -20,8 +20,8 @@
 
     async Task Create()
     {
-        
-        CustomerDto.CustomerDetails customerDto = CustomerDetailsMapper.Map(customer);
+
+        ReadModelsDto.CustomerDetails customerDto = CustomerDetailsMapper.Map(customer);
 
         Isloading = true;
         try
@@ -35,7 +35,7 @@
                 $"&Street={customerDto.Street}&ZipCode={customerDto.ZipCode}&City={customerDto.City}", customerDto
             );
 
-            
+
 
             if (response.IsSuccessStatusCode)
             {

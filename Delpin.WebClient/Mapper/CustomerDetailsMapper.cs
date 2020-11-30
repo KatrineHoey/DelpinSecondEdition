@@ -10,7 +10,7 @@ namespace Delpin.WebClient.Mapper
 {
     public class CustomerDetailsMapper
     {
-        public static CustomerViewModel.CustomerDetails Map(CustomerDto.CustomerDetails dto)
+        public static CustomerViewModel.CustomerDetails Map(ReadModelsDto.CustomerDetails dto)
         {
             if (dto == null)
             { return null; }
@@ -28,21 +28,21 @@ namespace Delpin.WebClient.Mapper
             };
         }
 
-        public static IEnumerable<CustomerViewModel.CustomerDetails> Map(IEnumerable<CustomerDto.CustomerDetails> model)
+        public static IEnumerable<CustomerViewModel.CustomerDetails> Map(IEnumerable<ReadModelsDto.CustomerDetails> model)
         {
             return model.Select(x => Map(x)).AsEnumerable();
         }
 
-        public static IEnumerable<CustomerDto.CustomerDetails> Map(IEnumerable<CustomerViewModel.CustomerDetails> model)
+        public static IEnumerable<ReadModelsDto.CustomerDetails> Map(IEnumerable<CustomerViewModel.CustomerDetails> model)
         {
             return model.Select(x => Map(x)).AsEnumerable();
         }
 
-        public static CustomerDto.CustomerDetails Map(CustomerViewModel.CustomerDetails model)
+        public static ReadModelsDto.CustomerDetails Map(CustomerViewModel.CustomerDetails model)
         {
             if (model == null)
             { return null; }
-            return new CustomerDto.CustomerDetails
+            return new ReadModelsDto.CustomerDetails
             {
                 CustomerId = model.CustomerId,
                 FullName = model.FullName,

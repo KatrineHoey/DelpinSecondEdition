@@ -9,7 +9,7 @@ namespace Delpin.WebClient.Mapper
 {
     public class ActiveCustomerSearchListItemMapper
     {
-        public static CustomerViewModel.ActiveCustomerSearchListItem Map(CustomerDto.ActiveCustomerSearchListItem dto)
+        public static CustomerViewModel.ActiveCustomerSearchListItem Map(ReadModelsDto.ActiveCustomerSearchListItem dto)
         {
             if (dto == null)
             { return null; }
@@ -22,21 +22,21 @@ namespace Delpin.WebClient.Mapper
             };
         }
 
-        public static IEnumerable<CustomerViewModel.ActiveCustomerSearchListItem> Map(IEnumerable<CustomerDto.ActiveCustomerSearchListItem> model)
+        public static IEnumerable<CustomerViewModel.ActiveCustomerSearchListItem> Map(IEnumerable<ReadModelsDto.ActiveCustomerSearchListItem> model)
         {
             return model.Select(x => Map(x)).AsEnumerable();
         }
 
-        public static IEnumerable<CustomerDto.ActiveCustomerSearchListItem> Map(IEnumerable<CustomerViewModel.ActiveCustomerSearchListItem> model)
+        public static IEnumerable<ReadModelsDto.ActiveCustomerSearchListItem> Map(IEnumerable<CustomerViewModel.ActiveCustomerSearchListItem> model)
         {
             return model.Select(x => Map(x)).AsEnumerable();
         }
 
-        public static CustomerDto.ActiveCustomerSearchListItem Map(CustomerViewModel.ActiveCustomerSearchListItem model)
+        public static ReadModelsDto.ActiveCustomerSearchListItem Map(CustomerViewModel.ActiveCustomerSearchListItem model)
         {
             if (model == null)
             { return null; }
-            return new CustomerDto.ActiveCustomerSearchListItem
+            return new ReadModelsDto.ActiveCustomerSearchListItem
             {
                 CustomerId = model.CustomerId,
                 FullName = model.FullName,
