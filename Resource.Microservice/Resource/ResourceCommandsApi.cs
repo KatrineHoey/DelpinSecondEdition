@@ -39,6 +39,5 @@ namespace Resource.Microservice.Resource
         {
             return RequestHandler.HandleCommand(request, _applicationService.Handle, Log);
         }
-
     }
 }

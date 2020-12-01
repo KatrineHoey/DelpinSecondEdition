@@ -13,7 +13,6 @@ namespace Resource.Intrastructure.Query
             return items.Where(x => x.ResourceId == query.ResourceId).FirstOrDefault();
         }
 
-
         public static List<ReadModels.ResourceDetails> All(
             this IEnumerable<ReadModels.ResourceDetails> items)
             => items.Where(x => x.IsDeleted == false).ToList();
@@ -22,6 +21,5 @@ namespace Resource.Intrastructure.Query
         {
             return items.Where(x => x.ResourceName == query.Searchterm && x.IsDeleted == false).ToList();
         }
-
     }
 }

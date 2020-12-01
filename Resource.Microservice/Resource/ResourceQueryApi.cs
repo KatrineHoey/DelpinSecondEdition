@@ -17,13 +17,10 @@ namespace Resource.Microservice.Resource
 
         private readonly IEnumerable<ReadModels.ResourceDetails> _items;
 
-
-
         public ResourceQueryApi(IEnumerable<ReadModels.ResourceDetails>items)
         {
             _items = items;
         }
-
 
         [HttpGet("Id")]
         public async Task<IActionResult> GetByIdAsync(QueryModels.GetPublicResource request)
@@ -40,7 +37,6 @@ namespace Resource.Microservice.Resource
             }
 
         }
-
 
         [HttpGet]
         [Route("/GetAll")]
@@ -76,7 +72,6 @@ namespace Resource.Microservice.Resource
 
         }
 
-
         private IActionResult Errorhandling(Exception e)
         {
             _log.Error(e, "Error handling the query");
@@ -87,6 +82,4 @@ namespace Resource.Microservice.Resource
             });
         }
     }
-
-
 }

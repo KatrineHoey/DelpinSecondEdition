@@ -51,13 +51,9 @@ namespace Resource.Microservice
             var resourceDetails = new List<ReadModels.ResourceDetails>();
             services.AddSingleton<IEnumerable<ReadModels.ResourceDetails>>(resourceDetails);
 
-
             var projectionManager = new ProjectionManager(esConnection,
                 new ResourceDetailsProjection(resourceDetails),                
                 new ResourceUpcasters(esConnection));
-
-
-
 
             services.AddSingleton<IHostedService>(
                 new EventStoreService(esConnection, projectionManager));

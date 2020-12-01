@@ -43,6 +43,5 @@ namespace Resource.Infrastructure
             Log.Debug("Projecting event {type}", @event.GetType().Name);
             return Task.WhenAll(_projections.Select(x => x.Project(@event)));
         }
-
     }
 }

@@ -19,7 +19,6 @@ namespace Resource.Domain
         }
 
 
-
         public static implicit operator Guid(ResourceId self) => self.Value;
 
 
@@ -32,6 +31,5 @@ namespace Resource.Domain
         {
             return Value.ToString();
         }
-
     }
 }

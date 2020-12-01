@@ -13,9 +13,6 @@ namespace Resource.Domain.Shared
             public string ResourceName { get; set; }
             public int ResourcePrice { get; set; }            
         }
-        
-
-
 
         public class ResourceDeleted
         {

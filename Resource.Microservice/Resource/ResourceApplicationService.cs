@@ -63,12 +63,10 @@ namespace Resource.Microservice.Resource
             await _store.Save<Domain.Resource, ResourceId>(resource);
         }
 
-
-
         private Task HandleUpdate(
            Guid id,
            Action<Domain.Resource> update
-       ) =>
+            ) =>
            this.HandleUpdate(
                _store,
                new ResourceId(id),
