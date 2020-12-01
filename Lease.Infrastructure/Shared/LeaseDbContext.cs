@@ -23,48 +23,6 @@ namespace Lease.Infrastructure.Shared
 
         public DbSet<Buyer> Buyers { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    //LeaseOrder
-        //    modelBuilder.Entity<LeaseOrder>()
-        //        .HasOne(p => p.Buyer)
-        //        .WithMany(p => p.LeaseOrders)
-        //        .HasForeignKey(p => p.BuyerId);
-
-        //    modelBuilder.Entity<LeaseOrder>()
-        //        .HasKey(x => x.LeaseOrderId);
-
-        //    modelBuilder.Entity<LeaseOrder>()
-        //        .OwnsOne(x => x.Id);
-
-
-        //    //LeaseOrderLine
-        //    modelBuilder.Entity<LeaseOrderLine>()
-        //        .HasOne(p => p.LeaseOrder)
-        //        .WithMany(b => b.LeaseOrderLines)
-        //        .HasForeignKey(p => p.LeaseId);
-
-        //    modelBuilder.Entity<LeaseOrderLine>()
-        //        .HasKey(x => x.LeaseOrderLineId);
-
-        //    modelBuilder.Entity<LeaseOrderLine>()
-        //        .OwnsOne(x => x.Id);
-
-        //    //Buyer
-
-        //    modelBuilder.Entity<Buyer>()
-        //        .HasKey(x => x.BuyerId);
-
-        //    modelBuilder.Entity<Buyer>()
-        //        .OwnsOne(x => x.Id);
-
-        //    modelBuilder.Entity<Buyer>()
-        //        .OwnsOne(x => x.BuyerName);
-
-
-
-        //}
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLoggerFactory(_loggerFactory);
@@ -107,7 +65,6 @@ namespace Lease.Infrastructure.Shared
             builder.OwnsOne(x => x.IsDelivery);
             builder.OwnsOne(x => x.IsPaid);
             builder.OwnsOne(x => x.TotalPrice);
-            //builder.OwnsOne(x => x.BuyerId);
         }
     }
 
@@ -129,7 +86,6 @@ namespace Lease.Infrastructure.Shared
             builder.OwnsOne(x => x.ResourcePrice);
             builder.OwnsOne(x => x.Quantity);
             builder.OwnsOne(x => x.LineTotalPrice);
-            //builder.OwnsOne(x => x.LeaseId);
         }
     }
 }

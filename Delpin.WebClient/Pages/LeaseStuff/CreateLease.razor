@@ -52,7 +52,6 @@
                 ModalDialogParameters returnParameters = new ModalDialogParameters();
                 returnParameters.Add("CustomerId", leaseDto.BuyerId.ToString());
                 ModalDialogService.Close(true, returnParameters);
-                //uriHelper.NavigateTo($"lease/details/{id}");
             }
             else
             {
@@ -65,7 +64,6 @@
 
             await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
         }
-
 
         Isloading = false;
     }

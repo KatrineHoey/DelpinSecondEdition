@@ -48,16 +48,5 @@
     [Parameter] public ResourceViewModel.ResourceDetails Resource { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Tilføj OrdreLinje";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
-
-
-    protected async override Task OnParametersSetAsync()
-    {
-        int tal = 7;
-
-        Console.WriteLine(tal);
-
-    }
-
-
 }
 

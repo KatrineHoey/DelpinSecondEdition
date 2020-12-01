@@ -104,6 +104,5 @@ namespace Lease.Microservice.Lease.Query
                 stackTrace = e.StackTrace
             });
         }
-
     }
 }

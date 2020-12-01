@@ -5,8 +5,6 @@
 
 <section>
     <h3>Ordre</h3>
-
-
 </section>
 
 <section class="form-inline active-cyan-4 mb-3">
@@ -17,7 +15,6 @@
         <i class="fa fa-circle-o-notch fa-spin myicons" aria-hidden="true"></i>
     }
 </section>
-
 
 
 @if (orderlist == null)
@@ -62,15 +59,11 @@ else
 }
 
 
-
-
 @code {
     private string SearchTerm { get; set; } = "";
     private int Page { get; set; } = 0;
     private int PageSize { get; set; } = 1000;
     private List<LeaseViewModel.LeaseOrderListItem> orderlist;
-
-
 
     bool Isloading = false;
 
@@ -83,7 +76,6 @@ else
     {
         orderlist = (await client.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderListItem>>("gateway/lease")).ToList();
     }
-
 
 
     private async Task Search(KeyboardEventArgs eventArgs)
@@ -123,5 +115,4 @@ else
             await GetListOfLease();
         }
     }
-
 }

@@ -21,9 +21,6 @@ namespace Lease.Domain
             return new IsDeleted(Convert.ToBoolean(isDeleted));
         }
 
-
         public static implicit operator bool(IsDeleted isDeleted) => isDeleted.Value;
-
-
     }
 }

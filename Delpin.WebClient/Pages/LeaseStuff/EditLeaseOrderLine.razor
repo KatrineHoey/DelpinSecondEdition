@@ -12,11 +12,7 @@
     <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
 }
 
-
-
 @code {
-
-
     [Parameter] public LeaseViewModel.LeaseOrderLineDetails LeaseOrderLineDetails { get; set; }
     [Parameter] public Guid LeaseId { get; set; }
 
@@ -64,8 +60,6 @@
 
             await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
         }
-
-
         Isloading = false;
     }
 
@@ -76,9 +70,4 @@
             everythingWentGood = false;
         }
     }
-
-    //async Task GetLeaseOrderLine()
-    //{
-    //    leaseOrder = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
-    //}
 }

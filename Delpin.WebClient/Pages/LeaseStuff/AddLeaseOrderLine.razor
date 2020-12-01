@@ -22,7 +22,6 @@
     [Parameter] public ResourceViewModel.ResourceDetails Resource { get; set; }
 
     LeaseViewModel.AddLeaseOrderLineToLeaseOrder LeaseOrderline = new LeaseViewModel.AddLeaseOrderLineToLeaseOrder();
-    //ResourceViewModel.ResourceDetails resource = new ResourceViewModel.ResourceDetails();
 
     bool Isloading = false;
 
@@ -33,8 +32,6 @@
         LeaseOrderline.ResourcePrice = Resource.ResourcePrice;
         Isloading = false;
     }
-
-
 
     async Task Create()
     {
@@ -79,9 +76,5 @@
         }
 
         Isloading = false;
-
-
-
-
     }
 }

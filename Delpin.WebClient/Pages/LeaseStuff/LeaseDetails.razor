@@ -2,10 +2,7 @@
 @inject NavigationManager uriHelper
 @inject IJSRuntime js
 @inject IModalDialogService ModalDialog
-
-
 @page "/lease/details/{LeaseId:guid}"
-
 
 <section>
     <h3>Ordredetaljer</h3>
@@ -31,13 +28,8 @@ else
     <p>Er slettet? @lease.IsDeleted</p>
 }
 
-
 <section>
-
     <button @onclick="@(() => AddResourceToLeaseOrderlines_Clicked())" class="btn btn-primary float-right mr-3">Tilføj OrderLinje</button>
-
-
-
 </section>
 
 
@@ -106,17 +98,12 @@ else
         Isloading = false;
     }
 
-
     async void Edit_Clicked()
     {
         ModalDialogParameters parameters = new ModalDialogParameters();
         parameters.Add("LeaseId", LeaseId);
 
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<EditLease>("", new ModalDialogOptions(), parameters);
-        //if (result.Success)
-        //{
-        //    var searchterm = result.ReturnParameters.Get<string>("LeaseId");
-        //}
     }
 
     void AddResourceToLeaseOrderlines_Clicked()
@@ -147,5 +134,4 @@ else
     {
         lease = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
     }
-
 }

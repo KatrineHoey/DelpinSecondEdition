@@ -50,6 +50,5 @@ namespace Lease.Domain
             public int Quantity { get; set; }
 
         }
-        
     }
 }

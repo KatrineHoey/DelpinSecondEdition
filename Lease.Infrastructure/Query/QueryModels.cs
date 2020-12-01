@@ -18,7 +18,9 @@ namespace Lease.Intrastructure.Query
         public class GetSearchedLeases
         {
             public string SearchTerm { get; set; }
+
             public int Page { get; set; }
+
             public int PageSize { get; set; }
         }
 

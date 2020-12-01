@@ -52,13 +52,11 @@ namespace Delpin.Shared.LeaseModels
                 public int TotalPrice { get; set; }
             }
 
-
             public class DeleteLease
             {
                 public Guid LeaseId { get; set; }
                 public bool IsDeleted { get; set; }
             }
-
         }
     }
 }

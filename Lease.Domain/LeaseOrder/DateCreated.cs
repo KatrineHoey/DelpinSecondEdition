@@ -39,6 +39,5 @@ namespace Lease.Domain
                 throw new ArgumentOutOfRangeException("DateTime is in another format", nameof(dateFormat));
             }
         }
-
     }
 }

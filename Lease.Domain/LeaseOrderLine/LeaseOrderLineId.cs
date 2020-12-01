@@ -18,19 +18,5 @@ namespace Lease.Domain
         public static implicit operator LeaseOrderLineId(string value) => new LeaseOrderLineId(Guid.Parse(value));
 
         public override string ToString() => Value.ToString();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

@@ -53,7 +53,6 @@ namespace Lease.Domain
                 ZipCode = zipCode,
                 City = city,
                 CustomerId = buyerId,
-                
             });
         }
 
@@ -66,7 +65,6 @@ namespace Lease.Domain
                 Street = street,
                 ZipCode = zipCode,
                 City = city
-                
             });
         }
 
@@ -159,11 +157,10 @@ namespace Lease.Domain
         protected override void EnsureValidState()
         {
             var valid = Id != null;
-
-            if (!valid)
-                throw new DomainExceptions.InvalidEntityState(this,
-                    $"Post-checks failed.");
+            if (!valid) 
+            {
+                throw new DomainExceptions.InvalidEntityState(this, $"Post-checks failed.");
+            }
         }
-
     }
 }

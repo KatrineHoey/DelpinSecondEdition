@@ -12,8 +12,6 @@
     <i class="fa fa-circle-o-notch fa-spin myicons text-center mt-2" aria-hidden="true"></i>
 }
 
-
-
 @code {
     [Parameter] public Guid LeaseId { get; set; }
 
@@ -24,7 +22,6 @@
     protected async override Task OnParametersSetAsync()
     {
         lease = await http.GetFromJsonAsync<LeaseViewModel.LeaseOrderDetails>($"gateway/lease/id?LeaseId={LeaseId}");
-
     }
 
     async Task Edit()
@@ -47,9 +44,6 @@
             response = await http.PutAsJsonAsync($"gateway/lease/paid?LeaseId={LeaseId}&IsPaid={leaseDto.IsPaid}", leaseDto);
             CheckIfFailed(response);
 
-
-
-
             if (everythingWentGood == true)
             {
 
@@ -70,7 +64,6 @@
 
             await js.InvokeVoidAsync("alert", $"Noget gik galt! Prøv igen.");
         }
-
 
         Isloading = false;
     }

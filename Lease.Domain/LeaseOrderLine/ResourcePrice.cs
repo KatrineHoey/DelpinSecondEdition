@@ -24,7 +24,6 @@ namespace Lease.Domain
         public static ResourcePrice FromInt(int resourcePrice)
         {
             return new ResourcePrice(resourcePrice);
-
         }
 
         public static implicit operator int(ResourcePrice resourcePrice)

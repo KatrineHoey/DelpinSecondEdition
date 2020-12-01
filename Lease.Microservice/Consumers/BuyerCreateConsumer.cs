@@ -26,7 +26,6 @@ namespace Lease.Microservice.Consumers
             buyer.BuyerId = data.CustomerId;
             buyer.BuyerName = data.FullName;
             await _applicationService.Handle(buyer);
-
         }
     }
 
@@ -47,7 +46,6 @@ namespace Lease.Microservice.Consumers
             buyer.BuyerId = data.CustomerId;
             buyer.BuyerName = data.FullName;
             await _applicationService.Handle(buyer);
-
         }
     }
 }
