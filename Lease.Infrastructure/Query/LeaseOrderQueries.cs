@@ -132,12 +132,13 @@ namespace Lease.Intrastructure.Query
         {
             return await _context.Leases.AsNoTracking()
                 .Where(x => x.IsDeleted.Value == false && (x.LeaseOrderId.ToString() == query.SearchTerm 
-                ||x.City.Value.Contains(query.SearchTerm) || x.ZipCode.Value.ToString().Contains(query.SearchTerm)))
+                ||x.City.Value.Contains(query.SearchTerm) || x.ZipCode.Value.ToString().Contains(query.SearchTerm) || x.Buyer.BuyerName.Value.Contains(query.SearchTerm)))
                 .Select(x => new LeaseOrderListItem
                 {
                     DateCreated = x.DateCreated.Value,
                     IsPaid = x.IsPaid.Value,
-                    LeaseId = x.LeaseOrderId
+                    LeaseId = x.LeaseOrderId,
+                    BuyerName = x.Buyer.BuyerName.Value
                 })
                 .OrderByDescending(x => x.DateCreated)
                 .ToListAsync();
@@ -156,7 +157,7 @@ namespace Lease.Intrastructure.Query
                     LineTotalPrice = x.LineTotalPrice.Value,
                     Quantity = x.Quantity.Value,
                     ResourceName = x.ResourceName.Value,
-                    ResourcePrice = x.ResourcePrice.Value,
+                    ResourcePrice = x.ResourcePrice.Value, 
                 })
                  .OrderByDescending(x => x.StartDate)
                 .ToListAsync();

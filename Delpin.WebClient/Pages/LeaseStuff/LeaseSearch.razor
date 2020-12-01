@@ -90,7 +90,7 @@ else
 
     async Task SearchLeases(string searchterm)
     {
-        orderlist = (await client.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderListItem>>($"gateway/customer/search?SearchTerm={searchterm}&Page={Page}&PageSize={PageSize}")).ToList();
+        orderlist = (await client.GetFromJsonAsync<List<LeaseViewModel.LeaseOrderListItem>>($"gateway/lease/search?SearchTerm={searchterm}&Page={Page}&PageSize={PageSize}")).ToList();
     }
 
     async void Edit_Clicked(Guid id)
