@@ -139,6 +139,8 @@ else
     {
         ModalDialogParameters parameters = new ModalDialogParameters();
         parameters.Add("CustomerId", customerId);
+        
+
 
         ModalDialogResult result = await ModalDialog.ShowDialogAsync<LeaseStuff.LeaseByCustomer>("", new ModalDialogOptions(), parameters);
     }

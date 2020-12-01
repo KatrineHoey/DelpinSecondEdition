@@ -17,7 +17,7 @@ namespace Delpin.WebClient.Mapper
             {
                 LeaseId = dto.LeaseId,
                 DateCreated = dto.DateCreated,
-                CustomerName = dto.BuyerName,
+                BuyerName = dto.BuyerName,
                 IsPaid = dto.IsPaid
             };
         }
@@ -40,7 +40,7 @@ namespace Delpin.WebClient.Mapper
             {
                 LeaseId = model.LeaseId,
                 DateCreated = model.DateCreated,
-                BuyerName = model.CustomerName,
+                BuyerName = model.BuyerName,
                 IsPaid = model.IsPaid
             };
         }

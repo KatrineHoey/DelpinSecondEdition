@@ -47,7 +47,7 @@ namespace Delpin.WebClient.ViewModel
 
             public DateTime DateCreated { get; set; }
 
-            public string CustomerName { get; set; }
+            public string BuyerName {get; set;}
 
             public bool IsPaid { get; set; }
         }

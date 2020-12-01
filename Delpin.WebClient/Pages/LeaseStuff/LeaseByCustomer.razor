@@ -27,7 +27,7 @@ else
             {
                 <tr>
                     <td>@lease.LeaseId</td>
-                    <td>@lease.CustomerName</td>
+                    <td>@lease.BuyerName</td>
                     <td>@lease.DateCreated</td>
                     <td>@lease.IsPaid</td>
                     <td>
@@ -48,12 +48,14 @@ else
 
 @code {
     [Parameter] public Guid CustomerId { get; set; }
+    //[Parameter] public string CustomerName { get; set; }
     private List<LeaseViewModel.LeaseOrderListItem> orderlist;
     bool Isloading = false;
 
     protected override async Task OnInitializedAsync()
     {
         await GetListOfLease();
+        test();
     }
 
     private async Task GetListOfLease()
@@ -82,6 +84,15 @@ else
             await client.DeleteAsync($"gateway/lease/lease?LeaseId={leaseDto.LeaseId}&IsDeleted={true}");
             await GetListOfLease();
         }
+    }
+
+    public void test()
+    {
+        int tal = 7;
+        Console.WriteLine(tal);
+
+
+
     }
 
 }
