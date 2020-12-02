@@ -2,6 +2,7 @@
 using Resource.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using Resource.Application;
 
 namespace Resource.Microservice.Resource
 {

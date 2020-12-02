@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using static Resource.Microservice.Resource.Commands;
 
-namespace Resource.Microservice.Resource
+namespace Resource.Application
 {
     public class ResourceApplicationService : IApplicationService
     {

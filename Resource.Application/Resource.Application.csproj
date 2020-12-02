@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Delpin.Framework\Delpin.Framework.csproj" />
+    <ProjectReference Include="..\Delpin.Shared\Delpin.Shared.csproj" />
+    <ProjectReference Include="..\Resource.Domain\Resource.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

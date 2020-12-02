@@ -18,6 +18,8 @@ using Resource.Infrastructure;
 using Resource.Microservice.Projections;
 using Delpin.Shared.ResourceModels;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+using Resource.Application;
+
 
 namespace Resource.Microservice
 {
@@ -46,7 +48,7 @@ namespace Resource.Microservice
             services.AddSingleton(esConnection);
             services.AddSingleton<IAggregateStore>(store);
 
-            services.AddSingleton(new Resource.ResourceApplicationService(store));
+            services.AddSingleton( new ResourceApplicationService(store));
 
             var resourceDetails = new List<ReadModels.ResourceDetails>();
             services.AddSingleton<IEnumerable<ReadModels.ResourceDetails>>(resourceDetails);

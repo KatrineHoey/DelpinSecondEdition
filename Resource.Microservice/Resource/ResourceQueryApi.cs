@@ -23,7 +23,7 @@ namespace Resource.Microservice.Resource
         }
 
         [HttpGet("Id")]
-        public async Task<IActionResult> GetByIdAsync(QueryModels.GetPublicResource request)
+        public IActionResult GetById(QueryModels.GetPublicResource request)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace Resource.Microservice.Resource
 
         [HttpGet]
         [Route("/GetAll")]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Resource.Microservice.Resource
 
         [HttpGet]
         [Route("/Search")]
-        public async Task<IActionResult> Search(QueryModels.Search request)
+        public IActionResult Search(QueryModels.Search request)
         {
             try
             {
