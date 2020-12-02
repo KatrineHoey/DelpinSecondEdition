@@ -20,7 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Customer.Application\Customer.Application.csproj" />
     <ProjectReference Include="..\Customer.Infrastructure\Customer.Infrastructure.csproj" />
-    <ProjectReference Include="..\Delpin.Shared\Delpin.Shared.csproj" />
   </ItemGroup>
 
 

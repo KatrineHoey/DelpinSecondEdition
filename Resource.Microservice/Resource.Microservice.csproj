@@ -22,7 +22,6 @@
   </ItemGroup>  
   <ItemGroup>
     <ProjectReference Include="..\Delpin.Framework\Delpin.Framework.csproj" />
-    <ProjectReference Include="..\Resource.Domain\Resource.Domain.csproj" />
     <ProjectReference Include="..\Resource.Infrastructure\Resource.Infrastructure.csproj" />
   </ItemGroup>
 

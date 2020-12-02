@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -15,7 +15,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Customer.Application\Customer.Application.csproj" />
     <ProjectReference Include="..\Customer.Domain\Customer.Domain.csproj" />
-    <ProjectReference Include="..\Delpin.Shared\Delpin.Shared.csproj" />
   </ItemGroup>
 
 </Project>
