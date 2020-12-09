@@ -5,7 +5,7 @@ Before you run it:
 
 1) Customer.Microservice uses RavenDB. Therefor you have to create a database in RavenDb and call it "Delpin". This microservice will now work.
 
-2) Resource.Microservice uses docker. Therefor you have to Download Docker on your device. Open docker desktop, and use the command "Docker-Compose up" inside Command prompt while standing in the same path as the yml file in Resource.Microservice. EventStore is available at http://localhost:2113/ or http://localhost:1113/. Username:admin and Password:changeit
+2) Resource.Microservice uses docker (has to be Linux container). Therefor you have to Download Docker on your device. Open docker desktop, and use the command "Docker-Compose up" inside Command prompt while standing in the same path as the yml file in Resource.Microservice. EventStore is available at http://localhost:2113/ or http://localhost:1113/. Username:admin and Password:changeit
 
 3) The project uses RabbitMQ, so you need to have this running. 
 
